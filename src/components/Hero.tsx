@@ -64,29 +64,22 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex flex-col justify-between pt-32 md:pt-40 pb-0 overflow-hidden"
     >
-      {/* Atmospheric backdrop */}
+      {/* Atmospheric backdrop — daylight studio */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div
           ref={emberA}
-          className="absolute top-[-15%] right-[-10%] w-[80vw] h-[80vw] rounded-full opacity-[0.55] blur-3xl animate-drift will-change-transform"
+          className="absolute top-[-20%] right-[-15%] w-[75vw] h-[75vw] rounded-full opacity-70 blur-3xl animate-drift will-change-transform"
           style={{
             background:
-              "radial-gradient(circle, rgba(255,106,31,0.22) 0%, rgba(255,106,31,0.05) 40%, transparent 70%)",
+              "radial-gradient(circle, rgba(249,115,22,0.16) 0%, rgba(249,115,22,0.04) 40%, transparent 70%)",
           }}
         />
         <div
           ref={emberB}
-          className="absolute bottom-[-30%] left-[-15%] w-[70vw] h-[70vw] rounded-full opacity-50 blur-3xl will-change-transform"
+          className="absolute bottom-[-30%] left-[-15%] w-[65vw] h-[65vw] rounded-full opacity-60 blur-3xl will-change-transform"
           style={{
             background:
-              "radial-gradient(circle, rgba(255,153,90,0.08) 0%, transparent 60%)",
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 100% 60% at 50% 30%, transparent 30%, rgba(10,8,7,0.6) 95%)",
+              "radial-gradient(circle, rgba(194,65,12,0.06) 0%, transparent 60%)",
           }}
         />
       </div>

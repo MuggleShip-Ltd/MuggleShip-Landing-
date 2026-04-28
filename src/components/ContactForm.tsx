@@ -38,18 +38,6 @@ const VOLUME_VALUES: Record<string, string> = {
   vol4: "10000+",
 };
 
-const SERVICE_KEYS = [
-  "svcFba",
-  "svcFulfillment",
-  "svcCross",
-  "svcReturns",
-  "svcPricing",
-  "svcAnalytics",
-  "svcListing",
-] as const;
-
-type ServiceKey = (typeof SERVICE_KEYS)[number];
-
 const fieldClass =
   "w-full rounded-xl border px-4 py-3 text-sm transition-colors focus:outline-none";
 
@@ -62,14 +50,7 @@ function RequiredMark() {
 
 export default function ContactForm() {
   const { t } = useLanguage();
-  const [services, setServices] = useState<ServiceKey[]>([]);
   const [state, setState] = useState<SubmitState>("idle");
-
-  const toggleService = (key: ServiceKey) => {
-    setServices((prev) =>
-      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
-    );
-  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -84,12 +65,6 @@ export default function ContactForm() {
       setState("success");
       return;
     }
-
-    // Inject services as a comma-joined field
-    const serviceLabels = services
-      .map((k) => t.contact[k as keyof typeof t.contact] as string)
-      .join(", ");
-    formData.set("services", serviceLabels);
 
     const action = process.env.NEXT_PUBLIC_CONTACT_FORM_ACTION;
 
@@ -122,7 +97,6 @@ export default function ContactForm() {
         `${t.contact.phoneLabel}: ${get("phone")}`,
         `${t.contact.countryLabel}: ${get("country")}`,
         `${t.contact.volumeLabel}: ${get("volume")}`,
-        `${t.contact.servicesLabel}: ${serviceLabels}`,
         "",
         `${t.contact.messageLabel}:`,
         get("message"),
@@ -140,29 +114,28 @@ export default function ContactForm() {
   return (
     <section
       id="contact"
-      className="scroll-mt-20 relative py-32 md:py-40 overflow-hidden"
+      className="scroll-mt-20 relative pt-24 pb-20 md:pt-28 md:pb-24 overflow-hidden min-h-screen flex items-center"
       style={{ background: "var(--bg-base)" }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative">
         {/* Cinematic header */}
         <Reveal>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10">
             <div className="lg:col-span-5">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="scene-label-ember">SCENE 13</span>
+              <div className="flex items-center gap-3 mb-4">
+                <span className="scene-label-ember">SCENE 12</span>
                 <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
                 <span className="scene-label">{t.contact.badge}</span>
               </div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.0] tracking-[-0.035em] font-medium text-[var(--ink-100)]">
-                {t.contact.title1}
-                <br />
-                <span className="font-display italic text-[var(--ember-glow)]">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl leading-[1.0] tracking-[-0.035em] font-medium text-[var(--ink-100)]">
+                {t.contact.title1}{" "}
+                <span className="font-display italic text-[var(--ember)]">
                   {t.contact.title2}
                 </span>
               </h2>
             </div>
-            <div className="lg:col-span-6 lg:col-start-7 lg:pt-8">
-              <p className="text-lg text-[var(--ink-300)] leading-relaxed">
+            <div className="lg:col-span-6 lg:col-start-7 lg:pt-3">
+              <p className="text-base text-[var(--ink-300)] leading-relaxed">
                 {t.contact.subtitle}
               </p>
             </div>
@@ -466,41 +439,6 @@ export default function ContactForm() {
                           </select>
                         </div>
 
-                        {/* Services */}
-                        <div className="md:col-span-2">
-                          <label className={labelClass}>
-                            {t.contact.servicesLabel}
-                          </label>
-                          <p
-                            className="text-xs mb-3"
-                            style={{ color: "var(--ink-400)" }}
-                          >
-                            {t.contact.servicesHint}
-                          </p>
-                          <div className="flex flex-wrap gap-2">
-                            {SERVICE_KEYS.map((key) => {
-                              const selected = services.includes(key);
-                              const label = t.contact[
-                                key as keyof typeof t.contact
-                              ] as string;
-                              return (
-                                <button
-                                  key={key}
-                                  type="button"
-                                  onClick={() => toggleService(key)}
-                                  aria-pressed={selected}
-                                  className={
-                                    selected
-                                      ? "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-all bg-[var(--ember)] text-[var(--bg-void)] border-[var(--ember)]"
-                                      : "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-all border-[var(--border-soft)] text-[var(--ink-300)] hover:border-[var(--ember)] hover:text-[var(--ink-100)]"
-                                  }
-                                >
-                                  {label}
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
 
                         {/* Message */}
                         <div className="md:col-span-2">

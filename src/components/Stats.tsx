@@ -56,13 +56,13 @@ export default function Stats() {
               </Reveal>
 
               <Reveal variant="blur" delay={i * 140 + 220}>
-                <div className="stat-num font-display italic text-7xl md:text-8xl font-normal text-[var(--ink-100)] leading-[0.85]">
+                <div className="stat-num font-display italic text-7xl md:text-8xl font-normal text-[var(--on-dark-ink-100)] leading-[0.85]">
                   {item.value}
                 </div>
               </Reveal>
 
               <Reveal variant="fade" delay={i * 140 + 520}>
-                <div className="mt-5 text-sm text-[var(--ink-400)] leading-snug max-w-[200px] uppercase tracking-wider font-mono">
+                <div className="mt-5 text-sm text-[var(--on-dark-ink-400)] leading-snug max-w-[200px] uppercase tracking-wider font-mono">
                   {item.label}
                 </div>
               </Reveal>
