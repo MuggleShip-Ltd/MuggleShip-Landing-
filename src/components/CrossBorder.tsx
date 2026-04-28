@@ -2,6 +2,7 @@
 
 import { Globe, ShieldCheck, Store, Zap } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+import Reveal from "./Reveal";
 
 const countries = [
   { flag: "🇺🇸", name: "United States" },
@@ -20,74 +21,164 @@ export default function CrossBorder() {
   const { t } = useLanguage();
 
   const values = [
-    { icon: ShieldCheck, title: t.crossBorder.val1Title, desc: t.crossBorder.val1Desc },
-    { icon: Globe, title: t.crossBorder.val2Title, desc: t.crossBorder.val2Desc },
-    { icon: Store, title: t.crossBorder.val3Title, desc: t.crossBorder.val3Desc },
-    { icon: Zap, title: t.crossBorder.val4Title, desc: t.crossBorder.val4Desc },
+    { icon: ShieldCheck, title: t.crossBorder.val1Title, desc: t.crossBorder.val1Desc, num: "01" },
+    { icon: Globe, title: t.crossBorder.val2Title, desc: t.crossBorder.val2Desc, num: "02" },
+    { icon: Store, title: t.crossBorder.val3Title, desc: t.crossBorder.val3Desc, num: "03" },
+    { icon: Zap, title: t.crossBorder.val4Title, desc: t.crossBorder.val4Desc, num: "04" },
   ];
 
   const stats = [
-    { value: "15+", label: t.crossBorder.stat1 },
-    { value: "99.9%", label: t.crossBorder.stat2 },
-    { value: "3-5 Days", label: t.crossBorder.stat3 },
+    { value: "15+", label: t.crossBorder.stat1, scene: "I." },
+    { value: "99.9%", label: t.crossBorder.stat2, scene: "II." },
+    { value: "3-5", label: t.crossBorder.stat3, scene: "III." },
   ];
 
   return (
-    <section id="cross-border" className="py-20 md:py-28 bg-gradient-to-br from-orange-50/50 via-amber-50/30 to-white/60 relative overflow-hidden scroll-mt-20">
-      <div className="absolute top-0 left-0 w-full h-full">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-orange-200/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-72 h-72 bg-amber-200/15 rounded-full blur-3xl" />
-      </div>
+    <section
+      id="cross-border"
+      className="py-32 md:py-40 scroll-mt-20 relative overflow-hidden"
+      style={{ background: "var(--bg-base)" }}
+    >
+      {/* Atmospheric ember pool — center-top */}
+      <div
+        className="absolute inset-0 pointer-events-none -z-10"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 55% at 50% 6%, rgba(255,106,31,0.05), transparent 70%)",
+        }}
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-tight">
-            {t.crossBorder.title1}{" "}
-            <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-              {t.crossBorder.title2}
-            </span>
-          </h2>
-          <p className="mt-5 text-base text-gray-500 max-w-2xl mx-auto leading-relaxed">{t.crossBorder.subtitle}</p>
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Editorial header */}
+        <Reveal>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20">
+            <div className="lg:col-span-5">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="scene-label-ember">03.</span>
+                <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
+                <span className="scene-label">{t.crossBorder.badge}</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.0] tracking-[-0.035em] font-medium text-[var(--ink-100)]">
+                {t.crossBorder.title1}
+                <br />
+                <span className="font-display italic text-[var(--ember-glow)]">
+                  {t.crossBorder.title2}
+                </span>
+              </h2>
+            </div>
+            <div className="lg:col-span-6 lg:col-start-7 lg:pt-8">
+              <p className="text-lg text-[var(--ink-300)] leading-relaxed">
+                {t.crossBorder.subtitle}
+              </p>
+            </div>
+          </div>
+        </Reveal>
 
-        {/* Amazon Marketplace Coverage — boxed */}
-        <div className="mb-14 p-6 md:p-8 bg-white/60 backdrop-blur-sm border border-orange-100/50 rounded-3xl">
-          <h3 className="text-lg font-bold text-gray-900 mb-5 text-center">{t.crossBorder.marketplacesTitle}</h3>
-          <div className="grid grid-cols-5 gap-3">
-            {countries.map((country) => (
-              <div key={country.name} className="flex items-center justify-center gap-2 px-3 py-2.5 bg-white/80 border border-orange-100/40 rounded-xl hover:bg-white hover:shadow-md hover:-translate-y-0.5 transition-all cursor-default group">
-                <span className="text-lg">{country.flag}</span>
-                <span className="text-xs font-medium text-gray-600 group-hover:text-gray-900 transition-colors">{country.name}</span>
+        {/* Marketplace coverage — minimal hairline grid */}
+        <Reveal delay={120}>
+          <div className="mb-20">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
+              <span className="scene-label">
+                {t.crossBorder.marketplacesTitle}
+              </span>
+            </div>
+            <div
+              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5"
+              style={{ borderTop: "1px solid var(--border-faint)" }}
+            >
+              {countries.map((country) => (
+                <div
+                  key={country.name}
+                  className="flex items-center gap-2 px-4 py-4"
+                  style={{
+                    borderBottom: "1px solid var(--border-faint)",
+                    borderRight: "1px solid var(--border-faint)",
+                  }}
+                >
+                  <span className="text-base">{country.flag}</span>
+                  <span className="text-xs text-[var(--ink-400)] font-mono uppercase tracking-wider">
+                    {country.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Value Props — dark elevated cards */}
+        <Reveal delay={180}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-24">
+            {values.map((item) => (
+              <div
+                key={item.title}
+                className="group relative flex flex-col p-7 rounded-2xl transition-all duration-300 overflow-hidden"
+                style={{
+                  background: "var(--bg-card)",
+                  border: "1px solid var(--border-faint)",
+                }}
+              >
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 80% 0%, rgba(255,106,31,0.08), transparent 60%)",
+                    boxShadow:
+                      "inset 0 0 0 1px rgba(255,106,31,0.4), 0 24px 60px -20px rgba(255,106,31,0.25)",
+                  }}
+                />
+
+                <div className="relative flex items-center justify-between mb-8">
+                  <span className="scene-label-ember">{item.num}</span>
+                  <item.icon
+                    size={18}
+                    className="text-[var(--ink-500)] group-hover:text-[var(--ember-glow)] transition-colors"
+                    strokeWidth={1.6}
+                  />
+                </div>
+
+                <h3 className="relative text-lg font-medium text-[var(--ink-100)] mb-2 leading-tight">
+                  {item.title}
+                </h3>
+                <p className="relative text-sm text-[var(--ink-400)] leading-relaxed">
+                  {item.desc}
+                </p>
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
 
-        {/* Value Props */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
-          {values.map((item) => (
-            <div key={item.title} className="p-6 bg-white/70 backdrop-blur-sm border border-orange-100/40 rounded-2xl hover:bg-white/90 hover:shadow-lg hover:-translate-y-1 transition-all group">
-              <div className="w-11 h-11 bg-gradient-to-br from-orange-500 to-amber-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-md">
-                <item.icon size={20} className="text-white" />
-              </div>
-              <h3 className="text-sm font-bold text-gray-900 mb-1.5">{item.title}</h3>
-              <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
-            </div>
-          ))}
-        </div>
+        {/* Stats — Stats.tsx pattern, smaller scale */}
+        <Reveal delay={240}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6">
+            {stats.map((stat) => (
+              <div key={stat.label} className="relative pt-6">
+                <div className="h-px w-full bg-[var(--border-faint)] absolute top-0 left-0">
+                  <div
+                    className="h-px"
+                    style={{
+                      width: "32px",
+                      background: "var(--ember)",
+                      boxShadow: "0 0 12px var(--ember)",
+                    }}
+                  />
+                </div>
 
-        {/* Stats */}
-        <div className="flex flex-wrap items-center justify-center gap-10 md:gap-20">
-          {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-3xl md:text-4xl font-black bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                {stat.value}
+                <div className="font-mono text-[10px] tracking-[0.3em] text-[var(--ember)] uppercase mb-5">
+                  {stat.scene}
+                </div>
+
+                <div className="stat-num font-display italic text-5xl md:text-6xl font-normal text-[var(--ink-100)] leading-[0.9]">
+                  {stat.value}
+                </div>
+
+                <div className="mt-4 text-xs text-[var(--ink-400)] uppercase tracking-wider font-mono leading-snug max-w-[220px]">
+                  {stat.label}
+                </div>
               </div>
-              <div className="text-sm text-gray-500 mt-1">{stat.label}</div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -10,66 +10,128 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+import Reveal from "./Reveal";
 
 export default function ListingOptimization() {
   const { t } = useLanguage();
 
   const features = [
-    { icon: ListChecks, title: t.listing.f1Title, desc: t.listing.f1Desc },
-    { icon: Sparkles, title: t.listing.f2Title, desc: t.listing.f2Desc },
-    { icon: Search, title: t.listing.f3Title, desc: t.listing.f3Desc },
-    { icon: ImageIcon, title: t.listing.f4Title, desc: t.listing.f4Desc },
-    { icon: GitBranch, title: t.listing.f5Title, desc: t.listing.f5Desc },
-    { icon: FileSearch, title: t.listing.f6Title, desc: t.listing.f6Desc },
+    { icon: ListChecks, title: t.listing.f1Title, desc: t.listing.f1Desc, num: "01" },
+    { icon: Sparkles, title: t.listing.f2Title, desc: t.listing.f2Desc, num: "02" },
+    { icon: Search, title: t.listing.f3Title, desc: t.listing.f3Desc, num: "03" },
+    { icon: ImageIcon, title: t.listing.f4Title, desc: t.listing.f4Desc, num: "04" },
+    { icon: GitBranch, title: t.listing.f5Title, desc: t.listing.f5Desc, num: "05" },
+    { icon: FileSearch, title: t.listing.f6Title, desc: t.listing.f6Desc, num: "06" },
   ];
 
   return (
     <section
       id="listing-optimization"
-      className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-rose-50/30 via-white/50 to-pink-50/20 scroll-mt-20"
+      className="py-32 md:py-40 scroll-mt-20 relative overflow-hidden"
+      style={{ background: "var(--bg-base)" }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-rose-50 border border-rose-200 rounded-full text-rose-700 text-sm font-medium mb-4">
-            <Sparkles size={14} />
-            {t.listing.badge}
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-tight">
-            {t.listing.title1}{" "}
-            <span className="bg-gradient-to-r from-rose-500 to-pink-500 bg-clip-text text-transparent">
-              {t.listing.title2}
-            </span>
-          </h2>
-          <p className="mt-4 text-lg text-gray-600">{t.listing.subtitle}</p>
-        </div>
+      {/* Atmospheric ember pool — center-bottom */}
+      <div
+        className="absolute inset-0 pointer-events-none -z-10"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 55% at 50% 100%, rgba(255,106,31,0.05), transparent 70%)",
+        }}
+      />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-          {features.map((feature) => (
-            <div
-              key={feature.title}
-              className="group p-6 bg-white/70 backdrop-blur-sm rounded-2xl border border-rose-100/50 shadow-sm hover:shadow-xl hover:shadow-rose-100/40 hover:-translate-y-1 transition-all duration-300"
-            >
-              <div className="w-12 h-12 bg-gradient-to-br from-rose-500 to-pink-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-md">
-                <feature.icon size={22} className="text-white" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <Reveal>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20">
+            <div className="lg:col-span-7">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="scene-label-ember">SCENE 06</span>
+                <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
+                <span className="scene-label">{t.listing.badge}</span>
               </div>
-              <h3 className="text-base font-bold text-gray-900 mb-2">{feature.title}</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">{feature.desc}</p>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.0] tracking-[-0.035em] font-medium text-[var(--ink-100)]">
+                {t.listing.title1}
+                <br />
+                <span className="font-display italic text-[var(--ember-glow)]">
+                  {t.listing.title2}
+                </span>
+              </h2>
             </div>
-          ))}
-        </div>
-
-        <div className="flex flex-col items-center gap-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-rose-50 border border-rose-200 rounded-full text-xs text-rose-700">
-            {t.listing.availability}
+            <div className="lg:col-span-5 lg:pt-8">
+              <p className="text-lg text-[var(--ink-300)] leading-relaxed">
+                {t.listing.subtitle}
+              </p>
+            </div>
           </div>
-          <a
-            href="#contact"
-            className="group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-full hover:from-rose-600 hover:to-pink-600 transition-all shadow-xl shadow-rose-500/20"
-          >
-            {t.listing.cta}
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </a>
-        </div>
+        </Reveal>
+
+        <Reveal delay={120}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+            {features.map((f) => (
+              <div
+                key={f.title}
+                className="group relative flex flex-col p-7 rounded-2xl transition-all duration-300 overflow-hidden"
+                style={{
+                  background: "var(--bg-card)",
+                  border: "1px solid var(--border-faint)",
+                }}
+              >
+                {/* Hover ember frame */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 80% 0%, rgba(255,106,31,0.08), transparent 60%)",
+                    boxShadow:
+                      "inset 0 0 0 1px rgba(255,106,31,0.4), 0 24px 60px -20px rgba(255,106,31,0.25)",
+                  }}
+                />
+
+                <div className="relative flex items-center justify-between mb-8">
+                  <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--ink-500)] group-hover:text-[var(--ember)] transition-colors">
+                    {f.num}
+                  </span>
+                  <f.icon
+                    size={18}
+                    className="text-[var(--ink-500)] group-hover:text-[var(--ember)] transition-colors"
+                    strokeWidth={1.6}
+                  />
+                </div>
+
+                <h3 className="relative text-lg font-medium text-[var(--ink-100)] mb-2 leading-tight">
+                  {f.title}
+                </h3>
+                <p className="relative text-sm text-[var(--ink-400)] leading-relaxed">
+                  {f.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={220}>
+          <div className="flex flex-col items-start gap-6">
+            <div className="flex items-center gap-3">
+              <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
+              <span className="scene-label">{t.listing.availability}</span>
+            </div>
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-2 px-6 py-3.5 text-sm font-medium rounded-full transition-all"
+              style={{
+                background: "var(--ember)",
+                color: "var(--bg-void)",
+                boxShadow:
+                  "0 0 0 1px rgba(255,106,31,0.4), 0 12px 36px -8px rgba(255,106,31,0.5)",
+              }}
+            >
+              {t.listing.cta}
+              <ArrowRight
+                size={16}
+                className="group-hover:translate-x-0.5 transition-transform"
+              />
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

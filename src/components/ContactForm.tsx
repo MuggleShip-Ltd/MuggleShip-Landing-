@@ -7,12 +7,12 @@ import {
   Phone,
   MapPin,
   Clock,
-  MessageCircle,
   Send,
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+import Reveal from "./Reveal";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
@@ -51,12 +51,13 @@ const SERVICE_KEYS = [
 type ServiceKey = (typeof SERVICE_KEYS)[number];
 
 const fieldClass =
-  "w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-200";
+  "w-full rounded-xl border px-4 py-3 text-sm transition-colors focus:outline-none";
 
-const labelClass = "block text-sm font-medium text-gray-700 mb-1.5";
+const labelClass =
+  "block text-sm font-medium mb-1.5 text-[var(--ink-200)]";
 
 function RequiredMark() {
-  return <span className="ml-0.5 text-red-500">*</span>;
+  return <span className="ml-0.5 text-[var(--ember)]">*</span>;
 }
 
 export default function ContactForm() {
@@ -139,354 +140,477 @@ export default function ContactForm() {
   return (
     <section
       id="contact"
-      className="scroll-mt-20 bg-gradient-to-br from-orange-50/40 via-white/60 to-amber-50/30 py-20 md:py-28"
+      className="scroll-mt-20 relative py-32 md:py-40 overflow-hidden"
+      style={{ background: "var(--bg-base)" }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
-          {/* LEFT COLUMN */}
-          <div className="lg:col-span-5">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 border border-orange-200 rounded-full text-orange-700 text-sm font-medium mb-4">
-              <MessageCircle size={14} />
-              {t.contact.badge}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Cinematic header */}
+        <Reveal>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20">
+            <div className="lg:col-span-5">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="scene-label-ember">SCENE 13</span>
+                <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
+                <span className="scene-label">{t.contact.badge}</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.0] tracking-[-0.035em] font-medium text-[var(--ink-100)]">
+                {t.contact.title1}
+                <br />
+                <span className="font-display italic text-[var(--ember-glow)]">
+                  {t.contact.title2}
+                </span>
+              </h2>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-tight mb-6">
-              {t.contact.title1}{" "}
-              <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                {t.contact.title2}
-              </span>
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed mb-8">
-              {t.contact.subtitle}
-            </p>
-
-            <div className="rounded-2xl border border-orange-200/50 bg-white/70 backdrop-blur-sm p-6 shadow-sm">
-              <h3 className="text-base font-bold text-gray-900 mb-4">
-                {t.contact.infoTitle}
-              </h3>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-9 h-9 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center">
-                    <Mail size={16} />
-                  </span>
-                  <a
-                    href={`mailto:${t.contact.infoEmail}`}
-                    className="text-sm text-gray-700 hover:text-orange-600 transition-colors leading-9"
-                  >
-                    {t.contact.infoEmail}
-                  </a>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-9 h-9 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center">
-                    <Phone size={16} />
-                  </span>
-                  <a
-                    href={`tel:${t.contact.infoPhone.replace(/[^+\d]/g, "")}`}
-                    className="text-sm text-gray-700 hover:text-orange-600 transition-colors leading-9"
-                  >
-                    {t.contact.infoPhone}
-                  </a>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-9 h-9 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center">
-                    <MapPin size={16} />
-                  </span>
-                  <span className="text-sm text-gray-700 leading-9">
-                    {t.contact.infoAddress}
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-9 h-9 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center">
-                    <Clock size={16} />
-                  </span>
-                  <span className="text-sm text-gray-700 leading-9">
-                    {t.contact.infoHours}
-                  </span>
-                </li>
-              </ul>
+            <div className="lg:col-span-6 lg:col-start-7 lg:pt-8">
+              <p className="text-lg text-[var(--ink-300)] leading-relaxed">
+                {t.contact.subtitle}
+              </p>
             </div>
           </div>
+        </Reveal>
 
-          {/* RIGHT COLUMN */}
-          <div className="lg:col-span-7">
-            <div className="rounded-3xl border border-orange-200/50 bg-white shadow-xl p-8 md:p-10">
-              {state === "success" ? (
-                <div className="flex flex-col items-center text-center py-10 px-4 rounded-2xl border-2 border-green-200 bg-green-50/40">
-                  <span className="w-14 h-14 rounded-full bg-green-100 text-green-600 flex items-center justify-center mb-4">
-                    <CheckCircle2 size={28} />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
+          {/* LEFT COLUMN — Direct contact */}
+          <div className="lg:col-span-5">
+            <Reveal delay={140}>
+              <div
+                className="rounded-2xl p-7"
+                style={{
+                  background: "var(--bg-card)",
+                  border: "1px solid var(--border-faint)",
+                }}
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--ember)] uppercase">
+                    XIII.I
                   </span>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {t.contact.successTitle}
-                  </h3>
-                  <p className="text-sm text-gray-600 max-w-md">
-                    {t.contact.successBody}
-                  </p>
+                  <span className="scene-label">{t.contact.infoTitle}</span>
                 </div>
-              ) : (
-                <>
-                  <h3 className="text-xl font-bold text-gray-900 mb-6">
-                    {t.contact.formTitle}
-                  </h3>
 
-                  {state === "error" && (
-                    <div
-                      role="alert"
-                      className="mb-6 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4"
-                    >
-                      <AlertCircle
-                        size={20}
-                        className="flex-shrink-0 text-red-500 mt-0.5"
-                      />
-                      <div className="flex-1">
-                        <p className="text-sm font-semibold text-red-800">
-                          {t.contact.errorTitle}
-                        </p>
-                        <p className="text-sm text-red-700 mt-0.5">
-                          {t.contact.errorBody}
-                        </p>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => setState("idle")}
-                        className="text-sm font-medium text-red-700 hover:text-red-900 underline underline-offset-2"
-                      >
-                        {t.contact.retry}
-                      </button>
-                    </div>
-                  )}
-
-                  <form onSubmit={handleSubmit} noValidate={false}>
-                    {/* Honeypot */}
-                    <input
-                      type="text"
-                      name="website"
-                      tabIndex={-1}
-                      autoComplete="off"
-                      aria-hidden="true"
-                      style={{ position: "absolute", left: "-9999px" }}
+                <ul className="space-y-5">
+                  <li className="flex items-start gap-3">
+                    <Mail
+                      size={16}
+                      strokeWidth={1.4}
+                      className="flex-shrink-0 mt-1"
+                      style={{ color: "var(--ember-glow)" }}
                     />
+                    <a
+                      href={`mailto:${t.contact.infoEmail}`}
+                      className="text-sm transition-colors"
+                      style={{ color: "var(--ink-200)" }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = "var(--ember)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = "var(--ink-200)";
+                      }}
+                    >
+                      {t.contact.infoEmail}
+                    </a>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Phone
+                      size={16}
+                      strokeWidth={1.4}
+                      className="flex-shrink-0 mt-1"
+                      style={{ color: "var(--ember-glow)" }}
+                    />
+                    <a
+                      href={`tel:${t.contact.infoPhone.replace(/[^+\d]/g, "")}`}
+                      className="text-sm transition-colors"
+                      style={{ color: "var(--ink-200)" }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = "var(--ember)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = "var(--ink-200)";
+                      }}
+                    >
+                      {t.contact.infoPhone}
+                    </a>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <MapPin
+                      size={16}
+                      strokeWidth={1.4}
+                      className="flex-shrink-0 mt-1"
+                      style={{ color: "var(--ember-glow)" }}
+                    />
+                    <span
+                      className="text-sm"
+                      style={{ color: "var(--ink-200)" }}
+                    >
+                      {t.contact.infoAddress}
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Clock
+                      size={16}
+                      strokeWidth={1.4}
+                      className="flex-shrink-0 mt-1"
+                      style={{ color: "var(--ember-glow)" }}
+                    />
+                    <span
+                      className="text-sm"
+                      style={{ color: "var(--ink-200)" }}
+                    >
+                      {t.contact.infoHours}
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </Reveal>
+          </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      {/* Name */}
-                      <div>
-                        <label htmlFor="cf-name" className={labelClass}>
-                          {t.contact.nameLabel}
-                          <RequiredMark />
-                        </label>
-                        <input
-                          id="cf-name"
-                          name="name"
-                          type="text"
-                          required
-                          autoComplete="name"
-                          placeholder={t.contact.namePh}
-                          className={fieldClass}
+          {/* RIGHT COLUMN — Form */}
+          <div className="lg:col-span-7">
+            <Reveal delay={200}>
+              <div
+                className="rounded-2xl p-8 md:p-10"
+                style={{
+                  background: "var(--bg-card)",
+                  border: "1px solid var(--border-faint)",
+                }}
+              >
+                {state === "success" ? (
+                  <div
+                    className="flex flex-col items-center text-center py-10 px-4 rounded-2xl"
+                    style={{
+                      border: "1px solid rgba(255,106,31,0.4)",
+                      background: "rgba(255,106,31,0.08)",
+                    }}
+                  >
+                    <span
+                      className="w-14 h-14 rounded-full flex items-center justify-center mb-4"
+                      style={{
+                        border: "1px solid rgba(255,106,31,0.4)",
+                        background: "rgba(255,106,31,0.12)",
+                      }}
+                    >
+                      <CheckCircle2
+                        size={28}
+                        style={{ color: "var(--ember)" }}
+                      />
+                    </span>
+                    <h3
+                      className="text-xl font-medium mb-2"
+                      style={{ color: "var(--ink-100)" }}
+                    >
+                      {t.contact.successTitle}
+                    </h3>
+                    <p
+                      className="text-sm max-w-md leading-relaxed"
+                      style={{ color: "var(--ink-300)" }}
+                    >
+                      {t.contact.successBody}
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="flex items-center gap-3 mb-6">
+                      <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--ember)] uppercase">
+                        XIII.II
+                      </span>
+                      <span className="scene-label">
+                        {t.contact.formTitle}
+                      </span>
+                    </div>
+
+                    {state === "error" && (
+                      <div
+                        role="alert"
+                        className="mb-6 flex items-start gap-3 rounded-xl p-4"
+                        style={{
+                          border: "1px solid rgba(255,106,31,0.4)",
+                          background: "rgba(0,0,0,0.4)",
+                        }}
+                      >
+                        <AlertCircle
+                          size={20}
+                          className="flex-shrink-0 mt-0.5"
+                          style={{ color: "var(--ember-glow)" }}
                         />
-                      </div>
-
-                      {/* Company */}
-                      <div>
-                        <label htmlFor="cf-company" className={labelClass}>
-                          {t.contact.companyLabel}
-                          <RequiredMark />
-                        </label>
-                        <input
-                          id="cf-company"
-                          name="company"
-                          type="text"
-                          required
-                          autoComplete="organization"
-                          placeholder={t.contact.companyPh}
-                          className={fieldClass}
-                        />
-                      </div>
-
-                      {/* Email */}
-                      <div>
-                        <label htmlFor="cf-email" className={labelClass}>
-                          {t.contact.emailLabel}
-                          <RequiredMark />
-                        </label>
-                        <input
-                          id="cf-email"
-                          name="email"
-                          type="email"
-                          required
-                          autoComplete="email"
-                          placeholder={t.contact.emailPh}
-                          className={fieldClass}
-                        />
-                      </div>
-
-                      {/* Phone */}
-                      <div>
-                        <label htmlFor="cf-phone" className={labelClass}>
-                          {t.contact.phoneLabel}
-                        </label>
-                        <input
-                          id="cf-phone"
-                          name="phone"
-                          type="tel"
-                          autoComplete="tel"
-                          placeholder={t.contact.phonePh}
-                          className={fieldClass}
-                        />
-                      </div>
-
-                      {/* Country */}
-                      <div>
-                        <label htmlFor="cf-country" className={labelClass}>
-                          {t.contact.countryLabel}
-                          <RequiredMark />
-                        </label>
-                        <select
-                          id="cf-country"
-                          name="country"
-                          required
-                          defaultValue=""
-                          className={fieldClass}
-                        >
-                          <option value="" disabled>
-                            {t.contact.countryPh}
-                          </option>
-                          {COUNTRIES.map((c) => (
-                            <option key={c} value={c}>
-                              {c}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* Volume */}
-                      <div>
-                        <label htmlFor="cf-volume" className={labelClass}>
-                          {t.contact.volumeLabel}
-                          <RequiredMark />
-                        </label>
-                        <select
-                          id="cf-volume"
-                          name="volume"
-                          required
-                          defaultValue=""
-                          className={fieldClass}
-                        >
-                          <option value="" disabled>
-                            {t.contact.volumePh}
-                          </option>
-                          <option value={VOLUME_VALUES.vol1}>
-                            {t.contact.vol1}
-                          </option>
-                          <option value={VOLUME_VALUES.vol2}>
-                            {t.contact.vol2}
-                          </option>
-                          <option value={VOLUME_VALUES.vol3}>
-                            {t.contact.vol3}
-                          </option>
-                          <option value={VOLUME_VALUES.vol4}>
-                            {t.contact.vol4}
-                          </option>
-                        </select>
-                      </div>
-
-                      {/* Services */}
-                      <div className="md:col-span-2">
-                        <label className={labelClass}>
-                          {t.contact.servicesLabel}
-                        </label>
-                        <p className="text-xs text-gray-500 mb-3">
-                          {t.contact.servicesHint}
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          {SERVICE_KEYS.map((key) => {
-                            const selected = services.includes(key);
-                            const label = t.contact[
-                              key as keyof typeof t.contact
-                            ] as string;
-                            return (
-                              <button
-                                key={key}
-                                type="button"
-                                onClick={() => toggleService(key)}
-                                aria-pressed={selected}
-                                className={
-                                  "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-all " +
-                                  (selected
-                                    ? "bg-orange-500 text-white border-orange-500 shadow-sm shadow-orange-500/30"
-                                    : "bg-white border-orange-200 text-gray-600 hover:border-orange-300 hover:text-orange-600")
-                                }
-                              >
-                                {label}
-                              </button>
-                            );
-                          })}
+                        <div className="flex-1">
+                          <p
+                            className="text-sm font-medium"
+                            style={{ color: "var(--ink-100)" }}
+                          >
+                            {t.contact.errorTitle}
+                          </p>
+                          <p
+                            className="text-sm mt-0.5"
+                            style={{ color: "var(--ink-300)" }}
+                          >
+                            {t.contact.errorBody}
+                          </p>
                         </div>
-                      </div>
-
-                      {/* Message */}
-                      <div className="md:col-span-2">
-                        <label htmlFor="cf-message" className={labelClass}>
-                          {t.contact.messageLabel}
-                          <RequiredMark />
-                        </label>
-                        <textarea
-                          id="cf-message"
-                          name="message"
-                          required
-                          rows={4}
-                          placeholder={t.contact.messagePh}
-                          className={fieldClass + " resize-y min-h-[120px]"}
-                        />
-                      </div>
-
-                      {/* Consent */}
-                      <div className="md:col-span-2">
-                        <label className="flex items-start gap-3 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            name="consent"
-                            required
-                            className="mt-1 h-4 w-4 rounded border-gray-300 text-orange-500 focus:ring-2 focus:ring-orange-200"
-                          />
-                          <span className="text-sm text-gray-600 leading-relaxed">
-                            {t.contact.consent}
-                            <RequiredMark />{" "}
-                            <Link
-                              href="/privacy"
-                              className="text-orange-600 hover:text-orange-700 underline underline-offset-2"
-                            >
-                              View Privacy Policy
-                            </Link>
-                          </span>
-                        </label>
-                      </div>
-
-                      {/* Submit */}
-                      <div className="md:col-span-2 pt-2">
                         <button
-                          type="submit"
-                          disabled={state === "submitting"}
-                          className="group inline-flex w-full md:w-auto items-center justify-center gap-2 rounded-full bg-gradient-to-r from-orange-500 via-orange-600 to-red-500 px-8 py-4 text-base font-semibold text-white shadow-xl shadow-orange-500/30 transition-all hover:from-orange-600 hover:via-orange-700 hover:to-red-600 disabled:cursor-not-allowed disabled:opacity-70"
+                          type="button"
+                          onClick={() => setState("idle")}
+                          className="text-sm font-medium underline underline-offset-2 transition-colors"
+                          style={{ color: "var(--ember)" }}
                         >
-                          {state === "submitting" ? (
-                            <>
-                              <span className="inline-block w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
-                              {t.contact.submitting}
-                            </>
-                          ) : (
-                            <>
-                              <Send
-                                size={18}
-                                className="transition-transform group-hover:translate-x-0.5"
-                              />
-                              {t.contact.submit}
-                            </>
-                          )}
+                          {t.contact.retry}
                         </button>
                       </div>
-                    </div>
-                  </form>
-                </>
-              )}
-            </div>
+                    )}
+
+                    <form onSubmit={handleSubmit} noValidate={false}>
+                      {/* Honeypot */}
+                      <input
+                        type="text"
+                        name="website"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        aria-hidden="true"
+                        style={{ position: "absolute", left: "-9999px" }}
+                      />
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        {/* Name */}
+                        <div>
+                          <label htmlFor="cf-name" className={labelClass}>
+                            {t.contact.nameLabel}
+                            <RequiredMark />
+                          </label>
+                          <input
+                            id="cf-name"
+                            name="name"
+                            type="text"
+                            required
+                            autoComplete="name"
+                            placeholder={t.contact.namePh}
+                            className={fieldClass}
+                          />
+                        </div>
+
+                        {/* Company */}
+                        <div>
+                          <label htmlFor="cf-company" className={labelClass}>
+                            {t.contact.companyLabel}
+                            <RequiredMark />
+                          </label>
+                          <input
+                            id="cf-company"
+                            name="company"
+                            type="text"
+                            required
+                            autoComplete="organization"
+                            placeholder={t.contact.companyPh}
+                            className={fieldClass}
+                          />
+                        </div>
+
+                        {/* Email */}
+                        <div>
+                          <label htmlFor="cf-email" className={labelClass}>
+                            {t.contact.emailLabel}
+                            <RequiredMark />
+                          </label>
+                          <input
+                            id="cf-email"
+                            name="email"
+                            type="email"
+                            required
+                            autoComplete="email"
+                            placeholder={t.contact.emailPh}
+                            className={fieldClass}
+                          />
+                        </div>
+
+                        {/* Phone */}
+                        <div>
+                          <label htmlFor="cf-phone" className={labelClass}>
+                            {t.contact.phoneLabel}
+                          </label>
+                          <input
+                            id="cf-phone"
+                            name="phone"
+                            type="tel"
+                            autoComplete="tel"
+                            placeholder={t.contact.phonePh}
+                            className={fieldClass}
+                          />
+                        </div>
+
+                        {/* Country */}
+                        <div>
+                          <label htmlFor="cf-country" className={labelClass}>
+                            {t.contact.countryLabel}
+                            <RequiredMark />
+                          </label>
+                          <select
+                            id="cf-country"
+                            name="country"
+                            required
+                            defaultValue=""
+                            className={fieldClass}
+                          >
+                            <option value="" disabled>
+                              {t.contact.countryPh}
+                            </option>
+                            {COUNTRIES.map((c) => (
+                              <option key={c} value={c}>
+                                {c}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* Volume */}
+                        <div>
+                          <label htmlFor="cf-volume" className={labelClass}>
+                            {t.contact.volumeLabel}
+                            <RequiredMark />
+                          </label>
+                          <select
+                            id="cf-volume"
+                            name="volume"
+                            required
+                            defaultValue=""
+                            className={fieldClass}
+                          >
+                            <option value="" disabled>
+                              {t.contact.volumePh}
+                            </option>
+                            <option value={VOLUME_VALUES.vol1}>
+                              {t.contact.vol1}
+                            </option>
+                            <option value={VOLUME_VALUES.vol2}>
+                              {t.contact.vol2}
+                            </option>
+                            <option value={VOLUME_VALUES.vol3}>
+                              {t.contact.vol3}
+                            </option>
+                            <option value={VOLUME_VALUES.vol4}>
+                              {t.contact.vol4}
+                            </option>
+                          </select>
+                        </div>
+
+                        {/* Services */}
+                        <div className="md:col-span-2">
+                          <label className={labelClass}>
+                            {t.contact.servicesLabel}
+                          </label>
+                          <p
+                            className="text-xs mb-3"
+                            style={{ color: "var(--ink-400)" }}
+                          >
+                            {t.contact.servicesHint}
+                          </p>
+                          <div className="flex flex-wrap gap-2">
+                            {SERVICE_KEYS.map((key) => {
+                              const selected = services.includes(key);
+                              const label = t.contact[
+                                key as keyof typeof t.contact
+                              ] as string;
+                              return (
+                                <button
+                                  key={key}
+                                  type="button"
+                                  onClick={() => toggleService(key)}
+                                  aria-pressed={selected}
+                                  className={
+                                    selected
+                                      ? "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-all bg-[var(--ember)] text-[var(--bg-void)] border-[var(--ember)]"
+                                      : "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-all border-[var(--border-soft)] text-[var(--ink-300)] hover:border-[var(--ember)] hover:text-[var(--ink-100)]"
+                                  }
+                                >
+                                  {label}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        {/* Message */}
+                        <div className="md:col-span-2">
+                          <label htmlFor="cf-message" className={labelClass}>
+                            {t.contact.messageLabel}
+                            <RequiredMark />
+                          </label>
+                          <textarea
+                            id="cf-message"
+                            name="message"
+                            required
+                            rows={4}
+                            placeholder={t.contact.messagePh}
+                            className={fieldClass + " resize-y min-h-[120px]"}
+                          />
+                        </div>
+
+                        {/* Consent */}
+                        <div className="md:col-span-2">
+                          <label className="flex items-start gap-3 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              name="consent"
+                              required
+                              className="mt-1 h-4 w-4 rounded"
+                              style={{
+                                accentColor: "var(--ember)",
+                              }}
+                            />
+                            <span
+                              className="text-sm leading-relaxed"
+                              style={{ color: "var(--ink-300)" }}
+                            >
+                              {t.contact.consent}
+                              <RequiredMark />{" "}
+                              <Link
+                                href="/privacy"
+                                className="underline underline-offset-2 transition-colors"
+                                style={{ color: "var(--ember)" }}
+                              >
+                                View Privacy Policy
+                              </Link>
+                            </span>
+                          </label>
+                        </div>
+
+                        {/* Submit */}
+                        <div className="md:col-span-2 pt-2">
+                          <button
+                            type="submit"
+                            disabled={state === "submitting"}
+                            className="group inline-flex w-full md:w-auto items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-medium transition-all disabled:cursor-not-allowed disabled:opacity-70"
+                            style={{
+                              background: "var(--ember)",
+                              color: "var(--bg-void)",
+                              boxShadow:
+                                "0 0 0 1px rgba(255,106,31,0.4), 0 12px 36px -8px rgba(255,106,31,0.5)",
+                            }}
+                          >
+                            {state === "submitting" ? (
+                              <>
+                                <span
+                                  className="inline-block w-4 h-4 rounded-full border-2 animate-spin"
+                                  style={{
+                                    borderColor: "rgba(10,8,7,0.3)",
+                                    borderTopColor: "var(--bg-void)",
+                                  }}
+                                />
+                                {t.contact.submitting}
+                              </>
+                            ) : (
+                              <>
+                                <Send
+                                  size={18}
+                                  className="transition-transform group-hover:translate-x-0.5"
+                                />
+                                {t.contact.submit}
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </>
+                )}
+              </div>
+            </Reveal>
           </div>
         </div>
       </div>

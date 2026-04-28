@@ -1,56 +1,126 @@
 "use client";
 
-import { Tag, ShieldCheck, Search, Eraser, Layers, Warehouse, ArrowRight } from "lucide-react";
+import {
+  Tag,
+  ShieldCheck,
+  Search,
+  Eraser,
+  Layers,
+  Warehouse,
+  ArrowRight,
+} from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+import Reveal from "./Reveal";
 
 export default function FBAPrep() {
   const { t } = useLanguage();
 
   const services = [
-    { icon: Tag, title: t.fba.s1Title, desc: t.fba.s1Desc },
-    { icon: ShieldCheck, title: t.fba.s2Title, desc: t.fba.s2Desc },
-    { icon: Search, title: t.fba.s3Title, desc: t.fba.s3Desc },
-    { icon: Eraser, title: t.fba.s4Title, desc: t.fba.s4Desc },
-    { icon: Layers, title: t.fba.s5Title, desc: t.fba.s5Desc },
-    { icon: Warehouse, title: t.fba.s6Title, desc: t.fba.s6Desc },
+    { icon: Tag, title: t.fba.s1Title, desc: t.fba.s1Desc, num: "01" },
+    { icon: ShieldCheck, title: t.fba.s2Title, desc: t.fba.s2Desc, num: "02" },
+    { icon: Search, title: t.fba.s3Title, desc: t.fba.s3Desc, num: "03" },
+    { icon: Eraser, title: t.fba.s4Title, desc: t.fba.s4Desc, num: "04" },
+    { icon: Layers, title: t.fba.s5Title, desc: t.fba.s5Desc, num: "05" },
+    { icon: Warehouse, title: t.fba.s6Title, desc: t.fba.s6Desc, num: "06" },
   ];
 
   return (
-    <section id="fba-prep" className="py-20 md:py-28 bg-gradient-to-br from-amber-50/40 via-white/60 to-orange-50/40 relative overflow-hidden scroll-mt-20">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-orange-200/15 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-200/15 rounded-full blur-3xl" />
+    <section
+      id="fba-prep"
+      className="py-32 md:py-40 scroll-mt-20 relative overflow-hidden"
+      style={{ background: "var(--bg-base)" }}
+    >
+      {/* Atmospheric ember pool — top-left */}
+      <div
+        className="absolute inset-0 pointer-events-none -z-10"
+        style={{
+          background:
+            "radial-gradient(ellipse 55% 60% at 8% 12%, rgba(255,106,31,0.05), transparent 70%)",
+        }}
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 border border-orange-200 rounded-full text-orange-700 text-sm font-medium mb-4">
-            {t.fba.badge}
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-tight">{t.fba.title}</h2>
-          <p className="mt-4 text-lg text-gray-500">{t.fba.subtitle}</p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {services.map((service) => (
-            <div key={service.title} className="p-6 bg-white/70 backdrop-blur-sm border border-orange-100/40 rounded-2xl hover:bg-white/90 hover:shadow-lg hover:-translate-y-1 transition-all group">
-              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-md">
-                <service.icon size={22} className="text-white" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <Reveal>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20">
+            <div className="lg:col-span-5">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="scene-label-ember">01.</span>
+                <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
+                <span className="scene-label">{t.fba.badge}</span>
               </div>
-              <h3 className="text-base font-bold text-gray-900 mb-2">{service.title}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed">{service.desc}</p>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.0] tracking-[-0.035em] font-medium text-[var(--ink-100)]">
+                {t.fba.title}
+              </h2>
             </div>
-          ))}
-        </div>
+            <div className="lg:col-span-6 lg:col-start-7 lg:pt-8">
+              <p className="text-lg text-[var(--ink-300)] leading-relaxed">
+                {t.fba.subtitle}
+              </p>
+            </div>
+          </div>
+        </Reveal>
 
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <a href="#contact" className="group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-full hover:from-orange-600 hover:to-orange-700 transition-all shadow-xl shadow-orange-500/20">
-            {t.fba.requestQuote}
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </a>
-          <a href="#contact" className="group inline-flex items-center gap-2 px-8 py-4 bg-white/80 text-gray-700 font-semibold rounded-full border border-orange-200 hover:border-orange-400 hover:text-orange-600 transition-all shadow-lg">
-            {t.fba.learnMore}
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </a>
-        </div>
+        <Reveal delay={120}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+            {services.map((s) => (
+              <div
+                key={s.title}
+                className="group relative flex flex-col p-7 rounded-2xl transition-all duration-300 overflow-hidden"
+                style={{
+                  background: "var(--bg-card)",
+                  border: "1px solid var(--border-faint)",
+                }}
+              >
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 80% 0%, rgba(255,106,31,0.08), transparent 60%)",
+                    boxShadow:
+                      "inset 0 0 0 1px rgba(255,106,31,0.4), 0 24px 60px -20px rgba(255,106,31,0.25)",
+                  }}
+                />
+
+                <div className="relative flex items-center justify-between mb-8">
+                  <span className="scene-label-ember">{s.num}</span>
+                  <s.icon
+                    size={18}
+                    className="text-[var(--ink-500)] group-hover:text-[var(--ember-glow)] transition-colors"
+                    strokeWidth={1.6}
+                  />
+                </div>
+
+                <h3 className="relative text-lg font-medium text-[var(--ink-100)] mb-2 leading-tight">
+                  {s.title}
+                </h3>
+                <p className="relative text-sm text-[var(--ink-400)] leading-relaxed">
+                  {s.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={220}>
+          <div className="flex justify-start">
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-2 px-8 py-4 text-sm font-medium rounded-full transition-all"
+              style={{
+                background: "var(--ember)",
+                color: "var(--bg-void)",
+                boxShadow:
+                  "0 0 0 1px rgba(255,106,31,0.4), 0 12px 36px -8px rgba(255,106,31,0.5)",
+              }}
+            >
+              {t.fba.requestQuote}
+              <ArrowRight
+                size={16}
+                className="group-hover:translate-x-0.5 transition-transform"
+              />
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -2,68 +2,113 @@
 
 import { ShieldCheck, Clock, Users, UserCheck, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+import Reveal from "./Reveal";
 
 export default function AboutUs() {
   const { t } = useLanguage();
 
   const stats = [
-    { icon: ShieldCheck, value: "100%", label: t.about.stat1, color: "orange" },
-    { icon: Clock, value: "24h", label: t.about.stat2, color: "amber" },
-    { icon: Users, value: "25+", label: t.about.stat3, color: "red" },
-    { icon: UserCheck, value: "5K+", label: t.about.stat4, color: "yellow" },
+    { icon: ShieldCheck, value: "100%", label: t.about.stat1, mark: "I" },
+    { icon: Clock, value: "24h", label: t.about.stat2, mark: "II" },
+    { icon: Users, value: "25+", label: t.about.stat3, mark: "III" },
+    { icon: UserCheck, value: "5K+", label: t.about.stat4, mark: "IV" },
   ];
 
-  const colorMap: Record<string, { bg: string; text: string }> = {
-    orange: { bg: "bg-orange-100", text: "text-orange-600" },
-    amber: { bg: "bg-amber-100", text: "text-amber-600" },
-    red: { bg: "bg-red-100", text: "text-red-500" },
-    yellow: { bg: "bg-yellow-100", text: "text-yellow-600" },
-  };
-
   return (
-    <section id="about" className="py-20 md:py-28 bg-gradient-to-br from-orange-50/40 via-amber-50/20 to-white/60 relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-72 h-72 bg-orange-200/20 rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-0 right-0 w-72 h-72 bg-amber-200/20 rounded-full blur-3xl -z-10" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 border border-orange-200 rounded-full text-orange-700 text-sm font-medium mb-4">
-              {t.about.badge}
+    <section
+      id="about"
+      className="relative py-32 md:py-40 scroll-mt-20 overflow-hidden"
+      style={{ background: "var(--bg-base)" }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Cinematic header */}
+        <Reveal>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20">
+            <div className="lg:col-span-5">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="scene-label-ember">SCENE 10</span>
+                <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
+                <span className="scene-label">{t.about.badge}</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.0] tracking-[-0.035em] font-medium text-[var(--ink-100)]">
+                {t.about.title1}
+                <br />
+                <span className="font-display italic text-[var(--ember-glow)]">
+                  {t.about.title2}
+                </span>
+              </h2>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-tight mb-6">
-              {t.about.title1}{" "}
-              <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                {t.about.title2}
-              </span>
-            </h2>
-            <p className="text-lg text-gray-600 mb-4 leading-relaxed">{t.about.p1}</p>
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">{t.about.p2}</p>
-            <div className="flex items-center gap-2 text-sm text-gray-500 mb-8">
-              <Clock size={16} className="text-orange-500" />
-              {t.about.since}
+            <div className="lg:col-span-6 lg:col-start-7 lg:pt-8">
+              <p className="text-lg text-[var(--ink-300)] leading-relaxed mb-5">
+                {t.about.p1}
+              </p>
+              <p className="text-base text-[var(--ink-400)] leading-relaxed mb-8">
+                {t.about.p2}
+              </p>
+              <div className="flex items-center gap-3 mb-8">
+                <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
+                <span className="scene-label-ember">{t.about.since}</span>
+              </div>
+              <a
+                href="#contact"
+                className="group inline-flex items-center gap-2 text-sm font-mono uppercase tracking-[0.2em] text-[var(--ember)] hover:text-[var(--ember-glow)] transition-colors"
+              >
+                {t.about.cta}
+                <ArrowRight
+                  size={14}
+                  className="group-hover:translate-x-0.5 transition-transform"
+                />
+              </a>
             </div>
-            <a href="#contact" className="group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 text-white font-semibold rounded-full hover:from-orange-600 hover:via-orange-700 hover:to-red-600 transition-all shadow-xl shadow-orange-500/30">
-              {t.about.cta}
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </a>
           </div>
+        </Reveal>
 
-          <div className="grid grid-cols-2 gap-6">
-            {stats.map((stat) => {
-              const c = colorMap[stat.color];
-              return (
-                <div key={stat.label} className="group p-6 bg-white/70 backdrop-blur-sm rounded-2xl border border-orange-100/50 shadow-sm hover:shadow-xl hover:shadow-orange-100/40 hover:-translate-y-1 transition-all duration-300 text-center">
-                  <div className={`w-14 h-14 ${c.bg} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
-                    <stat.icon size={26} className={c.text} />
+        {/* Numerical roll-call — bare row, no cards */}
+        <Reveal delay={140}>
+          <div className="flex items-center gap-3 mb-10">
+            <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--ember)] uppercase">
+              X.
+            </span>
+            <span className="scene-label">By the record</span>
+            <span className="h-px flex-1 bg-[var(--border-faint)]" />
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-6">
+            {stats.map((stat, i) => (
+              <Reveal key={stat.label} delay={i * 80}>
+                <div className="relative pt-5">
+                  {/* Top hairline */}
+                  <div className="absolute top-0 left-0 h-px w-full bg-[var(--border-faint)]">
+                    <div
+                      className="h-px"
+                      style={{
+                        width: "28px",
+                        background: "var(--ember)",
+                        boxShadow: "0 0 12px var(--ember)",
+                      }}
+                    />
                   </div>
-                  <div className="text-3xl font-black text-gray-900">{stat.value}</div>
-                  <div className="text-sm text-gray-500 mt-1">{stat.label}</div>
+
+                  <div className="flex items-center justify-between mb-5">
+                    <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--ember)] uppercase">
+                      {stat.mark}
+                    </span>
+                    <stat.icon
+                      size={16}
+                      className="text-[var(--ember)]"
+                      strokeWidth={1.4}
+                    />
+                  </div>
+
+                  <div className="stat-num font-display italic text-6xl md:text-7xl font-normal text-[var(--ink-100)] leading-[0.9]">
+                    {stat.value}
+                  </div>
+
+                  <div className="mt-4 scene-label">{stat.label}</div>
                 </div>
-              );
-            })}
+              </Reveal>
+            ))}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

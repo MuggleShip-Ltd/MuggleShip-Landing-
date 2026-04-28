@@ -7,70 +7,131 @@ import {
   Boxes,
   RotateCcw,
   Mail,
-  ChartColumn,
   ArrowRight,
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+import Reveal from "./Reveal";
 
 export default function AnalyticsReporting() {
   const { t } = useLanguage();
 
   const features = [
-    { icon: HeartPulse, title: t.analytics.f1Title, desc: t.analytics.f1Desc },
-    { icon: Timer, title: t.analytics.f2Title, desc: t.analytics.f2Desc },
-    { icon: ChartLine, title: t.analytics.f3Title, desc: t.analytics.f3Desc },
-    { icon: Boxes, title: t.analytics.f4Title, desc: t.analytics.f4Desc },
-    { icon: RotateCcw, title: t.analytics.f5Title, desc: t.analytics.f5Desc },
-    { icon: Mail, title: t.analytics.f6Title, desc: t.analytics.f6Desc },
+    { icon: HeartPulse, title: t.analytics.f1Title, desc: t.analytics.f1Desc, num: "01" },
+    { icon: Timer, title: t.analytics.f2Title, desc: t.analytics.f2Desc, num: "02" },
+    { icon: ChartLine, title: t.analytics.f3Title, desc: t.analytics.f3Desc, num: "03" },
+    { icon: Boxes, title: t.analytics.f4Title, desc: t.analytics.f4Desc, num: "04" },
+    { icon: RotateCcw, title: t.analytics.f5Title, desc: t.analytics.f5Desc, num: "05" },
+    { icon: Mail, title: t.analytics.f6Title, desc: t.analytics.f6Desc, num: "06" },
   ];
 
   return (
     <section
       id="analytics"
-      className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-indigo-50/30 via-white/50 to-blue-50/20 scroll-mt-20"
+      className="py-32 md:py-40 scroll-mt-20 relative overflow-hidden"
+      style={{ background: "var(--bg-base)" }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 border border-indigo-200 rounded-full text-indigo-700 text-sm font-medium mb-4">
-            <ChartColumn size={14} />
-            {t.analytics.badge}
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-tight">
-            {t.analytics.title1}{" "}
-            <span className="bg-gradient-to-r from-indigo-500 to-blue-500 bg-clip-text text-transparent">
-              {t.analytics.title2}
-            </span>
-          </h2>
-          <p className="mt-4 text-lg text-gray-600">{t.analytics.subtitle}</p>
-        </div>
+      {/* Atmospheric ember pool — bottom-right */}
+      <div
+        className="absolute inset-0 pointer-events-none -z-10"
+        style={{
+          background:
+            "radial-gradient(ellipse 55% 60% at 92% 92%, rgba(255,106,31,0.05), transparent 70%)",
+        }}
+      />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-          {features.map((feature) => (
-            <div
-              key={feature.title}
-              className="group p-6 bg-white/70 backdrop-blur-sm rounded-2xl border border-indigo-100/50 shadow-sm hover:shadow-xl hover:shadow-indigo-100/40 hover:-translate-y-1 transition-all duration-300"
-            >
-              <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-blue-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-md">
-                <feature.icon size={22} className="text-white" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <Reveal>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20">
+            <div className="lg:col-span-7">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="scene-label-ember">SCENE 05</span>
+                <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
+                <span className="scene-label">{t.analytics.badge}</span>
               </div>
-              <h3 className="text-base font-bold text-gray-900 mb-2">{feature.title}</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">{feature.desc}</p>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.0] tracking-[-0.035em] font-medium text-[var(--ink-100)]">
+                {t.analytics.title1}
+                <br />
+                <span className="font-display italic text-[var(--ember-glow)]">
+                  {t.analytics.title2}
+                </span>
+              </h2>
             </div>
-          ))}
-        </div>
-
-        <div className="flex flex-col items-center gap-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 border border-indigo-200 rounded-full text-xs text-indigo-700">
-            {t.analytics.availability}
+            <div className="lg:col-span-5 lg:pt-8">
+              <p className="text-lg text-[var(--ink-300)] leading-relaxed">
+                {t.analytics.subtitle}
+              </p>
+            </div>
           </div>
-          <a
-            href="#contact"
-            className="group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-semibold rounded-full hover:from-indigo-600 hover:to-blue-600 transition-all shadow-xl shadow-indigo-500/20"
-          >
-            {t.analytics.cta}
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </a>
-        </div>
+        </Reveal>
+
+        <Reveal delay={120}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+            {features.map((f) => (
+              <div
+                key={f.title}
+                className="group relative flex flex-col p-7 rounded-2xl transition-all duration-300 overflow-hidden"
+                style={{
+                  background: "var(--bg-card)",
+                  border: "1px solid var(--border-faint)",
+                }}
+              >
+                {/* Hover ember frame */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 80% 0%, rgba(255,106,31,0.08), transparent 60%)",
+                    boxShadow:
+                      "inset 0 0 0 1px rgba(255,106,31,0.4), 0 24px 60px -20px rgba(255,106,31,0.25)",
+                  }}
+                />
+
+                <div className="relative flex items-center justify-between mb-8">
+                  <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--ink-500)] group-hover:text-[var(--ember)] transition-colors">
+                    {f.num}
+                  </span>
+                  <f.icon
+                    size={18}
+                    className="text-[var(--ink-500)] group-hover:text-[var(--ember)] transition-colors"
+                    strokeWidth={1.6}
+                  />
+                </div>
+
+                <h3 className="relative text-lg font-medium text-[var(--ink-100)] mb-2 leading-tight">
+                  {f.title}
+                </h3>
+                <p className="relative text-sm text-[var(--ink-400)] leading-relaxed">
+                  {f.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={220}>
+          <div className="flex flex-col items-start gap-6">
+            <div className="flex items-center gap-3">
+              <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
+              <span className="scene-label">{t.analytics.availability}</span>
+            </div>
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-2 px-6 py-3.5 text-sm font-medium rounded-full transition-all"
+              style={{
+                background: "var(--ember)",
+                color: "var(--bg-void)",
+                boxShadow:
+                  "0 0 0 1px rgba(255,106,31,0.4), 0 12px 36px -8px rgba(255,106,31,0.5)",
+              }}
+            >
+              {t.analytics.cta}
+              <ArrowRight
+                size={16}
+                className="group-hover:translate-x-0.5 transition-transform"
+              />
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
