@@ -56,19 +56,14 @@ html {
    each component file.
    ============================================================ */
 
-/* 1. Section gradient backgrounds → flat alternating bg */
-section[class*="bg-gradient"] {
+/* 1. Section gradient backgrounds → flat (only for non-dark sections) */
+section[class*="bg-gradient"]:not([class*="bg-neutral-9"]):not([class*="bg-gray-9"]):not([class*="from-gray-9"]):not([class*="from-neutral-9"]) {
   background: var(--bg-base) !important;
 }
 
-/* Alternate-row pattern: every even section gets a subtle gray ground */
-main > section:nth-of-type(even),
-main > div + section:nth-of-type(odd) {
-  background: var(--bg-subtle) !important;
-}
-
-/* Locations is dark-on-purpose, keep it dark */
-section.bg-gradient-to-br.from-gray-900 {
+/* Locations and Stats are dark-on-purpose */
+section[class*="bg-gradient-to-br"][class*="from-gray-900"],
+section[class*="bg-neutral-950"] {
   background: #0a0a0a !important;
 }
 
@@ -245,6 +240,39 @@ main > section + section {
   font-family: var(--font-fraunces), Georgia, serif;
   font-style: italic;
   font-weight: 400;
+}
+
+/* ============================================================
+   Scroll-reveal motion — applied via the <Reveal> wrapper.
+   Honors prefers-reduced-motion.
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Stats strip — controlled rhythm */
+.stat-num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.04em;
 }
 
 /* ============================================================
