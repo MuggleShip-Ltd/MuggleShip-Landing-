@@ -11,10 +11,10 @@
      cinematic rhythm. */
 
   --bg-void: #1a1614;
-  --bg-base: #faf7f2;
+  --bg-base: #f9f5ec;
   --bg-elevated: #ffffff;
-  --bg-card: #ffffff;
-  --bg-card-2: #f5f0e8;
+  --bg-card: #fdfaf3;
+  --bg-card-2: #f1e9d8;
 
   --border-faint: #ebe2d3;
   --border-soft: #d4c9b8;
@@ -68,8 +68,9 @@ body {
   font-family: var(--font-geist), -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: -0.011em;
   background-image:
-    radial-gradient(ellipse 80% 50% at 80% -10%, rgba(249, 115, 22, 0.07), transparent 70%),
-    radial-gradient(ellipse 50% 30% at 0% 60%, rgba(194, 65, 12, 0.04), transparent 70%);
+    radial-gradient(ellipse 80% 50% at 80% -10%, rgba(249, 115, 22, 0.14), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 0% 60%, rgba(194, 65, 12, 0.09), transparent 70%),
+    radial-gradient(ellipse 50% 30% at 100% 100%, rgba(234, 88, 12, 0.06), transparent 70%);
   background-attachment: fixed;
 }
 

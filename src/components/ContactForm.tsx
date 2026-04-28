@@ -228,7 +228,7 @@ export default function ContactForm() {
                     className="flex flex-col items-center text-center py-10 px-4 rounded-2xl"
                     style={{
                       border: "1px solid rgba(255,106,31,0.4)",
-                      background: "rgba(255,106,31,0.08)",
+                      background: "rgba(249,115,22,0.16)",
                     }}
                   >
                     <span

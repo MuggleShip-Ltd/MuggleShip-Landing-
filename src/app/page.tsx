@@ -1,15 +1,12 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import ServicesOverview from "@/components/ServicesOverview";
-import Stats from "@/components/Stats";
 import AutomatedPricing from "@/components/AutomatedPricing";
 import AnalyticsReporting from "@/components/AnalyticsReporting";
 import ListingOptimization from "@/components/ListingOptimization";
 import HowPricingWorks from "@/components/HowPricingWorks";
 import Testimonials from "@/components/Testimonials";
 import AboutUs from "@/components/AboutUs";
-import Locations from "@/components/Locations";
-import FAQ from "@/components/FAQ";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
@@ -24,10 +21,8 @@ export default function Home() {
 
         <ServicesOverview />
 
-        <Stats />
-
         {/* Amazon SP-API tooling deep-dives — kept for compliance with
-            the listed app-store categories (Automated Pricing, Analytics
+            the listed app-store categories (AI Repricing, Analytics
             and Reporting, Listing). */}
         <Reveal>
           <AutomatedPricing />
@@ -49,14 +44,6 @@ export default function Home() {
 
         <Reveal>
           <AboutUs />
-        </Reveal>
-
-        <Reveal>
-          <Locations />
-        </Reveal>
-
-        <Reveal>
-          <FAQ />
         </Reveal>
 
         <Reveal>

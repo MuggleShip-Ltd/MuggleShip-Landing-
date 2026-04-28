@@ -27,9 +27,14 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   title: "MuggleShip — Fulfillment, Perfected.",
   description:
-    "MuggleShip is your trusted UK fulfillment partner. FBA Prep, eCommerce fulfillment, cross-border shipping, automated pricing, analytics, and listing optimization for Amazon sellers worldwide.",
+    "MuggleShip is your trusted UK fulfillment partner. FBA Prep, eCommerce fulfillment, cross-border shipping, AI repricing, analytics, and listing optimization for Amazon sellers worldwide.",
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    apple: { url: "/favicon.png" },
+    shortcut: "/favicon.ico",
   },
 };
 

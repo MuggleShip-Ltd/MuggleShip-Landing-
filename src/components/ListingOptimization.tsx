@@ -35,7 +35,7 @@ export default function ListingOptimization() {
         className="absolute inset-0 pointer-events-none -z-10"
         style={{
           background:
-            "radial-gradient(ellipse 60% 55% at 50% 100%, rgba(255,106,31,0.05), transparent 70%)",
+            "radial-gradient(ellipse 60% 55% at 50% 100%, rgba(249,115,22,0.14), transparent 70%)",
         }}
       />
 
@@ -80,7 +80,7 @@ export default function ListingOptimization() {
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
                   style={{
                     background:
-                      "radial-gradient(circle at 80% 0%, rgba(255,106,31,0.08), transparent 60%)",
+                      "radial-gradient(circle at 80% 0%, rgba(249,115,22,0.16), transparent 60%)",
                     boxShadow:
                       "inset 0 0 0 1px rgba(255,106,31,0.4), 0 24px 60px -20px rgba(255,106,31,0.25)",
                   }}
