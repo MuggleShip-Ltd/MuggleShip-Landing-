@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
-import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -58,7 +57,6 @@ export default function Header() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
-            <LanguageSwitcher />
             <Link
               href="/#contact"
               className="group inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-neutral-950 rounded-full hover:bg-orange-600 transition-colors"
@@ -69,7 +67,6 @@ export default function Header() {
           </div>
 
           <div className="flex md:hidden items-center gap-2">
-            <LanguageSwitcher compact />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="p-2 text-neutral-700"

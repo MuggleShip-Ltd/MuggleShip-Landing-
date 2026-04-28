@@ -3,8 +3,6 @@
 import {
   createContext,
   useContext,
-  useState,
-  useEffect,
   useCallback,
   type ReactNode,
 } from "react";
@@ -18,32 +16,19 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | null>(null);
 
+// English-only mode. The Turkish translation set is kept in i18n.ts
+// for future re-enablement, but the public UI is locked to "en".
+const FORCED_LOCALE: Locale = "en";
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("en");
-
-  // On mount: check localStorage first, then fall back to browser language
-  useEffect(() => {
-    const saved = localStorage.getItem("muggleship-lang") as Locale | null;
-    if (saved === "en" || saved === "tr") {
-      setLocaleState(saved);
-    } else {
-      const browserLang = navigator.language || "";
-      if (browserLang.startsWith("tr")) {
-        setLocaleState("tr");
-      }
-    }
+  const setLocale = useCallback(() => {
+    /* no-op: locale is locked while the language switcher is hidden */
   }, []);
 
-  // Save to localStorage when user changes language
-  const setLocale = useCallback((l: Locale) => {
-    setLocaleState(l);
-    localStorage.setItem("muggleship-lang", l);
-  }, []);
-
-  const t = translations[locale];
+  const t = translations[FORCED_LOCALE];
 
   return (
-    <LanguageContext.Provider value={{ locale, t, setLocale }}>
+    <LanguageContext.Provider value={{ locale: FORCED_LOCALE, t, setLocale }}>
       {children}
     </LanguageContext.Provider>
   );
