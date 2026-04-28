@@ -38,9 +38,8 @@ export default function Stats() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-6">
           {items.map((item, i) => (
-            <Reveal key={item.label} delay={i * 100}>
-              <div className="relative pt-6">
-                {/* Top hairline ember */}
+            <div key={item.label} className="relative pt-6">
+              <Reveal variant="fade" delay={i * 140}>
                 <div className="h-px w-full bg-[var(--border-faint)] absolute top-0 left-0">
                   <div
                     className="h-px"
@@ -51,22 +50,23 @@ export default function Stats() {
                     }}
                   />
                 </div>
-
                 <div className="font-mono text-[10px] tracking-[0.3em] text-[var(--ember)] uppercase mb-6">
                   {item.scene}
                 </div>
+              </Reveal>
 
-                <div
-                  className="stat-num font-display italic text-7xl md:text-8xl font-normal text-[var(--ink-100)] leading-[0.85]"
-                >
+              <Reveal variant="blur" delay={i * 140 + 220}>
+                <div className="stat-num font-display italic text-7xl md:text-8xl font-normal text-[var(--ink-100)] leading-[0.85]">
                   {item.value}
                 </div>
+              </Reveal>
 
+              <Reveal variant="fade" delay={i * 140 + 520}>
                 <div className="mt-5 text-sm text-[var(--ink-400)] leading-snug max-w-[200px] uppercase tracking-wider font-mono">
                   {item.label}
                 </div>
-              </div>
-            </Reveal>
+              </Reveal>
+            </div>
           ))}
         </div>
       </div>

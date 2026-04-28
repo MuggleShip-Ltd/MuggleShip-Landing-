@@ -2,13 +2,32 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
+type Variant = "up" | "fade" | "scale" | "blur";
+
 type Props = {
   children: ReactNode;
   delay?: number;
+  variant?: Variant;
   className?: string;
+  threshold?: number;
+  once?: boolean;
 };
 
-export default function Reveal({ children, delay = 0, className = "" }: Props) {
+const variantClass: Record<Variant, string> = {
+  up: "rv-up",
+  fade: "rv-fade",
+  scale: "rv-scale",
+  blur: "rv-blur",
+};
+
+export default function Reveal({
+  children,
+  delay = 0,
+  variant = "up",
+  className = "",
+  threshold = 0.15,
+  once = true,
+}: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -25,19 +44,21 @@ export default function Reveal({ children, delay = 0, className = "" }: Props) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-          obs.disconnect();
+          if (once) obs.disconnect();
+        } else if (!once) {
+          setVisible(false);
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
+      { threshold, rootMargin: "0px 0px -80px 0px" }
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, []);
+  }, [threshold, once]);
 
   return (
     <div
       ref={ref}
-      className={`reveal ${visible ? "reveal-in" : ""} ${className}`}
+      className={`${variantClass[variant]} ${visible ? "rv-in" : ""} ${className}`}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}

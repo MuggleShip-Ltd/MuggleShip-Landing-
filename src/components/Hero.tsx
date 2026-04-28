@@ -1,36 +1,88 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import ShippingPartners from "./ShippingPartners";
 
 export default function Hero() {
   const { t } = useLanguage();
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const emberA = useRef<HTMLDivElement>(null);
+  const emberB = useRef<HTMLDivElement>(null);
+
+  // Trigger word-stagger on mount
+  useEffect(() => {
+    const t = setTimeout(() => {
+      headlineRef.current?.classList.add("rv-in");
+    }, 250);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Subtle scroll-linked parallax for the ember pools — tied to window scroll,
+  // not the section's bounding box, so the camera-pan reads while the hero
+  // is on screen.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const y = window.scrollY;
+        if (emberA.current) emberA.current.style.transform = `translate3d(${y * 0.05}px, ${y * 0.25}px, 0)`;
+        if (emberB.current) emberB.current.style.transform = `translate3d(${-y * 0.04}px, ${y * 0.15}px, 0)`;
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  const renderWords = (text: string) =>
+    text.split(/(\s+)/).map((chunk, i) =>
+      /^\s+$/.test(chunk) ? (
+        <span key={i}>{chunk}</span>
+      ) : (
+        <span
+          key={i}
+          className="word"
+          style={{ transitionDelay: `${i * 60}ms` }}
+        >
+          {chunk}
+        </span>
+      )
+    );
 
   return (
     <section
       id="home"
       className="relative min-h-screen flex flex-col justify-between pt-32 md:pt-40 pb-0 overflow-hidden"
     >
-      {/* Atmospheric backdrop — pools of warm light */}
+      {/* Atmospheric backdrop */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
-        {/* Top-right ember pool */}
         <div
-          className="absolute top-[-15%] right-[-10%] w-[80vw] h-[80vw] rounded-full opacity-[0.55] blur-3xl animate-drift"
+          ref={emberA}
+          className="absolute top-[-15%] right-[-10%] w-[80vw] h-[80vw] rounded-full opacity-[0.55] blur-3xl animate-drift will-change-transform"
           style={{
             background:
               "radial-gradient(circle, rgba(255,106,31,0.22) 0%, rgba(255,106,31,0.05) 40%, transparent 70%)",
           }}
         />
-        {/* Bottom-left soft cool */}
         <div
-          className="absolute bottom-[-30%] left-[-15%] w-[70vw] h-[70vw] rounded-full opacity-50 blur-3xl"
+          ref={emberB}
+          className="absolute bottom-[-30%] left-[-15%] w-[70vw] h-[70vw] rounded-full opacity-50 blur-3xl will-change-transform"
           style={{
             background:
               "radial-gradient(circle, rgba(255,153,90,0.08) 0%, transparent 60%)",
           }}
         />
-        {/* Vignette */}
         <div
           className="absolute inset-0"
           style={{
@@ -41,34 +93,48 @@ export default function Hero() {
       </div>
 
       <div className="relative max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center">
-        {/* Scene marker */}
-        <div className="cinema-fade-up flex items-center gap-3 mb-10" style={{ animationDelay:"0.1s" }}>
+        <div
+          className="cinema-fade-up flex items-center gap-3 mb-10"
+          style={{ animationDelay: "0.1s" }}
+        >
           <span className="scene-label-ember">SCENE 01</span>
           <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
           <span className="scene-label">{t.hero.badge}</span>
         </div>
 
-        {/* Headline — typographic statement, broken across lines for cinematic rhythm */}
-        <h1 className="cinema-fade-up max-w-5xl text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.75rem] leading-[0.98] tracking-[-0.04em] font-medium text-[var(--ink-100)]" style={{ animationDelay:"0.25s" }}>
-          {t.hero.title1}
+        <h1
+          ref={headlineRef}
+          className="rv-words max-w-5xl text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.75rem] leading-[0.98] tracking-[-0.04em] font-medium text-[var(--ink-100)]"
+        >
+          {renderWords(t.hero.title1)}
           <br />
           <span className="font-display text-[var(--ember-glow)] italic">
-            {t.hero.title2}
+            {t.hero.title2.split(/(\s+)/).map((chunk, i) =>
+              /^\s+$/.test(chunk) ? (
+                <span key={`b-${i}`}>{chunk}</span>
+              ) : (
+                <span
+                  key={`b-${i}`}
+                  className="word"
+                  style={{ transitionDelay: `${(i + t.hero.title1.split(/\s+/).length) * 60 + 80}ms` }}
+                >
+                  {chunk}
+                </span>
+              )
+            )}
           </span>
         </h1>
 
-        {/* Subtitle */}
         <p
           className="cinema-fade-up mt-8 max-w-2xl text-lg md:text-xl text-[var(--ink-300)] leading-relaxed"
-          style={{ animationDelay:"0.45s" }}
+          style={{ animationDelay: "0.85s" }}
         >
           {t.hero.subtitle}
         </p>
 
-        {/* CTA row */}
         <div
           className="cinema-fade-up mt-10 flex flex-col sm:flex-row items-start gap-3"
-          style={{ animationDelay:"0.6s" }}
+          style={{ animationDelay: "1s" }}
         >
           <a
             href="#contact"
@@ -98,10 +164,9 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* Marquee credits — three-line meta block */}
         <div
           className="cinema-fade-up mt-16 grid grid-cols-1 sm:grid-cols-3 gap-y-6 gap-x-10 max-w-3xl"
-          style={{ animationDelay:"0.8s" }}
+          style={{ animationDelay: "1.2s" }}
         >
           <CreditItem mark="A" label={t.hero.check1} />
           <CreditItem mark="B" label={t.hero.check2} />
@@ -109,10 +174,9 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Animated horizon line + bottom credit strip */}
       <div className="relative mt-20">
         <div className="horizon-line max-w-7xl mx-auto" />
-        <div className="cinema-fade-up" style={{ animationDelay:"1s" }}>
+        <div className="cinema-fade-up" style={{ animationDelay: "1.4s" }}>
           <ShippingPartners />
         </div>
       </div>
