@@ -12,6 +12,7 @@ import {
   PackageCheck,
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+// Audio removed: cleaner, distraction-free landing experience.
 
 const steps = [
   {
@@ -180,19 +181,6 @@ export default function FulfillmentAnimation() {
   const { locale } = useLanguage();
   const [phase, setPhase] = useState(0);
   const [firstCycleDone, setFirstCycleDone] = useState(false);
-  const notifAudio = useRef<HTMLAudioElement | null>(null);
-
-  // Play notification sound when a new card appears
-  useEffect(() => {
-    if (phase >= 1 && phase <= steps.length) {
-      if (!notifAudio.current) {
-        notifAudio.current = new Audio("/notification.wav");
-        notifAudio.current.volume = 0.3;
-      }
-      notifAudio.current.currentTime = 0;
-      notifAudio.current.play().catch(() => {});
-    }
-  }, [phase]);
 
   useEffect(() => {
     if (phase <= steps.length) {
