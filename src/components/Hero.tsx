@@ -64,31 +64,17 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex flex-col justify-between pt-32 md:pt-40 pb-0 overflow-hidden"
     >
-      {/* Atmospheric backdrop — golden hour warehouse */}
+      {/* Single subtle accent — clean B2B */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div
           ref={emberA}
-          className="absolute top-[-25%] right-[-20%] w-[85vw] h-[85vw] rounded-full opacity-90 blur-3xl animate-drift will-change-transform"
+          className="absolute top-[-30%] right-[-25%] w-[70vw] h-[70vw] rounded-full opacity-50 blur-3xl will-change-transform"
           style={{
             background:
-              "radial-gradient(circle, rgba(249,115,22,0.38) 0%, rgba(234,88,12,0.12) 40%, transparent 70%)",
+              "radial-gradient(circle, rgba(234,88,12,0.10) 0%, transparent 60%)",
           }}
         />
-        <div
-          ref={emberB}
-          className="absolute bottom-[-30%] left-[-15%] w-[70vw] h-[70vw] rounded-full opacity-80 blur-3xl will-change-transform"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(194,65,12,0.22) 0%, rgba(194,65,12,0.04) 50%, transparent 70%)",
-          }}
-        />
-        <div
-          className="absolute top-[40%] left-[40%] w-[40vw] h-[40vw] rounded-full opacity-70 blur-3xl"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(255,200,140,0.25) 0%, transparent 60%)",
-          }}
-        />
+        <div ref={emberB} style={{ display: "none" }} />
       </div>
 
       <div className="relative max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center">
@@ -107,7 +93,7 @@ export default function Hero() {
         >
           {renderWords(t.hero.title1)}
           <br />
-          <span className="font-display text-[var(--ember-glow)] italic">
+          <span className="text-[var(--ember)] font-bold">
             {t.hero.title2.split(/(\s+)/).map((chunk, i) =>
               /^\s+$/.test(chunk) ? (
                 <span key={`b-${i}`}>{chunk}</span>

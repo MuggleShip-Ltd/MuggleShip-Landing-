@@ -6,33 +6,34 @@
    ============================================================ */
 
 :root {
-  /* "Studio Warmth" — warm cream paper with terracotta accent.
-     Light, inviting, editorial. Dark bands (Stats / Footer) keep
-     cinematic rhythm. */
+  /* "Sharp B2B" — pure white surfaces, near-black ink, confident
+     orange accents used as material (not just hints). No pastels,
+     no washed cream. Professional with presence. */
 
-  --bg-void: #1a1411;
-  --bg-base: #fbf2e3;       /* warm peach-cream — clearly tinted */
+  --bg-void: #0a0a0a;
+  --bg-base: #ffffff;
   --bg-elevated: #ffffff;
-  --bg-card: #fffaf0;       /* visibly cream */
-  --bg-card-2: #f5e9d3;
-  --bg-band: #f4e2c5;       /* warm beige band for accent sections */
+  --bg-card: #ffffff;
+  --bg-card-2: #fafafa;
+  --bg-band: #f5f5f5;       /* alternating section ground */
 
-  --border-faint: #ecdcc1;
-  --border-soft: #d4bf99;
-  --border-strong: #a08962;
+  --border-faint: #e5e5e5;
+  --border-soft: #d4d4d4;
+  --border-strong: #a3a3a3;
 
-  --ink-100: #1d140d;
-  --ink-200: #2e2418;
-  --ink-300: #4d3e2d;
-  --ink-400: #75634b;
-  --ink-500: #9d8a6e;
-  --ink-600: #bda88a;
+  --ink-100: #0a0a0a;       /* near-black, high contrast */
+  --ink-200: #171717;
+  --ink-300: #404040;
+  --ink-400: #525252;
+  --ink-500: #737373;
+  --ink-600: #a3a3a3;
 
-  --ember: #c2410c;
-  --ember-bright: #ea580c;
-  --ember-glow: #f97316;
-  --ember-deep: #7c2d12;
-  --ember-shadow: rgba(234, 88, 12, 0.25);
+  --ember: #ea580c;          /* vivid brand orange */
+  --ember-bright: #f97316;
+  --ember-glow: #fb923c;
+  --ember-deep: #c2410c;
+  --ember-soft: #fff7ed;     /* very pale orange tint for accents */
+  --ember-shadow: rgba(234, 88, 12, 0.18);
 
   /* Used by sections that intentionally invert (Stats / Footer) */
   --on-dark-ink-100: #faf7f2;
@@ -68,24 +69,9 @@ body {
   color: var(--ink-100);
   font-family: var(--font-geist), -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: -0.011em;
-  background-image:
-    radial-gradient(ellipse 90% 60% at 80% -10%, rgba(249, 115, 22, 0.28), transparent 70%),
-    radial-gradient(ellipse 70% 50% at -10% 50%, rgba(234, 88, 12, 0.18), transparent 70%),
-    radial-gradient(ellipse 60% 40% at 110% 110%, rgba(194, 65, 12, 0.18), transparent 70%);
-  background-attachment: fixed;
 }
 
-/* Subtle paper grain */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: multiply;
-}
+/* (paper grain removed — clean B2B surfaces) */
 
 /* Ensure all sections sit above the noise layer */
 header,
@@ -139,58 +125,84 @@ footer {
    theme without rewriting each component.
    ============================================================ */
 
-/* 1. All gradient backgrounds → flat void or elevated */
+/* 1. All gradient backgrounds → flat */
 section[class*="bg-gradient"]:not([class*="from-gray-9"]):not([class*="from-neutral-9"]) {
   background: var(--bg-base) !important;
 }
 
-/* Locations & Stats stay dark */
-section[class*="from-gray-900"],
-section[class*="bg-neutral-950"] {
-  background: var(--bg-void) !important;
+/* Per-section atmospheric ember pools — killed for the clean
+   B2B palette. Backgrounds stay crisp white. */
+section [style*="radial-gradient"][class*="absolute inset-0"],
+section [style*="radial-gradient"].absolute.inset-0 {
+  background: transparent !important;
 }
 
-/* 2. Gradient text → solid warm cream */
+/* Alternating section ground for visual rhythm */
+main > section[id]:nth-of-type(even),
+main > div[class*="rv-"]:nth-of-type(even) > section,
+main > div.reveal:nth-of-type(even) > section {
+  background: var(--bg-band) !important;
+}
+main > section[id]:nth-of-type(odd),
+main > div[class*="rv-"]:nth-of-type(odd) > section,
+main > div.reveal:nth-of-type(odd) > section {
+  background: var(--bg-base) !important;
+}
+
+/* 2. Gradient text → solid ember accent (kept bold sans, no italic serif) */
 section h2 span[class*="bg-clip-text"],
 section h1 span[class*="bg-clip-text"] {
   background: none !important;
   -webkit-background-clip: initial !important;
   background-clip: initial !important;
-  -webkit-text-fill-color: var(--ink-100) !important;
-  color: var(--ink-100) !important;
-  font-family: var(--font-display), Georgia, serif !important;
-  font-style: italic !important;
-  font-weight: 400 !important;
-  letter-spacing: -0.02em !important;
+  -webkit-text-fill-color: var(--ember) !important;
+  color: var(--ember) !important;
+  font-family: var(--font-geist), sans-serif !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em !important;
 }
 
-/* 3. Section h2 — display weight on the lead-in word */
+/* Override the inline italic display class on title accent spans */
+section h2 .font-display,
+section h1 .font-display,
+section h2 [class*="font-display"],
+section h1 [class*="font-display"] {
+  font-family: var(--font-geist), sans-serif !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  color: var(--ember) !important;
+}
+
+/* 3. Section h2 — solid sharp B2B */
 section h2,
 section h1 {
   letter-spacing: -0.03em;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--ink-100);
 }
 
-/* 4. Card containers — clean white surfaces with light hairline borders */
+/* 4. Card containers — clean white with proper drop shadow */
 section [class*="bg-white/70"],
 section [class*="bg-white/60"],
 section [class*="bg-white/80"],
 section [class*="bg-white/90"],
 section [class*="bg-white/95"] {
-  background: var(--bg-card) !important;
+  background: #ffffff !important;
   backdrop-filter: none !important;
   border-color: var(--border-faint) !important;
-  box-shadow: 0 1px 2px rgba(26, 22, 20, 0.03) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02) !important;
   color: var(--ink-200) !important;
 }
 
 section [class*="bg-white/70"]:hover,
 section [class*="bg-white/60"]:hover,
 section [class*="bg-white/80"]:hover {
-  background: var(--bg-card) !important;
-  border-color: var(--ember) !important;
-  box-shadow: 0 1px 2px rgba(26, 22, 20, 0.04), 0 24px 60px -24px var(--ember-shadow) !important;
+  background: #ffffff !important;
+  border-color: var(--ink-100) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 10px 30px -10px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-2px) !important;
+  transition: all 0.2s ease !important;
 }
 
 /* 5. Pastel decorative blobs — kill */
