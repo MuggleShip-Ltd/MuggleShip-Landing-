@@ -271,8 +271,10 @@ export default function PrivacyPage() {
             </h2>
             <p className="text-base text-gray-700 leading-relaxed">
               MuggleShip Ltd<br />
-              Bedford, United Kingdom<br />
-              Email: privacy@muggleship.com
+              London Office: 86-90 Paul Street, London, EC2A 4NE<br />
+              Operations: Unit 2, Caxton Rd, Bedford MK41 0LF<br />
+              Email: support@muggleship.com<br />
+              Phone: +44 7931 580067
             </p>
           </div>
         </section>

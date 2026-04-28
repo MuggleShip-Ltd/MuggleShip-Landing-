@@ -17,10 +17,10 @@ export default function ServicesOverview() {
   const { t } = useLanguage();
 
   const core = [
-    { icon: Tag, title: t.servicesOverview.svc1Title, desc: t.servicesOverview.svc1Desc, href: "#fba-prep", num: "01" },
-    { icon: PackageCheck, title: t.servicesOverview.svc2Title, desc: t.servicesOverview.svc2Desc, href: "#fulfillment", num: "02" },
-    { icon: Globe, title: t.servicesOverview.svc3Title, desc: t.servicesOverview.svc3Desc, href: "#cross-border", num: "03" },
-    { icon: RotateCcw, title: t.servicesOverview.svc4Title, desc: t.servicesOverview.svc4Desc, href: "#returns", num: "04" },
+    { icon: Tag, title: t.servicesOverview.svc1Title, desc: t.servicesOverview.svc1Desc, href: "#contact", num: "01" },
+    { icon: PackageCheck, title: t.servicesOverview.svc2Title, desc: t.servicesOverview.svc2Desc, href: "#contact", num: "02" },
+    { icon: Globe, title: t.servicesOverview.svc3Title, desc: t.servicesOverview.svc3Desc, href: "#contact", num: "03" },
+    { icon: RotateCcw, title: t.servicesOverview.svc4Title, desc: t.servicesOverview.svc4Desc, href: "#contact", num: "04" },
   ];
 
   const amazon = [

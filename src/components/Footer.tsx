@@ -38,19 +38,33 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Image src="/logo.png" alt="MuggleShip" width={160} height={40} className="h-10 w-auto mb-4 brightness-0 invert" />
             <p className="text-sm text-gray-400 mb-6 max-w-sm leading-relaxed">{t.footer.desc}</p>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-sm text-gray-400">
-                <MapPin size={16} className="text-orange-400 flex-shrink-0" />
-                Bedford, United Kingdom
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+              <div>
+                <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-orange-400 mb-2">London Office</div>
+                <div className="flex items-start gap-2 text-sm text-gray-400 leading-relaxed">
+                  <MapPin size={14} className="text-orange-400 flex-shrink-0 mt-0.5" />
+                  <span>86-90 Paul Street,<br />London, EC2A 4NE</span>
+                </div>
               </div>
-              <div className="flex items-center gap-3 text-sm text-gray-400">
-                <Phone size={16} className="text-orange-400 flex-shrink-0" />
-                +44 (0) 1234 567890
+              <div>
+                <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-orange-400 mb-2">Operations</div>
+                <div className="flex items-start gap-2 text-sm text-gray-400 leading-relaxed">
+                  <MapPin size={14} className="text-orange-400 flex-shrink-0 mt-0.5" />
+                  <span>Unit 2, Caxton Rd,<br />Bedford MK41 0LF</span>
+                </div>
               </div>
-              <div className="flex items-center gap-3 text-sm text-gray-400">
-                <Mail size={16} className="text-orange-400 flex-shrink-0" />
-                info@muggleship.com
-              </div>
+            </div>
+
+            <div className="space-y-2 pt-4 border-t border-gray-800/60">
+              <a href="tel:+447931580067" className="flex items-center gap-2.5 text-sm text-gray-400 hover:text-orange-400 transition-colors font-mono">
+                <Phone size={14} className="text-orange-400 flex-shrink-0" />
+                +44 7931 580067
+              </a>
+              <a href="mailto:support@muggleship.com" className="flex items-center gap-2.5 text-sm text-gray-400 hover:text-orange-400 transition-colors">
+                <Mail size={14} className="text-orange-400 flex-shrink-0" />
+                support@muggleship.com
+              </a>
             </div>
           </div>
 

@@ -1,11 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import WhyChooseUs from "@/components/WhyChooseUs";
 import ServicesOverview from "@/components/ServicesOverview";
-import FBAPrep from "@/components/FBAPrep";
-import EcommerceFulfillment from "@/components/EcommerceFulfillment";
-import CrossBorder from "@/components/CrossBorder";
-import ReturnsManagement from "@/components/ReturnsManagement";
 import Stats from "@/components/Stats";
 import AutomatedPricing from "@/components/AutomatedPricing";
 import AnalyticsReporting from "@/components/AnalyticsReporting";
@@ -26,31 +21,13 @@ export default function Home() {
       <main>
         <Hero />
 
-        <Reveal>
-          <WhyChooseUs />
-        </Reveal>
-
-        {/* Services hub — single overview before deep dives */}
         <ServicesOverview />
 
-        {/* Core operations deep-dives */}
-        <Reveal>
-          <FBAPrep />
-        </Reveal>
-        <Reveal>
-          <EcommerceFulfillment />
-        </Reveal>
-        <Reveal>
-          <CrossBorder />
-        </Reveal>
-        <Reveal>
-          <ReturnsManagement />
-        </Reveal>
-
-        {/* Mid-page punctuation: dark stats strip */}
         <Stats />
 
-        {/* Amazon-specific tooling deep-dives */}
+        {/* Amazon SP-API tooling deep-dives — kept for compliance with
+            the listed app-store categories (Automated Pricing, Analytics
+            and Reporting, Listing). */}
         <Reveal>
           <AutomatedPricing />
         </Reveal>
@@ -61,26 +38,26 @@ export default function Home() {
           <ListingOptimization />
         </Reveal>
 
-        {/* Pricing model */}
         <Reveal>
           <HowPricingWorks />
         </Reveal>
 
-        {/* Social proof break, then trust-building blocks */}
         <Reveal>
           <Testimonials />
         </Reveal>
+
         <Reveal>
           <AboutUs />
         </Reveal>
+
         <Reveal>
           <Locations />
         </Reveal>
 
-        {/* Conversion footer: FAQ + Contact */}
         <Reveal>
           <FAQ />
         </Reveal>
+
         <Reveal>
           <ContactForm />
         </Reveal>

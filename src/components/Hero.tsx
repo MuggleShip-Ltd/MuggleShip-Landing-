@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
-import ShippingPartners from "./ShippingPartners";
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -174,11 +173,8 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="relative mt-20">
+      <div className="relative mt-24 mb-12">
         <div className="horizon-line max-w-7xl mx-auto" />
-        <div className="cinema-fade-up" style={{ animationDelay: "1.4s" }}>
-          <ShippingPartners />
-        </div>
       </div>
     </section>
   );

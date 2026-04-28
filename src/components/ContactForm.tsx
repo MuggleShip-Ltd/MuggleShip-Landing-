@@ -180,85 +180,62 @@ export default function ContactForm() {
                   border: "1px solid var(--border-faint)",
                 }}
               >
-                <div className="flex items-center gap-3 mb-6">
+                <div className="flex items-center gap-3 mb-8">
                   <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--ember)] uppercase">
                     XIII.I
                   </span>
                   <span className="scene-label">{t.contact.infoTitle}</span>
                 </div>
 
-                <ul className="space-y-5">
-                  <li className="flex items-start gap-3">
-                    <Mail
-                      size={16}
-                      strokeWidth={1.4}
-                      className="flex-shrink-0 mt-1"
-                      style={{ color: "var(--ember-glow)" }}
-                    />
-                    <a
-                      href={`mailto:${t.contact.infoEmail}`}
-                      className="text-sm transition-colors"
-                      style={{ color: "var(--ink-200)" }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.color = "var(--ember)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.color = "var(--ink-200)";
-                      }}
-                    >
-                      {t.contact.infoEmail}
-                    </a>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Phone
-                      size={16}
-                      strokeWidth={1.4}
-                      className="flex-shrink-0 mt-1"
-                      style={{ color: "var(--ember-glow)" }}
-                    />
-                    <a
-                      href={`tel:${t.contact.infoPhone.replace(/[^+\d]/g, "")}`}
-                      className="text-sm transition-colors"
-                      style={{ color: "var(--ink-200)" }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.color = "var(--ember)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.color = "var(--ink-200)";
-                      }}
-                    >
-                      {t.contact.infoPhone}
-                    </a>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <MapPin
-                      size={16}
-                      strokeWidth={1.4}
-                      className="flex-shrink-0 mt-1"
-                      style={{ color: "var(--ember-glow)" }}
-                    />
-                    <span
-                      className="text-sm"
-                      style={{ color: "var(--ink-200)" }}
-                    >
-                      {t.contact.infoAddress}
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Clock
-                      size={16}
-                      strokeWidth={1.4}
-                      className="flex-shrink-0 mt-1"
-                      style={{ color: "var(--ember-glow)" }}
-                    />
-                    <span
-                      className="text-sm"
-                      style={{ color: "var(--ink-200)" }}
-                    >
-                      {t.contact.infoHours}
-                    </span>
-                  </li>
-                </ul>
+                {/* Two offices */}
+                <div className="space-y-7 mb-8">
+                  <div>
+                    <div className="font-mono text-[10px] tracking-[0.24em] uppercase mb-2" style={{ color: "var(--ember)" }}>
+                      01. {t.contact.infoLondon}
+                    </div>
+                    <div className="flex items-start gap-2.5 text-sm" style={{ color: "var(--ink-200)" }}>
+                      <MapPin size={15} strokeWidth={1.4} className="flex-shrink-0 mt-0.5" style={{ color: "var(--ember-glow)" }} />
+                      <span className="font-mono">{t.contact.infoLondonAddress}</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-mono text-[10px] tracking-[0.24em] uppercase mb-2" style={{ color: "var(--ember)" }}>
+                      02. {t.contact.infoOps}
+                    </div>
+                    <div className="flex items-start gap-2.5 text-sm" style={{ color: "var(--ink-200)" }}>
+                      <MapPin size={15} strokeWidth={1.4} className="flex-shrink-0 mt-0.5" style={{ color: "var(--ember-glow)" }} />
+                      <span className="font-mono">{t.contact.infoOpsAddress}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Shared contact */}
+                <div className="pt-6 space-y-4" style={{ borderTop: "1px solid var(--border-faint)" }}>
+                  <a
+                    href={`mailto:${t.contact.infoEmail}`}
+                    className="flex items-center gap-2.5 text-sm transition-colors"
+                    style={{ color: "var(--ink-200)" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = "var(--ember)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = "var(--ink-200)"; }}
+                  >
+                    <Mail size={15} strokeWidth={1.4} style={{ color: "var(--ember-glow)" }} />
+                    {t.contact.infoEmail}
+                  </a>
+                  <a
+                    href={`tel:${t.contact.infoPhone.replace(/[^+\d]/g, "")}`}
+                    className="flex items-center gap-2.5 text-sm transition-colors font-mono"
+                    style={{ color: "var(--ink-200)" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = "var(--ember)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = "var(--ink-200)"; }}
+                  >
+                    <Phone size={15} strokeWidth={1.4} style={{ color: "var(--ember-glow)" }} />
+                    {t.contact.infoPhone}
+                  </a>
+                  <div className="flex items-center gap-2.5 text-sm" style={{ color: "var(--ink-300)" }}>
+                    <Clock size={15} strokeWidth={1.4} style={{ color: "var(--ember-glow)" }} />
+                    {t.contact.infoHours}
+                  </div>
+                </div>
               </div>
             </Reveal>
           </div>
