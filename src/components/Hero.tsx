@@ -64,22 +64,29 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex flex-col justify-between pt-32 md:pt-40 pb-0 overflow-hidden"
     >
-      {/* Atmospheric backdrop — daylight studio */}
+      {/* Atmospheric backdrop — golden hour warehouse */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div
           ref={emberA}
-          className="absolute top-[-20%] right-[-15%] w-[75vw] h-[75vw] rounded-full opacity-70 blur-3xl animate-drift will-change-transform"
+          className="absolute top-[-25%] right-[-20%] w-[85vw] h-[85vw] rounded-full opacity-90 blur-3xl animate-drift will-change-transform"
           style={{
             background:
-              "radial-gradient(circle, rgba(249,115,22,0.16) 0%, rgba(249,115,22,0.04) 40%, transparent 70%)",
+              "radial-gradient(circle, rgba(249,115,22,0.38) 0%, rgba(234,88,12,0.12) 40%, transparent 70%)",
           }}
         />
         <div
           ref={emberB}
-          className="absolute bottom-[-30%] left-[-15%] w-[65vw] h-[65vw] rounded-full opacity-60 blur-3xl will-change-transform"
+          className="absolute bottom-[-30%] left-[-15%] w-[70vw] h-[70vw] rounded-full opacity-80 blur-3xl will-change-transform"
           style={{
             background:
-              "radial-gradient(circle, rgba(194,65,12,0.06) 0%, transparent 60%)",
+              "radial-gradient(circle, rgba(194,65,12,0.22) 0%, rgba(194,65,12,0.04) 50%, transparent 70%)",
+          }}
+        />
+        <div
+          className="absolute top-[40%] left-[40%] w-[40vw] h-[40vw] rounded-full opacity-70 blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(255,200,140,0.25) 0%, transparent 60%)",
           }}
         />
       </div>

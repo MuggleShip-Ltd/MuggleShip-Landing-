@@ -10,28 +10,29 @@
      Light, inviting, editorial. Dark bands (Stats / Footer) keep
      cinematic rhythm. */
 
-  --bg-void: #1a1614;
-  --bg-base: #f9f5ec;
+  --bg-void: #1a1411;
+  --bg-base: #fbf2e3;       /* warm peach-cream — clearly tinted */
   --bg-elevated: #ffffff;
-  --bg-card: #fdfaf3;
-  --bg-card-2: #f1e9d8;
+  --bg-card: #fffaf0;       /* visibly cream */
+  --bg-card-2: #f5e9d3;
+  --bg-band: #f4e2c5;       /* warm beige band for accent sections */
 
-  --border-faint: #ebe2d3;
-  --border-soft: #d4c9b8;
-  --border-strong: #968976;
+  --border-faint: #ecdcc1;
+  --border-soft: #d4bf99;
+  --border-strong: #a08962;
 
-  --ink-100: #1a1614;
-  --ink-200: #2a2520;
-  --ink-300: #4a4138;
-  --ink-400: #6b5f52;
-  --ink-500: #968976;
-  --ink-600: #b8ad9c;
+  --ink-100: #1d140d;
+  --ink-200: #2e2418;
+  --ink-300: #4d3e2d;
+  --ink-400: #75634b;
+  --ink-500: #9d8a6e;
+  --ink-600: #bda88a;
 
   --ember: #c2410c;
   --ember-bright: #ea580c;
   --ember-glow: #f97316;
   --ember-deep: #7c2d12;
-  --ember-shadow: rgba(194, 65, 12, 0.16);
+  --ember-shadow: rgba(234, 88, 12, 0.25);
 
   /* Used by sections that intentionally invert (Stats / Footer) */
   --on-dark-ink-100: #faf7f2;
@@ -68,9 +69,9 @@ body {
   font-family: var(--font-geist), -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: -0.011em;
   background-image:
-    radial-gradient(ellipse 80% 50% at 80% -10%, rgba(249, 115, 22, 0.14), transparent 70%),
-    radial-gradient(ellipse 60% 40% at 0% 60%, rgba(194, 65, 12, 0.09), transparent 70%),
-    radial-gradient(ellipse 50% 30% at 100% 100%, rgba(234, 88, 12, 0.06), transparent 70%);
+    radial-gradient(ellipse 90% 60% at 80% -10%, rgba(249, 115, 22, 0.28), transparent 70%),
+    radial-gradient(ellipse 70% 50% at -10% 50%, rgba(234, 88, 12, 0.18), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 110% 110%, rgba(194, 65, 12, 0.18), transparent 70%);
   background-attachment: fixed;
 }
 

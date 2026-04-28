@@ -72,7 +72,7 @@ export default function Testimonials() {
         aria-hidden
         style={{
           background:
-            "radial-gradient(ellipse 55% 60% at 50% 55%, rgba(249,115,22,0.16), transparent 70%)",
+            "radial-gradient(ellipse 55% 60% at 50% 55%, rgba(249,115,22,0.34), transparent 70%)",
           filter: "blur(40px)",
         }}
       />

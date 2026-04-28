@@ -18,7 +18,7 @@ export default function AboutUs() {
     <section
       id="about"
       className="relative py-32 md:py-40 scroll-mt-20 overflow-hidden"
-      style={{ background: "var(--bg-base)" }}
+      style={{ background: "var(--bg-band)" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Cinematic header */}

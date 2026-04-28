@@ -68,7 +68,7 @@ export default function HowPricingWorks() {
         className="absolute inset-0 pointer-events-none -z-10"
         style={{
           background:
-            "radial-gradient(ellipse 55% 60% at 90% 90%, rgba(249,115,22,0.15), transparent 70%)",
+            "radial-gradient(ellipse 55% 60% at 90% 90%, rgba(249,115,22,0.32), transparent 70%)",
         }}
       />
 
