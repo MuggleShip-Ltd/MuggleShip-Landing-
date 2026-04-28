@@ -13,7 +13,7 @@ export default function TermsPage() {
     <>
       <Header />
       <main className="pt-32 pb-20 min-h-screen">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-sm text-orange-600 hover:text-orange-700 mb-8"
@@ -248,7 +248,7 @@ export default function TermsPage() {
               Legal queries: legal@muggleship.com
             </p>
           </div>
-        </div>
+        </section>
       </main>
       <Footer />
     </>

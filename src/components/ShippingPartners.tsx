@@ -15,31 +15,24 @@ export default function ShippingPartners() {
   const { t } = useLanguage();
 
   return (
-    <div className="relative mt-14">
-      {/* Gradient fade from transparent to white */}
-      <div className="h-16 bg-gradient-to-b from-transparent to-white" />
+    <div className="relative pt-16 pb-12">
+      <p className="text-center scene-label mb-8">{t.partners.title}</p>
 
-      {/* White area with logos */}
-      <div className="bg-white pb-6 pt-4">
-        <p className="text-center text-xs font-medium text-gray-400 uppercase tracking-widest mb-5">
-          {t.partners.title}
-        </p>
-
-        <div className="flex items-center justify-center gap-6 md:gap-10 flex-wrap">
-          {partners.map((partner) => (
-            <div
-              key={partner.name}
-              className="flex items-center justify-center w-24 h-12 hover:scale-110 transition-transform duration-300 cursor-default"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={partner.logo}
-                alt={partner.name}
-                className="max-w-[80%] max-h-[80%] object-contain mix-blend-multiply"
-              />
-            </div>
-          ))}
-        </div>
+      <div className="flex items-center justify-center gap-8 md:gap-14 flex-wrap">
+        {partners.map((partner) => (
+          <div
+            key={partner.name}
+            className="flex items-center justify-center w-24 h-12 opacity-50 hover:opacity-100 transition-opacity duration-300 cursor-default"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={partner.logo}
+              alt={partner.name}
+              className="max-w-[80%] max-h-[80%] object-contain"
+              style={{ filter: "grayscale(100%) brightness(2.2) contrast(0.6)" }}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

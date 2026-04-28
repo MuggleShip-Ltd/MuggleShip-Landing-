@@ -1,16 +1,30 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Instrument_Serif, Geist, Geist_Mono } from "next/font/google";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
   display: "swap",
 });
 
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "MuggleShip — UK Fulfillment for Amazon, Shopify & Cross-Border",
+  title: "MuggleShip — Fulfillment, Perfected.",
   description:
     "MuggleShip is your trusted UK fulfillment partner. FBA Prep, eCommerce fulfillment, cross-border shipping, automated pricing, analytics, and listing optimization for Amazon sellers worldwide.",
   icons: {
@@ -24,11 +38,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-[var(--font-inter)] bg-white text-neutral-900">
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
+    <html
+      lang="en"
+      className={`${geist.variable} ${geistMono.variable} ${instrumentSerif.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col">
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

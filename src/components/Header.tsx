@@ -27,8 +27,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-md transition-all ${
-        scrolled ? "border-b border-neutral-200" : "border-b border-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-[rgba(13,10,9,0.85)] backdrop-blur-xl border-b border-[var(--border-faint)]"
+          : "bg-transparent border-b border-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,6 +42,7 @@ export default function Header() {
               width={140}
               height={32}
               className="h-7 w-auto"
+              style={{ filter: "brightness(0) invert(1)" }}
               priority
             />
           </Link>
@@ -49,7 +52,7 @@ export default function Header() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-neutral-600 hover:text-neutral-950 transition-colors"
+                className="text-sm font-medium text-[var(--ink-300)] hover:text-[var(--ink-100)] transition-colors"
               >
                 {link.name}
               </Link>
@@ -59,7 +62,12 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-3">
             <Link
               href="/#contact"
-              className="group inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-neutral-950 rounded-full hover:bg-orange-600 transition-colors"
+              className="group inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-full transition-all"
+              style={{
+                background: "var(--ember)",
+                color: "var(--bg-void)",
+                boxShadow: "0 0 0 1px rgba(255,106,31,0.4), 0 6px 20px -6px rgba(255,106,31,0.45)",
+              }}
             >
               {t.nav.getQuote}
               <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
@@ -69,7 +77,7 @@ export default function Header() {
           <div className="flex md:hidden items-center gap-2">
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="p-2 text-neutral-700"
+              className="p-2 text-[var(--ink-200)]"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -79,14 +87,14 @@ export default function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-neutral-200">
+        <div className="md:hidden bg-[var(--bg-base)] border-t border-[var(--border-faint)]">
           <div className="px-4 py-4 space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="block text-base font-medium text-neutral-700 hover:text-neutral-950 py-2.5"
+                className="block text-base font-medium text-[var(--ink-200)] hover:text-[var(--ink-100)] py-2.5"
               >
                 {link.name}
               </Link>
@@ -94,7 +102,8 @@ export default function Header() {
             <Link
               href="/#contact"
               onClick={() => setMobileOpen(false)}
-              className="block text-center px-4 py-3 mt-3 text-sm font-medium text-white bg-neutral-950 rounded-full"
+              className="block text-center px-4 py-3 mt-3 text-sm font-medium rounded-full"
+              style={{ background: "var(--ember)", color: "var(--bg-void)" }}
             >
               {t.nav.getQuote}
             </Link>
