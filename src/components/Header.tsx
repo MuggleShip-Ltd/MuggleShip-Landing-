@@ -29,7 +29,7 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[rgba(250,247,242,0.85)] backdrop-blur-xl border-b border-[var(--border-faint)]"
+          ? "bg-[rgba(13,17,23,0.85)] backdrop-blur-xl border-b border-[var(--border-faint)]"
           : "bg-transparent border-b border-transparent"
       }`}
     >
@@ -42,6 +42,7 @@ export default function Header() {
               width={140}
               height={32}
               className="h-7 w-auto"
+              style={{ filter: "brightness(0) invert(1)" }}
               priority
             />
           </Link>

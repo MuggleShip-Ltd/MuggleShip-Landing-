@@ -28,10 +28,10 @@ export default function BackToTop() {
           : "opacity-0 translate-y-3 pointer-events-none"
       }`}
       style={{
-        background: "var(--ink-100)",
-        color: "var(--bg-base)",
+        background: "var(--ember)",
+        color: "#0d1117",
         boxShadow:
-          "0 1px 2px rgba(26,22,20,0.06), 0 18px 36px -12px rgba(26,22,20,0.4)",
+          "0 0 0 1px rgba(255,122,71,0.4), 0 10px 36px -10px rgba(255,122,71,0.5)",
       }}
     >
       <ArrowUp size={18} strokeWidth={2} className="transition-transform group-hover:-translate-y-0.5" />

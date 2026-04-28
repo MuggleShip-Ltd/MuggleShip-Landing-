@@ -64,17 +64,24 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex flex-col justify-between pt-32 md:pt-40 pb-0 overflow-hidden"
     >
-      {/* Single subtle accent — clean B2B */}
+      {/* Atmospheric backdrop — confident dark studio */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div
           ref={emberA}
-          className="absolute top-[-30%] right-[-25%] w-[70vw] h-[70vw] rounded-full opacity-50 blur-3xl will-change-transform"
+          className="absolute top-[-25%] right-[-20%] w-[80vw] h-[80vw] rounded-full opacity-90 blur-3xl will-change-transform"
           style={{
             background:
-              "radial-gradient(circle, rgba(234,88,12,0.10) 0%, transparent 60%)",
+              "radial-gradient(circle, rgba(255,122,71,0.18) 0%, rgba(255,122,71,0.05) 40%, transparent 70%)",
           }}
         />
-        <div ref={emberB} style={{ display: "none" }} />
+        <div
+          ref={emberB}
+          className="absolute bottom-[-30%] left-[-20%] w-[60vw] h-[60vw] rounded-full opacity-70 blur-3xl will-change-transform"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(99,102,241,0.10) 0%, transparent 60%)",
+          }}
+        />
       </div>
 
       <div className="relative max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center">
