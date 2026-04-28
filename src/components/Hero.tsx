@@ -42,14 +42,14 @@ export default function Hero() {
 
       <div className="relative max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center">
         {/* Scene marker */}
-        <div className="cinema-fade-up flex items-center gap-3 mb-10" style={{ opacity: 0, animationDelay: "0.1s" }}>
+        <div className="cinema-fade-up flex items-center gap-3 mb-10" style={{ animationDelay:"0.1s" }}>
           <span className="scene-label-ember">SCENE 01</span>
           <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
           <span className="scene-label">{t.hero.badge}</span>
         </div>
 
         {/* Headline — typographic statement, broken across lines for cinematic rhythm */}
-        <h1 className="cinema-fade-up max-w-5xl text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.75rem] leading-[0.98] tracking-[-0.04em] font-medium text-[var(--ink-100)]" style={{ opacity: 0, animationDelay: "0.25s" }}>
+        <h1 className="cinema-fade-up max-w-5xl text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.75rem] leading-[0.98] tracking-[-0.04em] font-medium text-[var(--ink-100)]" style={{ animationDelay:"0.25s" }}>
           {t.hero.title1}
           <br />
           <span className="font-display text-[var(--ember-glow)] italic">
@@ -60,7 +60,7 @@ export default function Hero() {
         {/* Subtitle */}
         <p
           className="cinema-fade-up mt-8 max-w-2xl text-lg md:text-xl text-[var(--ink-300)] leading-relaxed"
-          style={{ opacity: 0, animationDelay: "0.45s" }}
+          style={{ animationDelay:"0.45s" }}
         >
           {t.hero.subtitle}
         </p>
@@ -68,7 +68,7 @@ export default function Hero() {
         {/* CTA row */}
         <div
           className="cinema-fade-up mt-10 flex flex-col sm:flex-row items-start gap-3"
-          style={{ opacity: 0, animationDelay: "0.6s" }}
+          style={{ animationDelay:"0.6s" }}
         >
           <a
             href="#contact"
@@ -101,7 +101,7 @@ export default function Hero() {
         {/* Marquee credits — three-line meta block */}
         <div
           className="cinema-fade-up mt-16 grid grid-cols-1 sm:grid-cols-3 gap-y-6 gap-x-10 max-w-3xl"
-          style={{ opacity: 0, animationDelay: "0.8s" }}
+          style={{ animationDelay:"0.8s" }}
         >
           <CreditItem mark="A" label={t.hero.check1} />
           <CreditItem mark="B" label={t.hero.check2} />
@@ -112,7 +112,7 @@ export default function Hero() {
       {/* Animated horizon line + bottom credit strip */}
       <div className="relative mt-20">
         <div className="horizon-line max-w-7xl mx-auto" />
-        <div className="cinema-fade-up" style={{ opacity: 0, animationDelay: "1s" }}>
+        <div className="cinema-fade-up" style={{ animationDelay:"1s" }}>
           <ShippingPartners />
         </div>
       </div>

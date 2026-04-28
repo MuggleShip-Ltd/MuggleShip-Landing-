@@ -454,6 +454,7 @@ section button[class*="bg-orange-500"][class*="text-white"] {
 }
 
 .cinema-fade-up {
+  opacity: 0;
   animation: filmFadeUp 1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
 
