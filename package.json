@@ -1,12 +1,13 @@
 {
-  "name": "muggleship-temp",
+  "name": "muggleship-landing",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "package": "rm -rf out muggleship-static.zip && next build && cd out && zip -qr ../muggleship-static.zip . && cd .. && echo \"\\nDONE → muggleship-static.zip ready to upload to SiteGround public_html\""
   },
   "dependencies": {
     "framer-motion": "^12.38.0",

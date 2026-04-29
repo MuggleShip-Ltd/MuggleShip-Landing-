@@ -16,6 +16,9 @@
 /build
 /dist
 
+# Static export bundle (created by `npm run build` for SiteGround upload)
+/muggleship-static.zip
+
 # Testing
 /coverage
 
