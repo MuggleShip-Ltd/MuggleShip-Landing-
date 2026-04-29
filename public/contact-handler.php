@@ -12,8 +12,11 @@
 declare(strict_types=1);
 
 // --- Config -----------------------------------------------------------------
-const RECIPIENT     = 'support@muggleship.com';
-const FROM_ADDRESS  = 'noreply@muggleship.com';
+// Sender MUST be a real mailbox on the muggleship.com domain so SiteGround's
+// SMTP and downstream spam filters don't drop it for SPF/DKIM mismatch.
+const RECIPIENT      = 'support@muggleship.com';
+const FROM_ADDRESS   = 'support@muggleship.com';
+const FROM_NAME      = 'MuggleShip Website';
 const ALLOWED_ORIGIN = 'https://muggleship.com';
 
 // --- CORS / method gates ----------------------------------------------------
@@ -114,12 +117,15 @@ $lines = [
 $body = implode("\n", $lines);
 
 $headers = [];
-$headers[] = 'From: MuggleShip Website <' . FROM_ADDRESS . '>';
+$headers[] = 'From: ' . FROM_NAME . ' <' . FROM_ADDRESS . '>';
 $headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
 $headers[] = 'Content-Type: text/plain; charset=utf-8';
 $headers[] = 'X-Mailer: MuggleShip-Form/1.0';
 
-$ok = mail(RECIPIENT, $subject, $body, implode("\r\n", $headers));
+// On SiteGround, the 5th arg "-f<sender>" sets the envelope sender so SPF
+// passes when the From header is on our own domain.
+$envelopeFlag = '-f' . FROM_ADDRESS;
+$ok = mail(RECIPIENT, $subject, $body, implode("\r\n", $headers), $envelopeFlag);
 
 if ($ok) {
     echo json_encode(['ok' => true]);
