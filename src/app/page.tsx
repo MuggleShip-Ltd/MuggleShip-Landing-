@@ -11,10 +11,12 @@ import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import BackToTop from "@/components/BackToTop";
+import ScrollProgress from "@/components/ScrollProgress";
 
 export default function Home() {
   return (
     <>
+      <ScrollProgress />
       <Header />
       <main>
         <Hero />

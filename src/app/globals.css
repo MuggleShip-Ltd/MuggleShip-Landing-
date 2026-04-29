@@ -666,10 +666,125 @@ main > div + section {
 }
 
 /* ============================================================
-   Scrollbar — cinematic dark
+   Final polish — Linear/Vercel/Stripe-grade detailing
+   ============================================================ */
+
+/* Scroll-cue keyframe (used by ScrollCue component) */
+@keyframes scroll-cue {
+  0% { transform: translateY(-100%); }
+  60%, 100% { transform: translateY(800%); }
+}
+
+/* Animated underline for nav links */
+header nav a {
+  position: relative;
+}
+
+header nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1px;
+  background: var(--ember);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.32s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+header nav a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Card hover — corner ember accent that draws in */
+section [class*="bg-white/70"]::after,
+section [class*="bg-white/60"]::after,
+section [class*="bg-white/80"]::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 1px;
+  background: var(--ember);
+  box-shadow: 0 0 12px var(--ember);
+  transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  pointer-events: none;
+}
+
+section [class*="bg-white/70"]:hover::after,
+section [class*="bg-white/60"]:hover::after,
+section [class*="bg-white/80"]:hover::after {
+  width: 32px;
+}
+
+/* Refined CTA — ember gradient with halo on hover */
+a[class*="bg-gradient-to-r from-orange-500"],
+button[class*="bg-gradient-to-r from-orange-500"] {
+  position: relative;
+  isolation: isolate;
+  background-image: linear-gradient(135deg, var(--ember-bright) 0%, var(--ember) 100%) !important;
+  transition:
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease,
+    background-image 0.3s ease !important;
+}
+
+a[class*="bg-gradient-to-r from-orange-500"]:hover,
+button[class*="bg-gradient-to-r from-orange-500"]:hover {
+  transform: translateY(-1px);
+  background-image: linear-gradient(135deg, var(--ember-glow) 0%, var(--ember-bright) 100%) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 122, 71, 0.5),
+    0 12px 28px -8px rgba(255, 122, 71, 0.5),
+    0 0 36px -4px rgba(255, 122, 71, 0.4) !important;
+}
+
+/* Footer ember hairline at the top edge */
+footer {
+  position: relative;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--border-faint) 20%,
+    var(--ember) 50%,
+    var(--border-faint) 80%,
+    transparent 100%
+  );
+  opacity: 0.6;
+}
+
+/* Status pulse — for "currently shipping" indicator */
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.45); }
+  50% { opacity: 0.85; box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+}
+
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: statusPulse 2.4s ease-in-out infinite;
+}
+
+/* ============================================================
+   Scrollbar, selection, focus
    ============================================================ */
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -677,21 +792,40 @@ main > div + section {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-strong);
-  border-radius: 0;
+  background: var(--border-soft);
+  border-radius: 8px;
+  border: 2px solid var(--bg-void);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--ember-deep);
+  background: var(--ember);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-soft) var(--bg-void);
 }
 
 ::selection {
   background: var(--ember);
-  color: var(--bg-void);
+  color: #0d1117;
 }
 
 :focus-visible {
   outline: 2px solid var(--ember);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 4px rgba(255, 122, 71, 0.15);
+}
+
+/* Better text rendering for headlines — avoid orphaned widows */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+/* Tabular numerics everywhere a stat or price sits */
+.stat-num,
+[class*="font-mono"] {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum", "ss01";
 }

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+import ScrollCue from "./ScrollCue";
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -169,6 +170,8 @@ export default function Hero() {
       <div className="relative mt-24 mb-12">
         <div className="horizon-line max-w-7xl mx-auto" />
       </div>
+
+      <ScrollCue />
     </section>
   );
 }
