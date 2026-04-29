@@ -365,21 +365,18 @@ export default function ContactForm() {
                           />
                         </div>
 
-                        {/* Company */}
+                        {/* Company (optional) */}
                         <div>
                           <label htmlFor="cf-company" className={labelClass}>
                             {t.contact.companyLabel}
-                            <RequiredMark />
                           </label>
                           <input
                             id="cf-company"
                             name="company"
                             type="text"
-                            required
                             autoComplete="organization"
                             placeholder={t.contact.companyPh}
                             className={fieldClass}
-                            {...validate}
                           />
                         </div>
 
