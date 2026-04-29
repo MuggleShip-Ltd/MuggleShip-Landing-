@@ -119,28 +119,31 @@ foreach (['name', 'company', 'phone', 'country', 'volume'] as $key) {
 $email = filter_var($emailRaw, FILTER_SANITIZE_EMAIL);
 
 // --- Build the email --------------------------------------------------------
-$subject = sprintf('Quote Request — %s', $company ?: $name);
+$subject = sprintf('New quote request — %s', $company !== '' ? $company : $name);
 
-$lines = [
-    "New quote request from muggleship.com",
-    str_repeat('-', 48),
-    sprintf('Name:      %s', $name),
-    sprintf('Company:   %s', $company ?: '—'),
-    sprintf('Email:     %s', $email),
-    sprintf('Phone:     %s', $phone ?: '—'),
-    sprintf('Country:   %s', $country ?: '—'),
-    sprintf('Volume:    %s', $volume ?: '—'),
-    str_repeat('-', 48),
-    'Message:',
-    '',
-    $message,
-    '',
-    str_repeat('-', 48),
-    sprintf('Submitted: %s UTC', gmdate('Y-m-d H:i:s')),
-    sprintf('IP:        %s', $_SERVER['REMOTE_ADDR'] ?? '—'),
-    sprintf('User-Agent: %s', $_SERVER['HTTP_USER_AGENT'] ?? '—'),
+// Compact field list — optional fields appear only when filled.
+$fields = [
+    ['Name',    $name,    'text'],
+    ['Email',   $email,   'email'],
 ];
-$body = implode("\r\n", $lines);
+if ($company !== '') $fields[] = ['Company', $company, 'text'];
+if ($phone   !== '') $fields[] = ['Phone',   $phone,   'tel'];
+if ($country !== '') $fields[] = ['Country', $country, 'text'];
+if ($volume  !== '') $fields[] = ['Volume',  $volume,  'text'];
+
+// Plain text body
+$plainLines = ["New quote request from muggleship.com", str_repeat('-', 48)];
+foreach ($fields as [$label, $value]) {
+    $plainLines[] = sprintf('%-9s %s', $label . ':', $value);
+}
+$plainLines[] = str_repeat('-', 48);
+$plainLines[] = 'Message:';
+$plainLines[] = '';
+$plainLines[] = $message;
+$plainBody = implode("\r\n", $plainLines);
+
+// HTML body — branded card, ember accent
+$htmlBody = renderHtmlBody($name, $fields, $message, gmdate('M j, Y · H:i') . ' UTC');
 
 // --- Send via SMTP ----------------------------------------------------------
 [$ok, $log] = smtpSend(
@@ -154,7 +157,8 @@ $body = implode("\r\n", $lines);
     $email,
     $name,
     $subject,
-    $body
+    $plainBody,
+    $htmlBody
 );
 
 @file_put_contents(LOG_FILE, "[" . gmdate('Y-m-d H:i:s') . "Z] " . ($ok ? "OK" : "FAIL") . "\n" . $log . "\n\n", FILE_APPEND);
@@ -180,7 +184,8 @@ function smtpSend(
     string $replyToAddr,
     string $replyToName,
     string $subject,
-    string $body
+    string $plainBody,
+    string $htmlBody = ''
 ): array {
     $log = '';
     $endpoint = ($port === 465) ? "ssl://$host:$port" : "tcp://$host:$port";
@@ -253,7 +258,7 @@ function smtpSend(
     $write("DATA\r\n");
     if (substr($read(), 0, 3) !== '354') return [false, $log];
 
-    // Build message
+    // Build message — multipart/alternative if HTML body present
     $headers = [];
     $headers[] = 'From: ' . encodeHeader($fromName) . ' <' . $fromAddr . '>';
     $headers[] = 'To: <' . $toAddr . '>';
@@ -261,11 +266,33 @@ function smtpSend(
     $headers[] = 'Subject: ' . encodeHeader($subject);
     $headers[] = 'Date: ' . date('r');
     $headers[] = 'MIME-Version: 1.0';
-    $headers[] = 'Content-Type: text/plain; charset=utf-8';
-    $headers[] = 'Content-Transfer-Encoding: 8bit';
     $headers[] = 'X-Mailer: MuggleShip-Form/1.0';
 
-    $msg = implode("\r\n", $headers) . "\r\n\r\n" . dotStuff($body) . "\r\n.\r\n";
+    if ($htmlBody === '') {
+        $headers[] = 'Content-Type: text/plain; charset=utf-8';
+        $headers[] = 'Content-Transfer-Encoding: 8bit';
+        $msgBody = dotStuff($plainBody);
+    } else {
+        $boundary = 'mship_' . bin2hex(random_bytes(8));
+        $headers[] = 'Content-Type: multipart/alternative; boundary="' . $boundary . '"';
+        $parts = [];
+        $parts[] = "--$boundary";
+        $parts[] = "Content-Type: text/plain; charset=utf-8";
+        $parts[] = "Content-Transfer-Encoding: 8bit";
+        $parts[] = "";
+        $parts[] = dotStuff($plainBody);
+        $parts[] = "";
+        $parts[] = "--$boundary";
+        $parts[] = "Content-Type: text/html; charset=utf-8";
+        $parts[] = "Content-Transfer-Encoding: 8bit";
+        $parts[] = "";
+        $parts[] = dotStuff($htmlBody);
+        $parts[] = "";
+        $parts[] = "--$boundary--";
+        $msgBody = implode("\r\n", $parts);
+    }
+
+    $msg = implode("\r\n", $headers) . "\r\n\r\n" . $msgBody . "\r\n.\r\n";
     fwrite($socket, $msg);
     $log .= "C: <message body, " . strlen($msg) . " bytes>\n";
 
@@ -290,4 +317,80 @@ function encodeHeader(string $s): string
 function dotStuff(string $body): string
 {
     return preg_replace('/^\./m', '..', $body);
+}
+
+// ============================================================================
+// HTML email template — branded MuggleShip card. Uses inline styles so
+// every email client (Gmail, Outlook, Apple Mail, mobile clients) renders
+// it consistently. No external CSS, no images, no tracking.
+// ============================================================================
+function renderHtmlBody(string $name, array $fields, string $message, string $timestamp): string
+{
+    $h = function (string $s): string {
+        return htmlspecialchars($s, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    };
+
+    // Field rows
+    $rows = '';
+    foreach ($fields as [$label, $value, $type]) {
+        $valHtml = $h($value);
+        if ($type === 'email') {
+            $valHtml = '<a href="mailto:' . $h($value) . '" style="color:#ea580c;text-decoration:none;font-weight:500;">' . $valHtml . '</a>';
+        } elseif ($type === 'tel') {
+            $valHtml = '<a href="tel:' . $h(preg_replace('/[^+\d]/', '', $value)) . '" style="color:#ea580c;text-decoration:none;">' . $valHtml . '</a>';
+        }
+        $rows .= '
+        <tr>
+          <td style="padding:14px 0;border-bottom:1px solid #f0f0f0;">
+            <div style="font:600 10px/1 -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;letter-spacing:0.18em;text-transform:uppercase;color:#a3a3a3;margin-bottom:6px;">' . $h($label) . '</div>
+            <div style="font:400 15px/1.4 -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;color:#1a1a1a;">' . $valHtml . '</div>
+          </td>
+        </tr>';
+    }
+
+    $msgEsc = nl2br($h($message));
+    $nameEsc = $h($name);
+    $tsEsc = $h($timestamp);
+
+    return <<<HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>New quote request</title>
+</head>
+<body style="margin:0;padding:32px 16px;background:#f5f5f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1a1a1a;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:12px;border:1px solid #e5e5e5;overflow:hidden;">
+    <tr>
+      <td style="background:#ea580c;padding:24px 32px;">
+        <div style="font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.75);margin-bottom:8px;">— New quote request</div>
+        <h1 style="font:600 22px/1.2 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;margin:0;color:#ffffff;letter-spacing:-0.01em;">From {$nameEsc}</h1>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:24px 32px 8px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">{$rows}</table>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:8px 32px 24px;">
+        <div style="font:600 10px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:0.18em;text-transform:uppercase;color:#a3a3a3;margin:18px 0 12px;">Message</div>
+        <div style="font:400 15px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1a1a1a;padding:18px 20px;background:#fafafa;border-left:3px solid #ea580c;border-radius:4px;">{$msgEsc}</div>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:18px 32px;background:#fafafa;border-top:1px solid #e5e5e5;font:400 13px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#525252;">
+        <strong style="color:#1a1a1a;">Reply directly</strong> to this email — your response goes back to {$nameEsc}.
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:14px 32px 22px;font:400 11px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#a3a3a3;text-align:center;">
+        Submitted {$tsEsc} · muggleship.com
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+HTML;
 }
