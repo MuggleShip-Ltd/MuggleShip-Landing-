@@ -234,13 +234,15 @@ function smtpSend(
         $read();
     }
 
-    // AUTH LOGIN
-    $write("AUTH LOGIN\r\n");
-    if (substr($read(), 0, 3) !== '334') return [false, $log];
-    $write(base64_encode($user) . "\r\n");
-    if (substr($read(), 0, 3) !== '334') return [false, $log];
-    $write(base64_encode($pass) . "\r\n");
-    if (substr($read(), 0, 3) !== '235') return [false, $log . "AUTH failed\n"];
+    // AUTH LOGIN — skip if no credentials supplied (local relay)
+    if ($user !== '' && $pass !== '') {
+        $write("AUTH LOGIN\r\n");
+        if (substr($read(), 0, 3) !== '334') return [false, $log];
+        $write(base64_encode($user) . "\r\n");
+        if (substr($read(), 0, 3) !== '334') return [false, $log];
+        $write(base64_encode($pass) . "\r\n");
+        if (substr($read(), 0, 3) !== '235') return [false, $log . "AUTH failed\n"];
+    }
 
     $write("MAIL FROM:<$fromAddr>\r\n");
     if (substr($read(), 0, 3) !== '250') return [false, $log];
