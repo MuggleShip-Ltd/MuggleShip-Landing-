@@ -59,13 +59,15 @@ if (!file_exists($smtpConfigPath)) {
     exit;
 }
 $smtp = require $smtpConfigPath;
-foreach (['smtp_host', 'smtp_port', 'smtp_user', 'smtp_pass'] as $k) {
+foreach (['smtp_host', 'smtp_port'] as $k) {
     if (empty($smtp[$k])) {
         http_response_code(500);
         echo json_encode(['error' => "SMTP config: missing $k"]);
         exit;
     }
 }
+$smtp['smtp_user'] = $smtp['smtp_user'] ?? '';
+$smtp['smtp_pass'] = $smtp['smtp_pass'] ?? '';
 
 // --- Honeypot ---------------------------------------------------------------
 if (!empty(trim($_POST['website'] ?? ''))) {
@@ -181,9 +183,9 @@ function smtpSend(
     string $body
 ): array {
     $log = '';
-    $transport = ($port === 465) ? "ssl://$host" : $host;
+    $endpoint = ($port === 465) ? "ssl://$host:$port" : "tcp://$host:$port";
     $socket = @stream_socket_client(
-        "$transport:$port",
+        $endpoint,
         $errno,
         $errstr,
         15,
