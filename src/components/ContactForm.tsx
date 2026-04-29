@@ -103,7 +103,7 @@ export default function ContactForm() {
       ];
       const body = encodeURIComponent(lines.join("\n"));
       const subject = encodeURIComponent("Quote Request");
-      const mailtoUrl = `mailto:info@muggleship.com?subject=${subject}&body=${body}`;
+      const mailtoUrl = `mailto:support@muggleship.com?subject=${subject}&body=${body}`;
       window.location.href = mailtoUrl;
       setState("success");
     } catch {
