@@ -42,7 +42,6 @@ export default function Header() {
               width={140}
               height={32}
               className="h-7 w-auto"
-              style={{ filter: "brightness(0) invert(1)" }}
               priority
             />
           </Link>

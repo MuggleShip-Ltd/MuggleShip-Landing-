@@ -36,7 +36,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           <div className="lg:col-span-2">
-            <Image src="/logo.png" alt="MuggleShip" width={160} height={40} className="h-10 w-auto mb-4 brightness-0 invert" />
+            <Image src="/logo.png" alt="MuggleShip" width={160} height={40} className="h-10 w-auto mb-4" />
             <p className="text-sm text-gray-400 mb-6 max-w-sm leading-relaxed">{t.footer.desc}</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">

@@ -19,6 +19,10 @@
 # Static export bundle (created by `npm run build` for SiteGround upload)
 /muggleship-static.zip
 
+# Contact form SMTP credentials — never commit
+/public/contact-config.php
+/public/contact-debug.log
+
 # Testing
 /coverage
 

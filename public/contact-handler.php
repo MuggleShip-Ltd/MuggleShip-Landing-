@@ -1,23 +1,38 @@
 <?php
 /**
- * MuggleShip contact form handler.
+ * MuggleShip contact form handler — SMTP authenticated send.
  *
- * Receives a multipart/form-data POST from the landing page contact form
- * (src/components/ContactForm.tsx) and emails it to support@muggleship.com
- * via SiteGround's PHP mail() function.
+ * PHP mail() on shared hosting is unreliable (silently dropped, lost in
+ * spam, no error). This script connects directly to the SiteGround SMTP
+ * server and authenticates as the support@muggleship.com mailbox, which
+ * delivers reliably and survives downstream spam filters.
  *
- * Lives at: https://muggleship.com/contact-handler.php
+ * Setup:
+ *   1. Upload this file to public_html/contact-handler.php
+ *   2. Create public_html/contact-config.php from the template below,
+ *      filling in the SMTP password (the password set on the
+ *      support@muggleship.com mailbox in Site Tools → Email).
+ *
+ * contact-config.php template:
+ *   <?php
+ *   return [
+ *     'smtp_host' => 'mail.muggleship.com',     // or smtpout.eu.siteground.us
+ *     'smtp_port' => 465,                       // 465 SSL or 587 TLS
+ *     'smtp_user' => 'support@muggleship.com',
+ *     'smtp_pass' => 'YOUR_MAILBOX_PASSWORD',
+ *   ];
  */
 
 declare(strict_types=1);
 
 // --- Config -----------------------------------------------------------------
-// Sender MUST be a real mailbox on the muggleship.com domain so SiteGround's
-// SMTP and downstream spam filters don't drop it for SPF/DKIM mismatch.
 const RECIPIENT      = 'support@muggleship.com';
 const FROM_ADDRESS   = 'support@muggleship.com';
 const FROM_NAME      = 'MuggleShip Website';
 const ALLOWED_ORIGIN = 'https://muggleship.com';
+const LOG_FILE       = __DIR__ . '/contact-debug.log';
+
+$smtpConfigPath = __DIR__ . '/contact-config.php';
 
 // --- CORS / method gates ----------------------------------------------------
 header('Content-Type: application/json; charset=utf-8');
@@ -37,9 +52,22 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// --- Load SMTP credentials --------------------------------------------------
+if (!file_exists($smtpConfigPath)) {
+    http_response_code(500);
+    echo json_encode(['error' => 'SMTP config missing — see contact-handler.php header for setup']);
+    exit;
+}
+$smtp = require $smtpConfigPath;
+foreach (['smtp_host', 'smtp_port', 'smtp_user', 'smtp_pass'] as $k) {
+    if (empty($smtp[$k])) {
+        http_response_code(500);
+        echo json_encode(['error' => "SMTP config: missing $k"]);
+        exit;
+    }
+}
+
 // --- Honeypot ---------------------------------------------------------------
-// Bot fills the hidden "website" field; silently respond with success
-// so they don't retry, but never send the email.
 if (!empty(trim($_POST['website'] ?? ''))) {
     echo json_encode(['ok' => true]);
     exit;
@@ -66,14 +94,11 @@ $consent  = !empty($_POST['consent']);
 
 // --- Validate ---------------------------------------------------------------
 $errors = [];
-if ($name === '')    $errors[] = 'name';
-if ($emailRaw === '') {
-    $errors[] = 'email';
-} elseif (!filter_var($emailRaw, FILTER_VALIDATE_EMAIL)) {
-    $errors[] = 'email_invalid';
-}
-if ($message === '') $errors[] = 'message';
-if (!$consent)        $errors[] = 'consent';
+if ($name === '')       $errors[] = 'name';
+if ($emailRaw === '')   $errors[] = 'email';
+elseif (!filter_var($emailRaw, FILTER_VALIDATE_EMAIL)) $errors[] = 'email_invalid';
+if ($message === '')    $errors[] = 'message';
+if (!$consent)          $errors[] = 'consent';
 
 if (!empty($errors)) {
     http_response_code(400);
@@ -81,7 +106,6 @@ if (!empty($errors)) {
     exit;
 }
 
-// Reject newlines in single-line text fields — basic header-injection guard
 foreach (['name', 'company', 'phone', 'country', 'volume'] as $key) {
     if (preg_match("/[\r\n]/", $$key)) {
         http_response_code(400);
@@ -114,22 +138,152 @@ $lines = [
     sprintf('IP:        %s', $_SERVER['REMOTE_ADDR'] ?? '—'),
     sprintf('User-Agent: %s', $_SERVER['HTTP_USER_AGENT'] ?? '—'),
 ];
-$body = implode("\n", $lines);
+$body = implode("\r\n", $lines);
 
-$headers = [];
-$headers[] = 'From: ' . FROM_NAME . ' <' . FROM_ADDRESS . '>';
-$headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
-$headers[] = 'Content-Type: text/plain; charset=utf-8';
-$headers[] = 'X-Mailer: MuggleShip-Form/1.0';
+// --- Send via SMTP ----------------------------------------------------------
+[$ok, $log] = smtpSend(
+    $smtp['smtp_host'],
+    (int)$smtp['smtp_port'],
+    $smtp['smtp_user'],
+    $smtp['smtp_pass'],
+    FROM_ADDRESS,
+    FROM_NAME,
+    RECIPIENT,
+    $email,
+    $name,
+    $subject,
+    $body
+);
 
-// On SiteGround, the 5th arg "-f<sender>" sets the envelope sender so SPF
-// passes when the From header is on our own domain.
-$envelopeFlag = '-f' . FROM_ADDRESS;
-$ok = mail(RECIPIENT, $subject, $body, implode("\r\n", $headers), $envelopeFlag);
+@file_put_contents(LOG_FILE, "[" . gmdate('Y-m-d H:i:s') . "Z] " . ($ok ? "OK" : "FAIL") . "\n" . $log . "\n\n", FILE_APPEND);
 
 if ($ok) {
     echo json_encode(['ok' => true]);
 } else {
     http_response_code(500);
-    echo json_encode(['error' => 'Mail dispatch failed']);
+    echo json_encode(['error' => 'Mail dispatch failed', 'detail' => 'See contact-debug.log']);
+}
+
+// ============================================================================
+// Minimal authenticated SMTP client over fsockopen — no external library.
+// ============================================================================
+function smtpSend(
+    string $host,
+    int $port,
+    string $user,
+    string $pass,
+    string $fromAddr,
+    string $fromName,
+    string $toAddr,
+    string $replyToAddr,
+    string $replyToName,
+    string $subject,
+    string $body
+): array {
+    $log = '';
+    $transport = ($port === 465) ? "ssl://$host" : $host;
+    $socket = @stream_socket_client(
+        "$transport:$port",
+        $errno,
+        $errstr,
+        15,
+        STREAM_CLIENT_CONNECT
+    );
+    if (!$socket) {
+        return [false, "Connect failed: $errno $errstr"];
+    }
+    stream_set_timeout($socket, 15);
+
+    $read = function () use ($socket, &$log): string {
+        $out = '';
+        while (!feof($socket)) {
+            $line = fgets($socket, 8192);
+            if ($line === false) break;
+            $log .= "S: $line";
+            $out .= $line;
+            if (strlen($line) >= 4 && $line[3] === ' ') break;
+        }
+        return $out;
+    };
+    $write = function (string $cmd) use ($socket, &$log): void {
+        $log .= "C: $cmd";
+        fwrite($socket, $cmd);
+    };
+
+    $banner = $read();
+    if (substr($banner, 0, 3) !== '220') return [false, $log];
+
+    $write("EHLO muggleship.com\r\n");
+    $ehlo = $read();
+    if (substr($ehlo, 0, 3) !== '250') return [false, $log];
+
+    // STARTTLS upgrade for port 587
+    if ($port === 587 && strpos($ehlo, 'STARTTLS') !== false) {
+        $write("STARTTLS\r\n");
+        $tls = $read();
+        if (substr($tls, 0, 3) !== '220') return [false, $log];
+        $cryptoOk = stream_socket_enable_crypto(
+            $socket,
+            true,
+            STREAM_CRYPTO_METHOD_TLS_CLIENT
+        );
+        if (!$cryptoOk) return [false, $log . "STARTTLS handshake failed\n"];
+        $write("EHLO muggleship.com\r\n");
+        $read();
+    }
+
+    // AUTH LOGIN
+    $write("AUTH LOGIN\r\n");
+    if (substr($read(), 0, 3) !== '334') return [false, $log];
+    $write(base64_encode($user) . "\r\n");
+    if (substr($read(), 0, 3) !== '334') return [false, $log];
+    $write(base64_encode($pass) . "\r\n");
+    if (substr($read(), 0, 3) !== '235') return [false, $log . "AUTH failed\n"];
+
+    $write("MAIL FROM:<$fromAddr>\r\n");
+    if (substr($read(), 0, 3) !== '250') return [false, $log];
+
+    $write("RCPT TO:<$toAddr>\r\n");
+    if (substr($read(), 0, 3) !== '250') return [false, $log];
+
+    $write("DATA\r\n");
+    if (substr($read(), 0, 3) !== '354') return [false, $log];
+
+    // Build message
+    $headers = [];
+    $headers[] = 'From: ' . encodeHeader($fromName) . ' <' . $fromAddr . '>';
+    $headers[] = 'To: <' . $toAddr . '>';
+    $headers[] = 'Reply-To: ' . encodeHeader($replyToName) . ' <' . $replyToAddr . '>';
+    $headers[] = 'Subject: ' . encodeHeader($subject);
+    $headers[] = 'Date: ' . date('r');
+    $headers[] = 'MIME-Version: 1.0';
+    $headers[] = 'Content-Type: text/plain; charset=utf-8';
+    $headers[] = 'Content-Transfer-Encoding: 8bit';
+    $headers[] = 'X-Mailer: MuggleShip-Form/1.0';
+
+    $msg = implode("\r\n", $headers) . "\r\n\r\n" . dotStuff($body) . "\r\n.\r\n";
+    fwrite($socket, $msg);
+    $log .= "C: <message body, " . strlen($msg) . " bytes>\n";
+
+    $finalResp = $read();
+    if (substr($finalResp, 0, 3) !== '250') return [false, $log];
+
+    $write("QUIT\r\n");
+    $read();
+    fclose($socket);
+
+    return [true, $log];
+}
+
+function encodeHeader(string $s): string
+{
+    if (preg_match('/[^\x20-\x7e]/', $s)) {
+        return '=?utf-8?B?' . base64_encode($s) . '?=';
+    }
+    return $s;
+}
+
+function dotStuff(string $body): string
+{
+    return preg_replace('/^\./m', '..', $body);
 }
