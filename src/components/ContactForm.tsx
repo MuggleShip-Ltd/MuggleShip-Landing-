@@ -48,6 +48,35 @@ function RequiredMark() {
   return <span className="ml-0.5 text-[var(--ember)]">*</span>;
 }
 
+// Override the browser's native validation messages so they always read
+// in English, regardless of the user's OS / browser locale.
+const VALIDATION_MESSAGES = {
+  valueMissing: "Please fill in this field.",
+  emailInvalid: "Please enter a valid email address.",
+};
+
+type AnyField = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+
+const onInvalidEN = (e: React.FormEvent<AnyField>) => {
+  const el = e.currentTarget;
+  if (el.validity.valueMissing) {
+    el.setCustomValidity(VALIDATION_MESSAGES.valueMissing);
+  } else if (
+    el.validity.typeMismatch &&
+    (el as HTMLInputElement).type === "email"
+  ) {
+    el.setCustomValidity(VALIDATION_MESSAGES.emailInvalid);
+  } else {
+    el.setCustomValidity("");
+  }
+};
+
+const onInputEN = (e: React.FormEvent<AnyField>) => {
+  e.currentTarget.setCustomValidity("");
+};
+
+const validate = { onInvalid: onInvalidEN, onInput: onInputEN };
+
 export default function ContactForm() {
   const { t } = useLanguage();
   const [state, setState] = useState<SubmitState>("idle");
@@ -332,6 +361,7 @@ export default function ContactForm() {
                             autoComplete="name"
                             placeholder={t.contact.namePh}
                             className={fieldClass}
+                            {...validate}
                           />
                         </div>
 
@@ -349,6 +379,7 @@ export default function ContactForm() {
                             autoComplete="organization"
                             placeholder={t.contact.companyPh}
                             className={fieldClass}
+                            {...validate}
                           />
                         </div>
 
@@ -366,6 +397,7 @@ export default function ContactForm() {
                             autoComplete="email"
                             placeholder={t.contact.emailPh}
                             className={fieldClass}
+                            {...validate}
                           />
                         </div>
 
@@ -384,22 +416,18 @@ export default function ContactForm() {
                           />
                         </div>
 
-                        {/* Country */}
+                        {/* Country (optional) */}
                         <div>
                           <label htmlFor="cf-country" className={labelClass}>
                             {t.contact.countryLabel}
-                            <RequiredMark />
                           </label>
                           <select
                             id="cf-country"
                             name="country"
-                            required
                             defaultValue=""
                             className={fieldClass}
                           >
-                            <option value="" disabled>
-                              {t.contact.countryPh}
-                            </option>
+                            <option value="">{t.contact.countryPh}</option>
                             {COUNTRIES.map((c) => (
                               <option key={c} value={c}>
                                 {c}
@@ -408,22 +436,18 @@ export default function ContactForm() {
                           </select>
                         </div>
 
-                        {/* Volume */}
+                        {/* Volume (optional) */}
                         <div>
                           <label htmlFor="cf-volume" className={labelClass}>
                             {t.contact.volumeLabel}
-                            <RequiredMark />
                           </label>
                           <select
                             id="cf-volume"
                             name="volume"
-                            required
                             defaultValue=""
                             className={fieldClass}
                           >
-                            <option value="" disabled>
-                              {t.contact.volumePh}
-                            </option>
+                            <option value="">{t.contact.volumePh}</option>
                             <option value={VOLUME_VALUES.vol1}>
                               {t.contact.vol1}
                             </option>
@@ -453,6 +477,7 @@ export default function ContactForm() {
                             rows={4}
                             placeholder={t.contact.messagePh}
                             className={fieldClass + " resize-y min-h-[120px]"}
+                            {...validate}
                           />
                         </div>
 
@@ -467,6 +492,14 @@ export default function ContactForm() {
                               style={{
                                 accentColor: "var(--ember)",
                               }}
+                              onInvalid={(e) =>
+                                e.currentTarget.setCustomValidity(
+                                  "Please tick this box to continue."
+                                )
+                              }
+                              onChange={(e) =>
+                                e.currentTarget.setCustomValidity("")
+                              }
                             />
                             <span
                               className="text-sm leading-relaxed"
