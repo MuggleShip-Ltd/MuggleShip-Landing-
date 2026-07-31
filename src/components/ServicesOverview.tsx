@@ -8,6 +8,7 @@ import {
   TrendingUp,
   ChartLine,
   Sparkles,
+  MessageSquare,
   ArrowUpRight,
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
@@ -27,6 +28,7 @@ export default function ServicesOverview() {
     { icon: TrendingUp, title: t.servicesOverview.svc5Title, desc: t.servicesOverview.svc5Desc, href: "#automated-pricing", num: "05" },
     { icon: ChartLine, title: t.servicesOverview.svc6Title, desc: t.servicesOverview.svc6Desc, href: "#analytics", num: "06" },
     { icon: Sparkles, title: t.servicesOverview.svc7Title, desc: t.servicesOverview.svc7Desc, href: "#listing-optimization", num: "07" },
+    { icon: MessageSquare, title: t.servicesOverview.svc8Title, desc: t.servicesOverview.svc8Desc, href: "#buyer-messaging", num: "08" },
   ];
 
   const Card = ({
@@ -142,7 +144,7 @@ export default function ServicesOverview() {
             <span className="scene-label">{t.servicesOverview.amazon}</span>
             <span className="h-px flex-1 bg-[var(--border-faint)]" />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {amazon.map((s) => (
               <Card key={s.title} {...s} />
             ))}

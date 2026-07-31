@@ -4,6 +4,7 @@ import ServicesOverview from "@/components/ServicesOverview";
 import AutomatedPricing from "@/components/AutomatedPricing";
 import AnalyticsReporting from "@/components/AnalyticsReporting";
 import ListingOptimization from "@/components/ListingOptimization";
+import BuyerSellerMessaging from "@/components/BuyerSellerMessaging";
 import HowPricingWorks from "@/components/HowPricingWorks";
 import Testimonials from "@/components/Testimonials";
 import AboutUs from "@/components/AboutUs";
@@ -24,8 +25,8 @@ export default function Home() {
         <ServicesOverview />
 
         {/* Amazon SP-API tooling deep-dives — kept for compliance with
-            the listed app-store categories (AI Repricing, Analytics
-            and Reporting, Listing). */}
+            the listed app-store categories (Price Automation, Analytics
+            and Reporting, Listing, Buyer-Seller Messaging). */}
         <Reveal>
           <AutomatedPricing />
         </Reveal>
@@ -34,6 +35,9 @@ export default function Home() {
         </Reveal>
         <Reveal>
           <ListingOptimization />
+        </Reveal>
+        <Reveal>
+          <BuyerSellerMessaging />
         </Reveal>
 
         <Reveal>

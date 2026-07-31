@@ -24,6 +24,7 @@ export default function Footer() {
     { name: t.footer.automatedPricing, href: "/#automated-pricing" },
     { name: t.footer.analytics, href: "/#analytics" },
     { name: t.footer.listingOptimization, href: "/#listing-optimization" },
+    { name: t.footer.buyerMessaging, href: "/#buyer-messaging" },
   ];
 
   const resourceLinks = [
@@ -100,6 +101,12 @@ export default function Footer() {
               ))}
             </ul>
           </div>
+        </div>
+
+        <div className="border-t border-gray-800 pt-8 mb-8">
+          <p className="text-xs text-gray-500 leading-relaxed max-w-4xl">
+            {t.footer.disclosure}
+          </p>
         </div>
 
         <div className="border-t border-gray-800 pt-8">

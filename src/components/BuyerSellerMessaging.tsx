@@ -1,41 +1,41 @@
 "use client";
 
 import {
-  TrendingUp,
-  ChartColumn,
-  SlidersHorizontal,
-  Activity,
-  Plug,
-  Globe,
+  MessageSquare,
+  Truck,
+  RotateCcw,
+  ShieldCheck,
+  Languages,
+  FileText,
   ArrowRight,
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import Reveal from "./Reveal";
 
-export default function AutomatedPricing() {
+export default function BuyerSellerMessaging() {
   const { t } = useLanguage();
 
   const features = [
-    { icon: SlidersHorizontal, title: t.automatedPricing.f1Title, desc: t.automatedPricing.f1Desc, num: "01" },
-    { icon: ChartColumn, title: t.automatedPricing.f2Title, desc: t.automatedPricing.f2Desc, num: "02" },
-    { icon: TrendingUp, title: t.automatedPricing.f3Title, desc: t.automatedPricing.f3Desc, num: "03" },
-    { icon: Activity, title: t.automatedPricing.f4Title, desc: t.automatedPricing.f4Desc, num: "04" },
-    { icon: Plug, title: t.automatedPricing.f5Title, desc: t.automatedPricing.f5Desc, num: "05" },
-    { icon: Globe, title: t.automatedPricing.f6Title, desc: t.automatedPricing.f6Desc, num: "06" },
+    { icon: MessageSquare, title: t.buyerMessaging.f1Title, desc: t.buyerMessaging.f1Desc, num: "01" },
+    { icon: Truck, title: t.buyerMessaging.f2Title, desc: t.buyerMessaging.f2Desc, num: "02" },
+    { icon: RotateCcw, title: t.buyerMessaging.f3Title, desc: t.buyerMessaging.f3Desc, num: "03" },
+    { icon: ShieldCheck, title: t.buyerMessaging.f4Title, desc: t.buyerMessaging.f4Desc, num: "04" },
+    { icon: Languages, title: t.buyerMessaging.f5Title, desc: t.buyerMessaging.f5Desc, num: "05" },
+    { icon: FileText, title: t.buyerMessaging.f6Title, desc: t.buyerMessaging.f6Desc, num: "06" },
   ];
 
   return (
     <section
-      id="automated-pricing"
+      id="buyer-messaging"
       className="py-32 md:py-40 scroll-mt-20 relative overflow-hidden"
       style={{ background: "var(--bg-base)" }}
     >
-      {/* Atmospheric ember pool — top-right */}
+      {/* Atmospheric ember pool — bottom-left */}
       <div
         className="absolute inset-0 pointer-events-none -z-10"
         style={{
           background:
-            "radial-gradient(ellipse 55% 60% at 92% 8%, rgba(249,115,22,0.30), transparent 70%)",
+            "radial-gradient(ellipse 55% 60% at 8% 92%, rgba(249,115,22,0.30), transparent 70%)",
         }}
       />
 
@@ -44,21 +44,21 @@ export default function AutomatedPricing() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20">
             <div className="lg:col-span-7">
               <div className="flex items-center gap-3 mb-6">
-                <span className="scene-label-ember">SCENE 04</span>
+                <span className="scene-label-ember">SCENE 07</span>
                 <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
-                <span className="scene-label">{t.automatedPricing.badge}</span>
+                <span className="scene-label">{t.buyerMessaging.badge}</span>
               </div>
               <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.0] tracking-[-0.035em] font-medium text-[var(--ink-100)]">
-                {t.automatedPricing.title1}
+                {t.buyerMessaging.title1}
                 <br />
                 <span className="font-display italic text-[var(--ember-glow)]">
-                  {t.automatedPricing.title2}
+                  {t.buyerMessaging.title2}
                 </span>
               </h2>
             </div>
             <div className="lg:col-span-5 lg:pt-8">
               <p className="text-lg text-[var(--ink-300)] leading-relaxed">
-                {t.automatedPricing.subtitle}
+                {t.buyerMessaging.subtitle}
               </p>
             </div>
           </div>
@@ -112,13 +112,13 @@ export default function AutomatedPricing() {
           <div className="flex flex-col items-start gap-6">
             <div className="flex items-center gap-3">
               <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
-              <span className="scene-label">{t.automatedPricing.availability}</span>
+              <span className="scene-label">{t.buyerMessaging.availability}</span>
             </div>
             <p
               className="max-w-3xl text-sm leading-relaxed text-[var(--ink-400)] border-l-2 border-[var(--ember)] pl-5 py-1"
               style={{ borderColor: "var(--ember)" }}
             >
-              {t.automatedPricing.disclosure}
+              {t.buyerMessaging.disclosure}
             </p>
             <a
               href="#contact"
@@ -130,7 +130,7 @@ export default function AutomatedPricing() {
                   "0 0 0 1px rgba(255,106,31,0.4), 0 12px 36px -8px rgba(255,106,31,0.5)",
               }}
             >
-              {t.automatedPricing.cta}
+              {t.buyerMessaging.cta}
               <ArrowRight
                 size={16}
                 className="group-hover:translate-x-0.5 transition-transform"
