@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import Reveal from "./Reveal";
+import TrustpilotWidget from "./TrustpilotWidget";
 
 const testimonials = [
   { name: "James W.", role: "Amazon Seller", text: "MuggleShip transformed our FBA prep process. Their accuracy rate is incredible, and shipping times have improved dramatically." },
@@ -229,6 +230,22 @@ export default function Testimonials() {
               );
             })}
           </div>
+        </div>
+
+        {/* Trustpilot review invite — centered, since the TrustBox
+            centers its button inside the iframe */}
+        <div
+          className="relative max-w-5xl mx-auto mt-20 pt-12 text-center"
+          style={{ borderTop: "1px solid var(--border-faint)" }}
+        >
+          <span className="scene-label-ember">Trustpilot</span>
+          <p className="mt-3 text-base text-[var(--ink-300)] leading-relaxed">
+            {t.testimonials.reviewPrompt}
+          </p>
+          <TrustpilotWidget
+            fallbackLabel={t.testimonials.reviewFallback}
+            className="mt-6 mx-auto w-full max-w-[400px]"
+          />
         </div>
       </div>
     </section>

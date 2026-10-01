@@ -25,7 +25,7 @@ export default function PrivacyPage() {
             Privacy Policy
           </h1>
           <p className="text-sm text-gray-500 mb-10">
-            {t.legal.lastUpdated}: April 28, 2026
+            {t.legal.lastUpdated}: October 1, 2026
           </p>
 
           <div className="prose-content space-y-6 text-gray-700 leading-relaxed">
@@ -245,6 +245,14 @@ export default function PrivacyPage() {
               in your browser&apos;s localStorage to remember your preferred
               language. We do not use advertising cookies and we do not embed
               third-party tracking scripts.
+            </p>
+            <p className="text-base text-gray-700 leading-relaxed">
+              Our Customer Reviews section includes a Trustpilot review widget
+              that is loaded from Trustpilot&apos;s servers. When it loads,
+              Trustpilot receives standard technical information such as your
+              IP address and browser details, and may record that the widget
+              was viewed. Trustpilot&apos;s own privacy and cookie policies
+              apply to the widget.
             </p>
 
             <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-3">
