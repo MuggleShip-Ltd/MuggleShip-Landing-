@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+import { GA_ID, openCookieSettings } from "@/lib/analytics";
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -12,7 +13,6 @@ export default function Footer() {
     { name: t.footer.about, href: "/#about" },
     { name: t.footer.servicesLink, href: "/#services" },
     { name: t.footer.pricingLink, href: "/#pricing" },
-    { name: t.footer.faq, href: "/#faq" },
     { name: t.footer.contactLink, href: "/#contact" },
   ];
 
@@ -99,6 +99,13 @@ export default function Footer() {
                   <Link href={link.href} className="text-sm text-gray-400 hover:text-orange-400 transition-colors">{link.name}</Link>
                 </li>
               ))}
+              {GA_ID && (
+                <li>
+                  <button type="button" onClick={openCookieSettings} className="text-sm text-gray-400 hover:text-orange-400 transition-colors">
+                    Cookie settings
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
         </div>

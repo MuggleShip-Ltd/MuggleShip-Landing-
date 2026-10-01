@@ -12,6 +12,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+import { trackEvent } from "@/lib/analytics";
 import Reveal from "./Reveal";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
@@ -97,6 +98,15 @@ export default function ContactForm() {
 
     const action = process.env.NEXT_PUBLIC_CONTACT_FORM_ACTION;
 
+    // GA4 recommended "lead" event — mark it as a key event in GA.
+    const trackLead = (method: "form" | "mailto") =>
+      trackEvent("generate_lead", {
+        form_name: "quote_request",
+        method,
+        country: (formData.get("country") || "").toString(),
+        volume: (formData.get("volume") || "").toString(),
+      });
+
     setState("submitting");
 
     if (action && action.length > 0) {
@@ -106,6 +116,7 @@ export default function ContactForm() {
           body: formData,
         });
         if (res.ok) {
+          trackLead("form");
           setState("success");
         } else {
           setState("error");
@@ -134,6 +145,7 @@ export default function ContactForm() {
       const subject = encodeURIComponent("Quote Request");
       const mailtoUrl = `mailto:support@muggleship.com?subject=${subject}&body=${body}`;
       window.location.href = mailtoUrl;
+      trackLead("mailto");
       setState("success");
     } catch {
       setState("error");
