@@ -18,10 +18,11 @@ export default function ServicesOverview() {
   const { t } = useLanguage();
 
   const core = [
-    { icon: Tag, title: t.servicesOverview.svc1Title, desc: t.servicesOverview.svc1Desc, href: "#contact", num: "01" },
-    { icon: PackageCheck, title: t.servicesOverview.svc2Title, desc: t.servicesOverview.svc2Desc, href: "#contact", num: "02" },
-    { icon: Globe, title: t.servicesOverview.svc3Title, desc: t.servicesOverview.svc3Desc, href: "#contact", num: "03" },
-    { icon: RotateCcw, title: t.servicesOverview.svc4Title, desc: t.servicesOverview.svc4Desc, href: "#contact", num: "04" },
+    // ids are the targets of the footer's service links (/#fba-prep …)
+    { icon: Tag, title: t.servicesOverview.svc1Title, desc: t.servicesOverview.svc1Desc, href: "#contact", num: "01", id: "fba-prep" },
+    { icon: PackageCheck, title: t.servicesOverview.svc2Title, desc: t.servicesOverview.svc2Desc, href: "#contact", num: "02", id: "fulfillment" },
+    { icon: Globe, title: t.servicesOverview.svc3Title, desc: t.servicesOverview.svc3Desc, href: "#contact", num: "03", id: "cross-border" },
+    { icon: RotateCcw, title: t.servicesOverview.svc4Title, desc: t.servicesOverview.svc4Desc, href: "#contact", num: "04", id: "returns" },
   ];
 
   const amazon = [
@@ -37,16 +38,19 @@ export default function ServicesOverview() {
     desc,
     href,
     num,
+    id,
   }: {
     icon: typeof Tag;
     title: string;
     desc: string;
     href: string;
     num: string;
+    id?: string;
   }) => (
     <a
+      id={id}
       href={href}
-      className="group relative flex flex-col p-7 rounded-2xl transition-all duration-300 overflow-hidden"
+      className="group relative flex flex-col p-7 rounded-2xl transition-all duration-300 overflow-hidden scroll-mt-28"
       style={{
         background: "var(--bg-card)",
         border: "1px solid var(--border-faint)",

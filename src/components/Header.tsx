@@ -21,7 +21,6 @@ export default function Header() {
     { name: t.nav.services, href: "/#services" },
     { name: t.nav.pricing, href: "/#pricing" },
     { name: t.nav.about, href: "/#about" },
-    { name: t.nav.faq, href: "/#faq" },
     { name: t.nav.contact, href: "/#contact" },
   ];
 
