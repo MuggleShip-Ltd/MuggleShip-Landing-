@@ -86,9 +86,13 @@ export default function PrivacyPage() {
             </h3>
             <p className="text-base text-gray-700 leading-relaxed">
               Our website logs basic technical information such as IP address
-              and user-agent for security and to keep the site online. We do
-              not run third-party advertising trackers or build behavioral
-              profiles of visitors.
+              and user-agent for security and to keep the site online. If you
+              accept analytics cookies, we also use Google Analytics 4 to
+              measure aggregate site usage (pages viewed, approximate
+              location, device type, and whether a quote request was sent).
+              We do not run advertising trackers, Google Signals or ad
+              personalisation, and we do not build behavioral profiles of
+              visitors. See section 10 for details.
             </p>
 
             <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-2">
@@ -183,6 +187,10 @@ export default function PrivacyPage() {
                 Email and communication providers used to contact you about
                 your account.
               </li>
+              <li>
+                Google Ireland Limited / Google LLC (Google Analytics), only if
+                you accept analytics cookies.
+              </li>
             </ul>
             <p className="text-base text-gray-700 leading-relaxed">
               All sub-processors are bound by written data processing
@@ -242,16 +250,28 @@ export default function PrivacyPage() {
               privacy@muggleship.com. We will respond within one month.
             </p>
 
-            <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-3">
+            <h2
+              id="cookies"
+              className="text-2xl font-bold text-gray-900 mt-10 mb-3 scroll-mt-28"
+            >
               10. Cookies
             </h2>
             <p className="text-base text-gray-700 leading-relaxed">
-              We use only essential cookies and local storage required for the
-              site to function, including a <code>muggleship-lang</code> entry
-              in your browser&apos;s localStorage to remember your preferred
-              language. We do not use advertising cookies, and apart from the
-              Trustpilot widget described below, we do not embed third-party
-              scripts.
+              We use essential browser storage required for the site to
+              function, including a <code>muggleship-analytics-consent</code>{" "}
+              entry in your browser&apos;s localStorage that remembers your
+              cookie choice.
+            </p>
+            <p className="text-base text-gray-700 leading-relaxed">
+              With your consent only, we use Google Analytics 4 analytics
+              cookies (<code>_ga</code> and <code>_ga_&lt;ID&gt;</code>, kept
+              for up to 2 years) to understand how visitors use the site. The
+              Google Analytics script is not loaded until you click
+              &quot;Accept&quot; in the cookie banner. Our lawful basis is
+              your consent; you can withdraw it at any time via the
+              &quot;Cookie settings&quot; link in the site footer, after which
+              the analytics cookies are deleted. We do not use advertising
+              cookies.
             </p>
             <p className="text-base text-gray-700 leading-relaxed">
               Our Customer Reviews section includes a Trustpilot review widget
