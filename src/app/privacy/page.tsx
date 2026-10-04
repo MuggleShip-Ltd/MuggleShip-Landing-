@@ -197,6 +197,12 @@ export default function PrivacyPage() {
               agreements, are subject to confidentiality obligations, and are
               required to apply appropriate security measures.
             </p>
+            <p className="text-base text-gray-700 leading-relaxed">
+              The one exception is the Trustpilot review widget on our home
+              page. When the page loads, your browser sends technical data
+              directly to Trustpilot, which handles it under its own privacy
+              policy rather than as our sub-processor (see section 10).
+            </p>
 
             <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-3">
               7. International Transfers
@@ -266,6 +272,16 @@ export default function PrivacyPage() {
               &quot;Cookie settings&quot; link in the site footer, after which
               the analytics cookies are deleted. We do not use advertising
               cookies.
+            </p>
+            <p className="text-base text-gray-700 leading-relaxed">
+              Our Customer Reviews section includes a Trustpilot review widget
+              that is loaded from Trustpilot&apos;s servers. Each time the home
+              page loads, your browser sends Trustpilot standard technical
+              information, such as your IP address, browser details, the page
+              address and the referring page, and Trustpilot records that the
+              widget was displayed and whether it was scrolled into view.
+              Trustpilot&apos;s own privacy and cookie policies apply to the
+              widget.
             </p>
 
             <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-3">

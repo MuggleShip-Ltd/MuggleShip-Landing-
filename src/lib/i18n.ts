@@ -350,6 +350,8 @@ export const translations = {
       subtitle:
         "Don't just take our word for it — hear from sellers who trust MuggleShip.",
       verified: "Verified Customer",
+      reviewPrompt: "Worked with MuggleShip? Share your experience on Trustpilot.",
+      reviewFallback: "Review us on Trustpilot",
     },
     // Locations — two UK offices
     locations: {
@@ -812,6 +814,8 @@ export const translations = {
       subtitle:
         "Sadece bizim sozumuze guvenmeyin — MuggleShip'e guven duyan saticilari dinleyin.",
       verified: "Dogrulanmis Musteri",
+      reviewPrompt: "MuggleShip ile calistiniz mi? Deneyiminizi Trustpilot'ta paylasin.",
+      reviewFallback: "Bizi Trustpilot'ta degerlendirin",
     },
     locations: {
       badge: "Ofislerimiz",
