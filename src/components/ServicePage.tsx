@@ -43,6 +43,7 @@ import Reveal from "@/components/Reveal";
 import BackToTop from "@/components/BackToTop";
 import ScrollProgress from "@/components/ScrollProgress";
 import JsonLd from "@/components/JsonLd";
+import { guidesForService } from "@/content/guides";
 import { getService } from "@/content/services";
 import { CONTACT, SITE_URL } from "@/lib/site";
 import type { ServiceContent, ServiceIcon } from "@/lib/services";
@@ -95,6 +96,7 @@ const ctaStyle = {
 // BreadcrumbList and FAQPage structured data.
 export default function ServicePage({ service }: { service: ServiceContent }) {
   const url = `${SITE_URL}/services/${service.slug}/`;
+  const guides = guidesForService(service.slug);
   const related = service.related
     .map((slug) => getService(slug))
     .filter((s): s is ServiceContent => Boolean(s));
@@ -415,6 +417,32 @@ export default function ServicePage({ service }: { service: ServiceContent }) {
                   </Link>
                 ))}
               </div>
+
+              {guides.length > 0 && (
+                <>
+                  <div className="flex items-center gap-3 mt-16 mb-10">
+                    <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
+                    <span className="scene-label">Guides</span>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {guides.map((g) => (
+                      <Link
+                        key={g.slug}
+                        href={`/guides/${g.slug}/`}
+                        className="group flex flex-col p-7 rounded-2xl transition-colors"
+                        style={{ background: "var(--bg-card)", border: "1px solid var(--border-faint)" }}
+                      >
+                        <h3 className="text-lg font-medium text-[var(--ink-100)] mb-2">{g.h1}</h3>
+                        <p className="text-sm text-[var(--ink-400)] leading-relaxed mb-6">{g.metaDescription}</p>
+                        <span className="mt-auto inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.2em] text-[var(--ink-500)] group-hover:text-[var(--ember)] transition-colors">
+                          Read guide
+                          <ArrowUpRight size={14} />
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </section>
         )}

@@ -95,6 +95,7 @@ export function serviceHref(id: string) {
 export const PAGES = [
   { path: "/", lastModified: "2026-10-04", changeFrequency: "monthly", priority: 1 },
   { path: "/services/", lastModified: "2026-10-04", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/guides/", lastModified: "2026-10-04", changeFrequency: "weekly", priority: 0.7 },
   { path: "/privacy/", lastModified: "2026-10-04", changeFrequency: "yearly", priority: 0.3 },
   { path: "/terms/", lastModified: "2026-04-28", changeFrequency: "yearly", priority: 0.3 },
 ] as const;
