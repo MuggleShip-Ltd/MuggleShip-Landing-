@@ -34,7 +34,7 @@ export default function Analytics() {
     return () => window.removeEventListener(OPEN_COOKIE_SETTINGS, reopen);
   }, []);
 
-  // Contact-intent clicks: phone, email and every "Get a quote" CTA.
+  // Contact-intent clicks: phone, WhatsApp, email and every "Get a quote" CTA.
   useEffect(() => {
     if (consent !== "granted") return;
     const onClick = (e: MouseEvent) => {
@@ -44,6 +44,8 @@ export default function Analytics() {
       const text = (link.textContent || "").trim().slice(0, 100);
       if (href.startsWith("tel:")) {
         trackEvent("contact_phone_click", { link_text: text });
+      } else if (href.startsWith("https://wa.me/")) {
+        trackEvent("contact_whatsapp_click", { link_text: text || "WhatsApp" });
       } else if (href.startsWith("mailto:")) {
         trackEvent("contact_email_click", { link_text: text });
       } else if (href.endsWith("#contact")) {

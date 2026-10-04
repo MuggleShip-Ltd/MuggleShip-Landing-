@@ -25,7 +25,7 @@ export default function PrivacyPage() {
             Privacy Policy
           </h1>
           <p className="text-sm text-gray-500 mb-10">
-            {t.legal.lastUpdated}: October 1, 2026
+            {t.legal.lastUpdated}: October 4, 2026
           </p>
 
           <div className="prose-content space-y-6 text-gray-700 leading-relaxed">
@@ -67,6 +67,18 @@ export default function PrivacyPage() {
               provide: your name, company, email address, phone number,
               country, monthly volume, the services you are interested in, and
               the contents of your message.
+            </p>
+
+            <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-2">
+              WhatsApp messages
+            </h3>
+            <p className="text-base text-gray-700 leading-relaxed">
+              If you choose to message us on WhatsApp, we receive your phone
+              number, WhatsApp profile name and the messages you send, and use
+              them only to respond to your enquiry. The WhatsApp button is a
+              plain link: nothing is shared with WhatsApp until you click it.
+              WhatsApp (operated by Meta) processes these messages under its
+              own terms and privacy policy.
             </p>
 
             <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-2">

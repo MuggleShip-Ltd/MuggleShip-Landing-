@@ -14,7 +14,7 @@ export const translations = {
     },
     // Hero
     hero: {
-      badge: "Your UK Fulfillment Partner for Amazon & eCommerce",
+      badge: "UK FBA Prep & eCommerce Fulfillment for Amazon Sellers",
       title1: "Deliver Faster. Grow Smarter.",
       title2: "No Wands Required.",
       subtitle:
@@ -80,10 +80,10 @@ export const translations = {
     // Services Overview (NEW — top-level hub)
     servicesOverview: {
       kicker: "What we do",
-      title1: "Seven services.",
+      title1: "Eight services.",
       title2: "One operations partner.",
       subtitle:
-        "Whether you need core fulfillment, Amazon-specific tooling, or a complete operations stack — every service runs on the same warehouse, the same team, and the same flat-rate quote.",
+        "Whether you need core fulfillment, Amazon-specific tooling, or a complete operations stack — every service runs on the same warehouse, the same team, and one itemised quote.",
       learnMore: "Learn more",
       core: "Core Operations",
       amazon: "Amazon Tooling",
@@ -315,7 +315,7 @@ export const translations = {
       driver1Title: "Volume",
       driver1Desc: "Active SKU count and units shipped per month. Higher volume earns lower per-unit rates automatically.",
       driver2Title: "Service Mix",
-      driver2Desc: "Which of our seven services you use — FBA prep, fulfillment, returns, cross-border, repricing, analytics, listings.",
+      driver2Desc: "Which of our eight services you use — FBA prep, fulfillment, returns, cross-border, price automation, analytics, listings, buyer messaging.",
       driver3Title: "Storage",
       driver3Desc: "Box, pallet, shelf, or container storage — billed by space and duration, not by SKU.",
       stepsTitle: "From Inquiry to Onboarding",
@@ -411,7 +411,7 @@ export const translations = {
       infoLondonAddress: "86-90 Paul Street, London, EC2A 4NE",
       infoOps: "Operations",
       infoOpsAddress: "Unit 2, Caxton Rd, Bedford MK41 0LF",
-      infoHours: "Mon–Fri · 9:00–18:00 GMT",
+      infoHours: "Mon–Fri · 8:00–18:00 UK time",
       formTitle: "Request a quote",
       nameLabel: "Full name",
       namePh: "Jane Smith",
@@ -493,7 +493,7 @@ export const translations = {
       getQuote: "Teklif Al",
     },
     hero: {
-      badge: "Amazon ve e-Ticaret Icin Ingiltere Fulfillment Partneriniz",
+      badge: "Amazon Saticilari Icin Ingiltere FBA Prep ve e-Ticaret Fulfillment",
       title1: "Daha Hizli Teslim. Daha Akilli Buyume.",
       title2: "Sihire Gerek Yok.",
       subtitle:
@@ -555,7 +555,7 @@ export const translations = {
     },
     servicesOverview: {
       kicker: "Ne yapiyoruz",
-      title1: "Yedi hizmet.",
+      title1: "Sekiz hizmet.",
       title2: "Tek operasyon partneri.",
       subtitle:
         "Temel fulfillment, Amazon'a ozel araclar veya komple bir operasyon yigini — her hizmet ayni depo, ayni ekip ve ayni sabit teklifte.",
@@ -781,7 +781,7 @@ export const translations = {
       driver1Title: "Hacim",
       driver1Desc: "Aktif SKU sayisi ve aylik gonderim adedi. Daha yuksek hacim otomatik olarak daha dusuk birim ucret kazandirir.",
       driver2Title: "Hizmet Karmasi",
-      driver2Desc: "Yedi hizmetimizden hangilerini kullandiginiz — FBA prep, fulfillment, iadeler, sinir otesi, fiyatlandirma, analitik, listing.",
+      driver2Desc: "Sekiz hizmetimizden hangilerini kullandiginiz — FBA prep, fulfillment, iadeler, sinir otesi, fiyat otomasyonu, analitik, listing, alici mesajlasma.",
       driver3Title: "Depolama",
       driver3Desc: "Kutu, palet, raf veya konteyner depolama — alan ve sureye gore faturalanir, SKU sayisina degil.",
       stepsTitle: "Talepten Onboarding'e",
@@ -873,7 +873,7 @@ export const translations = {
       infoLondonAddress: "86-90 Paul Street, London, EC2A 4NE",
       infoOps: "Operasyon",
       infoOpsAddress: "Unit 2, Caxton Rd, Bedford MK41 0LF",
-      infoHours: "Pzt–Cum · 09:00–18:00 GMT",
+      infoHours: "Pzt–Cum · 08:00–18:00 (Ingiltere saati)",
       formTitle: "Teklif talep edin",
       nameLabel: "Ad Soyad",
       namePh: "Ayse Yilmaz",

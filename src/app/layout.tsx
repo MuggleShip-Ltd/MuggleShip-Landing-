@@ -4,6 +4,7 @@ import { LanguageProvider } from "@/lib/LanguageContext";
 import SmoothScroll from "@/components/SmoothScroll";
 import StructuredData from "@/components/StructuredData";
 import Analytics from "@/components/Analytics";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import {
   OG_IMAGE,
   SITE_DESCRIPTION,
@@ -103,6 +104,7 @@ export default function RootLayout({
         <StructuredData />
         <SmoothScroll />
         <LanguageProvider>{children}</LanguageProvider>
+        <WhatsAppButton />
         <Analytics />
       </body>
     </html>

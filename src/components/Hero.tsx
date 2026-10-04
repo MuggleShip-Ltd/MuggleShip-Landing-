@@ -7,7 +7,7 @@ import ScrollCue from "./ScrollCue";
 
 export default function Hero() {
   const { t } = useLanguage();
-  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const headlineRef = useRef<HTMLParagraphElement>(null);
   const emberA = useRef<HTMLDivElement>(null);
   const emberB = useRef<HTMLDivElement>(null);
 
@@ -92,12 +92,14 @@ export default function Hero() {
         >
           <span className="scene-label-ember">SCENE 01</span>
           <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
-          <span className="scene-label">{t.hero.badge}</span>
+          {/* The H1 carries the search keywords; the large display line
+              below is the brand tagline. */}
+          <h1 className="scene-label">{t.hero.badge}</h1>
         </div>
 
-        <h1
+        <p
           ref={headlineRef}
-          className="rv-words max-w-5xl text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.75rem] leading-[0.98] tracking-[-0.04em] font-medium text-[var(--ink-100)]"
+          className="rv-words text-balance max-w-5xl text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.75rem] leading-[0.98] tracking-[-0.04em] font-medium text-[var(--ink-100)]"
         >
           {renderWords(t.hero.title1)}
           <br />
@@ -116,7 +118,7 @@ export default function Hero() {
               )
             )}
           </span>
-        </h1>
+        </p>
 
         <p
           className="cinema-fade-up mt-8 max-w-2xl text-lg md:text-xl text-[var(--ink-300)] leading-relaxed"

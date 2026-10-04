@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import { trackEvent } from "@/lib/analytics";
+import { GOOGLE_MAPS } from "@/lib/site";
 import Reveal from "./Reveal";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
@@ -218,7 +219,18 @@ export default function ContactForm() {
                     </div>
                     <div className="flex items-start gap-2.5 text-sm" style={{ color: "var(--ink-200)" }}>
                       <MapPin size={15} strokeWidth={1.4} className="flex-shrink-0 mt-0.5" style={{ color: "var(--ember-glow)" }} />
-                      <span className="font-mono">{t.contact.infoOpsAddress}</span>
+                      <span className="font-mono">
+                        {t.contact.infoOpsAddress}
+                        <br />
+                        <a
+                          href={GOOGLE_MAPS.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline underline-offset-2 hover:text-[var(--ember)] transition-colors"
+                        >
+                          Get directions
+                        </a>
+                      </span>
                     </div>
                   </div>
                 </div>

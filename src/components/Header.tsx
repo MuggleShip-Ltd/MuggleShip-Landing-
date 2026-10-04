@@ -36,10 +36,10 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/logo.png"
+              src="/logo-light.png"
               alt="MuggleShip"
-              width={140}
-              height={32}
+              width={134}
+              height={28}
               className="h-7 w-auto"
               priority
             />

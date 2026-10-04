@@ -36,28 +36,65 @@ export const ADDRESSES = {
     addressCountry: "GB",
   },
   bedford: {
-    streetAddress: "Unit 2, Caxton Road",
+    // Matches the Google Business Profile listing.
+    streetAddress: "Unit 2, Caxton Road, Elms Farm Industrial Estate",
     addressLocality: "Bedford",
     postalCode: "MK41 0LF",
     addressCountry: "GB",
   },
 };
 
-export const SERVICES = [
-  { id: "fba-prep", name: "FBA Prep", description: "FNSKU labeling, poly bagging, palletization and direct-to-Amazon dispatch from the UK." },
-  { id: "fulfillment", name: "eCommerce Fulfillment", description: "Pick, pack and ship for Shopify, eBay, Walmart, WooCommerce and BigCommerce orders." },
-  { id: "cross-border", name: "Cross-Border Shipping", description: "DDP shipping, customs clearance and multi-marketplace dispatch." },
-  { id: "returns", name: "Returns Management", description: "End-to-end RMA handling with restock or disposal and same-day processing." },
-  { id: "automated-pricing", name: "Amazon Price Automation", description: "Rule-based price updates via Amazon SP-API using the seller's own margin and pricing rules." },
+// `id` is the anchor on the home page; `slug` (when present) is the
+// dedicated landing page at /services/<slug>/.
+// Bedford warehouse on Google Maps (Business Profile place ID).
+export const GOOGLE_MAPS = {
+  placeId: "ChIJPZdQJ07oIwcR5fYgoVJyCbs",
+  url: "https://www.google.com/maps/search/?api=1&query=MuggleShip%20LTD%2C%20Bedford&query_place_id=ChIJPZdQJ07oIwcR5fYgoVJyCbs",
+  geo: { latitude: 52.1473978, longitude: -0.4116776 },
+};
+
+// Public profiles. Leave a value empty to hide its footer icon; filled
+// values are also listed as sameAs in the structured data.
+export const SOCIAL = {
+  linkedin: "",
+  instagram: "",
+};
+
+// Floating WhatsApp button (wa.me click-to-chat — no third-party script).
+export const WHATSAPP = {
+  number: "447931580067",
+  message: "Hi MuggleShip, I'd like to ask about your services.",
+};
+
+export const TRUSTPILOT_URL = "https://www.trustpilot.com/review/www.muggleship.com";
+
+export const SERVICES: {
+  id: string;
+  slug?: string;
+  name: string;
+  description: string;
+}[] = [
+  { id: "fba-prep", slug: "fba-prep-uk", name: "FBA Prep", description: "FNSKU labeling, poly bagging, palletization and direct-to-Amazon dispatch from the UK." },
+  { id: "fulfillment", slug: "ecommerce-fulfillment-uk", name: "eCommerce Fulfillment", description: "Pick, pack and ship for Shopify, eBay, Walmart, WooCommerce and BigCommerce orders." },
+  { id: "cross-border", slug: "cross-border-shipping", name: "Cross-Border Shipping", description: "DDP shipping, customs clearance and multi-marketplace dispatch." },
+  { id: "returns", slug: "returns-management", name: "Returns Management", description: "End-to-end RMA handling with restock or disposal and same-day processing." },
+  { id: "automated-pricing", slug: "amazon-price-automation", name: "Amazon Price Automation", description: "Rule-based price updates via Amazon SP-API using the seller's own margin and pricing rules." },
   { id: "analytics", name: "Amazon Analytics & Reporting", description: "Inventory health, fulfillment SLA, sales velocity and restock reporting." },
-  { id: "listing-optimization", name: "Amazon Listing Optimization", description: "Listing creation, A+ content, keyword research and image optimization." },
+  { id: "listing-optimization", slug: "amazon-listing-optimization", name: "Amazon Listing Optimization", description: "Listing creation, A+ content, keyword research and image optimization." },
   { id: "buyer-messaging", name: "Buyer-Seller Messaging", description: "Order enquiries, dispatch updates and returns correspondence handled on the seller's behalf." },
 ];
 
-// Pages listed in sitemap.xml. Update lastModified when a page's content
-// materially changes.
+/** Link target for a service: its landing page if it has one, else the home-page section. */
+export function serviceHref(id: string) {
+  const s = SERVICES.find((x) => x.id === id);
+  return s?.slug ? `/services/${s.slug}/` : `/#${id}`;
+}
+
+// Static pages listed in sitemap.xml (service pages are added from the
+// content registry). Update lastModified when a page materially changes.
 export const PAGES = [
-  { path: "/", lastModified: "2026-10-01", changeFrequency: "monthly", priority: 1 },
-  { path: "/privacy/", lastModified: "2026-10-01", changeFrequency: "yearly", priority: 0.3 },
+  { path: "/", lastModified: "2026-10-04", changeFrequency: "monthly", priority: 1 },
+  { path: "/services/", lastModified: "2026-10-04", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/privacy/", lastModified: "2026-10-04", changeFrequency: "yearly", priority: 0.3 },
   { path: "/terms/", lastModified: "2026-04-28", changeFrequency: "yearly", priority: 0.3 },
 ] as const;
