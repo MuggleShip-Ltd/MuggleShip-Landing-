@@ -40,6 +40,7 @@ export default function Footer() {
   ];
 
   const resourceLinks = [
+    { name: "Guides", href: "/guides/" },
     { name: t.footer.privacy, href: "/privacy" },
     { name: t.footer.terms, href: "/terms" },
   ];
