@@ -12,23 +12,24 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+import { serviceHref } from "@/lib/site";
 import Reveal from "./Reveal";
 
 export default function ServicesOverview() {
   const { t } = useLanguage();
 
   const core = [
-    // ids are the targets of the footer's service links (/#fba-prep …)
-    { icon: Tag, title: t.servicesOverview.svc1Title, desc: t.servicesOverview.svc1Desc, href: "#contact", num: "01", id: "fba-prep" },
-    { icon: PackageCheck, title: t.servicesOverview.svc2Title, desc: t.servicesOverview.svc2Desc, href: "#contact", num: "02", id: "fulfillment" },
-    { icon: Globe, title: t.servicesOverview.svc3Title, desc: t.servicesOverview.svc3Desc, href: "#contact", num: "03", id: "cross-border" },
-    { icon: RotateCcw, title: t.servicesOverview.svc4Title, desc: t.servicesOverview.svc4Desc, href: "#contact", num: "04", id: "returns" },
+    // ids keep old /#fba-prep … links working; cards open the service pages
+    { icon: Tag, title: t.servicesOverview.svc1Title, desc: t.servicesOverview.svc1Desc, href: serviceHref("fba-prep"), num: "01", id: "fba-prep" },
+    { icon: PackageCheck, title: t.servicesOverview.svc2Title, desc: t.servicesOverview.svc2Desc, href: serviceHref("fulfillment"), num: "02", id: "fulfillment" },
+    { icon: Globe, title: t.servicesOverview.svc3Title, desc: t.servicesOverview.svc3Desc, href: serviceHref("cross-border"), num: "03", id: "cross-border" },
+    { icon: RotateCcw, title: t.servicesOverview.svc4Title, desc: t.servicesOverview.svc4Desc, href: serviceHref("returns"), num: "04", id: "returns" },
   ];
 
   const amazon = [
-    { icon: TrendingUp, title: t.servicesOverview.svc5Title, desc: t.servicesOverview.svc5Desc, href: "#automated-pricing", num: "05" },
+    { icon: TrendingUp, title: t.servicesOverview.svc5Title, desc: t.servicesOverview.svc5Desc, href: serviceHref("automated-pricing"), num: "05" },
     { icon: ChartLine, title: t.servicesOverview.svc6Title, desc: t.servicesOverview.svc6Desc, href: "#analytics", num: "06" },
-    { icon: Sparkles, title: t.servicesOverview.svc7Title, desc: t.servicesOverview.svc7Desc, href: "#listing-optimization", num: "07" },
+    { icon: Sparkles, title: t.servicesOverview.svc7Title, desc: t.servicesOverview.svc7Desc, href: serviceHref("listing-optimization"), num: "07" },
     { icon: MessageSquare, title: t.servicesOverview.svc8Title, desc: t.servicesOverview.svc8Desc, href: "#buyer-messaging", num: "08" },
   ];
 

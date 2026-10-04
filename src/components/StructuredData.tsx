@@ -1,11 +1,15 @@
+import JsonLd from "@/components/JsonLd";
 import {
   ADDRESSES,
   CONTACT,
+  GOOGLE_MAPS,
   OG_IMAGE,
   SERVICES,
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_URL,
+  SOCIAL,
+  TRUSTPILOT_URL,
 } from "@/lib/site";
 
 // schema.org graph for the whole site: the company, its two UK
@@ -28,8 +32,8 @@ export default function StructuredData() {
         logo: {
           "@type": "ImageObject",
           url: `${SITE_URL}/logo.png`,
-          width: 4231,
-          height: 886,
+          width: 960,
+          height: 201,
         },
         image: `${SITE_URL}${OG_IMAGE.url}`,
         description: SITE_DESCRIPTION,
@@ -37,6 +41,7 @@ export default function StructuredData() {
         telephone: CONTACT.phoneE164,
         address: { "@type": "PostalAddress", ...ADDRESSES.london },
         areaServed: "Worldwide",
+        sameAs: [TRUSTPILOT_URL, ...Object.values(SOCIAL).filter(Boolean)],
         contactPoint: {
           "@type": "ContactPoint",
           contactType: "sales",
@@ -52,7 +57,12 @@ export default function StructuredData() {
             "@type": "Offer",
             itemOffered: {
               "@type": "Service",
-              "@id": `${SITE_URL}/#${s.id}`,
+              // Same @id as the Service node on the landing page, so the
+              // two descriptions merge into one entity.
+              "@id": s.slug
+                ? `${SITE_URL}/services/${s.slug}/#service`
+                : `${SITE_URL}/#${s.id}`,
+              ...(s.slug && { url: `${SITE_URL}/services/${s.slug}/` }),
               name: s.name,
               description: s.description,
               provider: { "@id": orgId },
@@ -70,11 +80,13 @@ export default function StructuredData() {
         email: CONTACT.email,
         telephone: CONTACT.phoneE164,
         address: { "@type": "PostalAddress", ...ADDRESSES.bedford },
+        geo: { "@type": "GeoCoordinates", ...GOOGLE_MAPS.geo },
+        hasMap: GOOGLE_MAPS.url,
         parentOrganization: { "@id": orgId },
         openingHoursSpecification: {
           "@type": "OpeningHoursSpecification",
           dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          opens: "09:00",
+          opens: "08:00",
           closes: "18:00",
         },
       },
@@ -90,12 +102,5 @@ export default function StructuredData() {
     ],
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(graph).replace(/</g, "\\u003c"),
-      }}
-    />
-  );
+  return <JsonLd data={graph} />;
 }

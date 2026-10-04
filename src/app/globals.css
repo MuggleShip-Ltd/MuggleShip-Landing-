@@ -829,3 +829,11 @@ h1, h2, h3 {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum", "ss01";
 }
+
+/* The root is color-scheme: dark, but the Trustpilot TrustBox iframe
+   renders a light document. When the two differ, Chrome paints an opaque
+   white canvas behind the frame; matching them keeps it transparent so
+   only Trustpilot's own button shows. */
+.trustpilot-widget iframe {
+  color-scheme: light;
+}
