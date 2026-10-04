@@ -30,7 +30,7 @@ const service: ServiceContent = {
     {
       icon: "plane",
       title: "Carrier choice and tracking",
-      desc: "We work with major UK and international carriers such as Royal Mail, DPD, Evri, DHL, UPS and FedEx, with multiple carrier options and tracking.",
+      desc: "Cross-border parcels travel with tracking on international carriers such as DHL, UPS, FedEx and Royal Mail, using the carrier options agreed with you during onboarding.",
     },
     {
       icon: "warehouse",
@@ -61,9 +61,9 @@ const service: ServiceContent = {
       ],
     },
     {
-      heading: "Multi-marketplace dispatch from a UK stock base",
+      heading: "Cross-border orders from every marketplace, dispatched from Bedford",
       paragraphs: [
-        "Cross-border eCommerce shipping rarely runs through a single channel: international buyers can reach you through Amazon, eBay, Walmart, Etsy or your own Shopify, WooCommerce or BigCommerce store. We connect those channels during onboarding, so cross-border orders are imported automatically next to your UK orders and dispatched from the same inventory at our Bedford warehouse. You do not need a separate stock holding, or a separate provider, for each marketplace you sell on.",
+        "Cross-border eCommerce shipping rarely runs through a single channel: international buyers can reach you through Amazon, eBay, Walmart, Etsy or your own Shopify, WooCommerce or BigCommerce store. We connect those channels during onboarding, so cross-border orders are imported automatically next to your UK orders and dispatched from the same inventory at our Bedford warehouse. How that shared stock pool works is covered on our eCommerce Fulfillment page; here, the focus is what happens to orders that cross a border.",
         "The same set-up works for brands based outside the UK. You hold stock at our Bedford warehouse and use it to serve UK customers directly, without running a UK warehouse of your own. When an order comes in from a buyer in the EU or further afield, it ships onward from that same stock on DDP terms. We handle customs clearance for that order and send the parcel with a tracked carrier such as DHL, UPS or FedEx.",
         "On Amazon, cross-border dispatch from Bedford covers the orders that you, rather than Amazon, are responsible for fulfilling, using the stock you hold with us. Units you have already sent into Amazon’s fulfillment centres are shipped by Amazon, not by us. If you sell both ways, our FBA Prep service can label, pack and send FBA stock into Amazon from the same Bedford inventory. One stock pool then supplies both your own dispatches and your FBA replenishment.",
       ],
@@ -84,7 +84,7 @@ const service: ServiceContent = {
     },
     {
       title: "Onboarding and customs data",
-      desc: "Onboarding is completed within 5 business days of a signed quote, covering inventory intake, channel setup and procedure alignment. Before your first cross-border shipment, you also supply each SKU’s HS code, description, value and origin.",
+      desc: "Onboarding takes place within 5 business days of a signed quote, covering inventory intake, channel setup and procedure alignment; intake timing depends on when your stock reaches Bedford. You also supply each SKU’s HS code, description, value and origin.",
     },
     {
       title: "Stock checked in at Bedford",
@@ -118,15 +118,15 @@ const service: ServiceContent = {
     },
     {
       q: "Do I need an EORI or IOSS number?",
-      a: "If your business moves goods out of Great Britain, you will normally need a GB EORI number, which HMRC issues. IOSS is an optional EU scheme for charging VAT at checkout on eligible lower-value sales into the EU. Whether it suits you depends on how you sell, including whether a marketplace already handles that VAT for you. Ask your accountant or customs adviser before your first cross-border shipment.",
+      a: "An EORI number identifies a business to customs authorities when it moves goods into or out of the UK or the EU, and IOSS is an EU scheme for charging VAT at checkout on eligible sales into the EU. Which of these apply depends on your business, where you sell and whether a marketplace already handles that VAT for you. Ask your accountant or customs adviser before your first cross-border shipment.",
     },
     {
       q: "I am based outside the UK. Can I use MuggleShip as a base for international eCommerce shipping?",
       a: "Yes. You send inventory to our Bedford warehouse, and that one stock pool serves two kinds of order. UK orders go out as domestic parcels, while EU and other international orders leave on DDP terms, and we handle customs clearance for those outbound orders. Bringing that stock into the UK is a separate import step, so confirm with your customs adviser who will act as importer before your first delivery to Bedford.",
     },
     {
-      q: "Can you ship my Amazon, eBay and Shopify orders abroad from one stock pool?",
-      a: "Yes. We integrate with Amazon, eBay, Walmart, Etsy, Shopify, WooCommerce and BigCommerce. After onboarding, international orders from each connected channel join the same queue as your UK orders, are picked from your Bedford stock and leave DDP with tracking. You hold one stock pool rather than splitting units between channels or countries, so a new connected marketplace draws on the same inventory.",
+      q: "Do DDP shipping and customs clearance apply to orders from every channel?",
+      a: "Yes. Once a marketplace or store is connected, every international order we dispatch for that channel ships DDP, with customs clearance handled by MuggleShip. Clearance uses the same customs data for each SKU (description, HS code, declared value and country of origin), so you supply it once per product, not once per channel. Orders Amazon fulfils from your FBA stock are shipped by Amazon, not by us.",
     },
     {
       q: "How much does cross-border shipping from the UK cost?",

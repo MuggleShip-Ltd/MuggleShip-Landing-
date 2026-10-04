@@ -3,7 +3,7 @@ import type { ServiceContent } from "@/lib/services";
 const service: ServiceContent = {
   slug: "fba-prep-uk",
   name: "FBA Prep",
-  metaTitle: "FBA Prep UK: FBA Prep Centre in Bedford",
+  metaTitle: "FBA Prep UK: Amazon Prep Centre in Bedford",
   metaDescription:
     "FBA prep UK from our Bedford warehouse: every item inspected, FNSKU labelled, bagged where needed and palletised, then shipped into Amazon. Quote in 24 hours.",
   kicker: "FBA prep for Amazon sellers",
@@ -68,9 +68,9 @@ const service: ServiceContent = {
     {
       heading: "Combining our FBA prep service with storage, returns and listings",
       paragraphs: [
-        "Not every unit has to go into Amazon at once. Sending a full production run into FBA in one go may not match how quickly it sells. Instead, you can hold the balance in Bedford and prep it in batches as you create new shipment plans. Storage is charged for the space your stock takes up and for how long, so the cost follows the pallets and shelves you use, not the number of SKUs.",
-        "Customer returns sent to our Bedford warehouse go through Returns Management. We handle the RMA (return merchandise authorisation), inspect each item, then restock sellable items or dispose of damaged goods, following the instructions you set. Restocked units join the same inventory as your reserve FBA stock. They can then be FNSKU labelled and prepped for a later FBA shipment instead of sitting on a shelf.",
-        "Prep only works if the listing behind each FNSKU is right. Amazon Listing Optimization covers listing creation and edits, parent/child variations, A+ content, keyword research and image optimisation, done by people who sell on Amazon. It is available as a standalone service or bundled with fulfillment, which suits sellers launching new SKUs who want the listings and the first inbound shipment handled by one provider.",
+        "Not every unit has to go into Amazon at once. Sending a full production run into FBA in one go may not match how quickly it sells. Instead, you can hold the balance in Bedford and prep it in batches as you create new shipment plans. Each batch goes through the same inspection, labelling and palletisation as the first.",
+        "Returns from orders we dispatch from Bedford go through Returns Management (returns on FBA orders go back to Amazon under its own returns process). We handle the RMA (return merchandise authorisation), inspect each item, then restock sellable items or dispose of damaged goods, following the instructions you set. Restocked units join the same inventory as your reserve FBA stock. They can then be FNSKU labelled and prepped for a later FBA shipment instead of sitting on a shelf.",
+        "Prep only works if the listing behind each FNSKU is right. If you are launching new SKUs, Amazon Listing Optimization can build the listings before your first inbound shipment; it is available as a standalone service or bundled with fulfillment. For SKUs already live but underperforming, a listing audit produces a prioritised fix list.",
       ],
     },
   ],
@@ -111,7 +111,7 @@ const service: ServiceContent = {
     },
     {
       q: "Do you ship the prepped stock into Amazon fulfillment centres for me?",
-      a: "Yes. Shipping into the Amazon fulfillment centres in your shipment plan is part of FBA Prep. We do it on your behalf once units are inspected, labelled, bagged where needed and palletised. If you also sell to customers in the EU or elsewhere outside the UK, ask about Cross-Border Shipping. It offers DDP dispatch from the UK, with customs clearance handled by MuggleShip, so your customers face no surprise fees on delivery.",
+      a: "Yes. Shipping into the Amazon fulfillment centres in your shipment plan is part of FBA Prep. We do it on your behalf once units are inspected, labelled, bagged where needed and palletised. For orders outside FBA that go to customers beyond the UK, see Cross-Border Shipping.",
     },
     {
       q: "Can you store my stock and send it into FBA in batches?",
@@ -119,7 +119,7 @@ const service: ServiceContent = {
     },
     {
       q: "How much does FBA prep cost?",
-      a: "FBA prep is quoted per account rather than from a fixed rate card. The drivers are your active SKUs, units per month and the prep steps each SKU needs. A unit that only needs an FNSKU label takes less handling than one that also needs an old label removed and bubble wrap. Storage for reserve stock is billed by space and duration. Higher volumes earn lower per-unit rates, and there is no setup fee, subscription or long-term contract.",
+      a: "FBA prep is quoted per account rather than from a fixed rate card. The drivers are your active SKUs, units per month and the prep steps each SKU needs. A unit that only needs an FNSKU label takes less handling than one that also needs an old label removed and bubble wrap. Storage for reserve stock is quoted alongside prep. Higher volumes earn lower per-unit rates, and there is no setup fee, subscription or long-term contract.",
     },
     {
       q: "Where is your prep centre, and where is it in relation to London?",

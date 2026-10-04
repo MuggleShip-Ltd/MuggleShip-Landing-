@@ -79,7 +79,7 @@ const service: ServiceContent = {
   process: [
     {
       title: "Request access",
-      desc: "Tell us which Amazon marketplaces you sell in and how your catalogue is organised. If you are not yet a fulfillment client, we send an itemised, no-obligation quote within 24 hours.",
+      desc: "Tell us which Amazon marketplaces you sell in and how your catalogue is organised, and we send an itemised, no-obligation quote within 24 hours. New to MuggleShip? It also covers fulfillment, since price automation is available to fulfillment clients.",
     },
     {
       title: "Onboard and authorise SP-API",

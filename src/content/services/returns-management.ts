@@ -3,7 +3,7 @@ import type { ServiceContent } from "@/lib/services";
 const service: ServiceContent = {
   slug: "returns-management",
   name: "Returns Management",
-  metaTitle: "eCommerce Returns Management UK and RMA Handling",
+  metaTitle: "eCommerce Returns Management UK: RMA Handling",
   metaDescription:
     "eCommerce returns management UK: returns processed same day, inspected and checked against your rules, then restocked or disposed of. Quote in 24 hours.",
   kicker: "Returns processing service",
@@ -63,7 +63,7 @@ const service: ServiceContent = {
       heading: "Returns for Shopify and marketplace sellers, resold on any connected channel",
       paragraphs: [
         "Returns Management uses the same Bedford stock as our eCommerce Fulfillment. A UK customer who bought from your Shopify store, or from a marketplace such as eBay or Etsy, sends the item back to the warehouse it was dispatched from, and it is restocked into the same inventory. There is no separate returns stock to reconcile, and a unit that passes inspection can be sold again on whichever connected channel orders it next.",
-        "If you also use our FBA Prep service, sellable returns from orders we handle can, on your instruction, be FNSKU labelled and included in a later shipment into Amazon FBA fulfillment centres, prepared to Amazon’s prep and packaging requirements. The FNSKU is the Amazon barcode that links each unit to your seller account. Restocked units can also fill Cross-Border Shipping orders, sent DDP (delivered duty paid) so international buyers face no surprise fees on delivery.",
+        "If you also use our FBA Prep service, sellable returns from orders we handle can, on your instruction, be FNSKU labelled and included in a later shipment into Amazon FBA fulfillment centres, prepared to Amazon’s prep and packaging requirements. Restocked units can also fill Cross-Border Shipping orders, sent DDP (delivered duty paid) so international buyers face no surprise fees on delivery.",
       ],
     },
     {
@@ -81,7 +81,7 @@ const service: ServiceContent = {
     },
     {
       title: "Agree your handling rules",
-      desc: "Onboarding is completed within 5 business days of a signed quote. In that time your stock and sales channels are set up, and your handling rules for each product are added to our team’s SOPs.",
+      desc: "Onboarding takes place within 5 business days of a signed quote. In that time your stock and sales channels are set up, and your handling rules for each product are added to our team’s SOPs.",
     },
     {
       title: "Returns received and checked",

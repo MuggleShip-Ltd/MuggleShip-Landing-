@@ -9,7 +9,7 @@ const service: ServiceContent = {
   kicker: "UK 3PL fulfillment",
   h1: "eCommerce fulfillment UK: we store, pick, pack and ship from Bedford",
   intro:
-    "MuggleShip provides eCommerce fulfillment in the UK for UK-based and international brands from its Bedford warehouse. We hold your stock, and orders from Shopify, Amazon, eBay, Walmart, WooCommerce, BigCommerce and Etsy arrive automatically to be picked, checked, packed and dispatched with tracking. As a UK 3PL, we serve your web and marketplace orders from one stock pool, with FBA Prep and returns available from the same team.",
+    "MuggleShip provides eCommerce fulfillment in the UK for UK-based and international brands from its Bedford warehouse. We hold your stock, and orders from Shopify, Amazon, eBay, Walmart, WooCommerce, BigCommerce and Etsy arrive automatically to be picked, checked, packed and dispatched with tracking. As a UK 3PL, we serve your web and marketplace orders from one stock pool, with FBA Prep and Returns Management available from the same team.",
   highlights: ["Same-day order processing", "Storage billed by space, not SKU", "No setup fees or long contracts"],
   included: [
     {
@@ -47,7 +47,7 @@ const service: ServiceContent = {
     {
       heading: "What a UK 3PL does with your eCommerce orders",
       paragraphs: [
-        "Outsourcing eCommerce fulfillment means handing the physical side of selling to a third-party logistics provider, or 3PL. You send stock to our Bedford warehouse; we receive it, store it and keep the inventory records. When a customer orders, we pick the item, check it, pack it and pass it to a carrier with tracking. Your team keeps control of products, pricing and customers without packing parcels or renting space.",
+        "Outsourcing eCommerce fulfillment (often spelt fulfilment in the UK) means handing the physical side of selling to a third-party logistics provider, or 3PL. You send stock to our Bedford warehouse; we receive it, store it and keep the inventory records. When a customer orders, we pick the item, check it, pack it and pass it to a carrier with tracking. Your team keeps control of products, pricing and customers without packing parcels or renting space.",
         "Your stock is held at our warehouse on the Elms Farm Industrial Estate in Bedford, where a single operations team picks and packs your web and marketplace orders. The same team handles FBA Prep and Returns Management if you add them. You deal with one set of people for fulfillment, Amazon shipments and returns rather than separate providers. Sales and onboarding conversations are handled by our London office.",
         "We work on same-day processing, so orders imported from your channels are processed promptly rather than left to build up. Shipments go out with tracking through the carriers agreed for your account. If you promise fast delivery to marketplace buyers, ask which dispatch cut-off times apply to your carriers when you request a quote. MuggleShip has worked with eCommerce sellers since 2021.",
       ],
@@ -56,7 +56,7 @@ const service: ServiceContent = {
       heading: "Shopify, eBay and Walmart order fulfillment from one stock pool",
       paragraphs: [
         "If you need Shopify fulfillment in the UK, we connect your Shopify store during onboarding, along with any other supported channels you sell on, such as eBay or Walmart. From then on, new orders are imported automatically and join one queue at our Bedford warehouse. You carry on selling and managing listings on each platform, while our team picks, packs and ships what comes in.",
-        "Multichannel fulfillment works best when every channel draws on one stock pool. Rather than splitting inventory between a web-shop warehouse and a marketplace warehouse, you keep a single holding in Bedford that serves all of your connected channels. If you also sell through Amazon FBA, FBA Prep can be added to your account and is run by the same Bedford team. FNSKU labelling is part of Amazon's prep and packaging requirements, so we apply it before stock leaves Bedford.",
+        "Multichannel fulfillment works best when every channel draws on one stock pool. Rather than splitting inventory between a web-shop warehouse and a marketplace warehouse, you keep a single holding in Bedford that serves all of your connected channels. If you also sell through Amazon FBA, FBA Prep can be added to your account and is run by the same Bedford team. FBA Prep includes FNSKU labelling, so units are labelled before stock leaves Bedford.",
         "eBay and Walmart order fulfillment follows the same process as Shopify: orders are imported automatically, picked from the shared stock, checked, packed and dispatched with tracking. Connecting another supported marketplace therefore adds orders to an existing queue rather than another stock holding to manage. When an order is bound for a buyer outside the UK, it can ship from the same stock through our Cross-Border Shipping service.",
       ],
     },
@@ -71,8 +71,8 @@ const service: ServiceContent = {
     {
       heading: "What switching eCommerce fulfillment to a UK 3PL involves",
       paragraphs: [
-        "Onboarding is scheduled within 5 business days of your quote being signed and covers inventory intake, connecting your sales channels and agreeing the packing and carrier procedures for your account. Intake depends on when your stock reaches Bedford. Until it has arrived and your channels are connected, it usually makes sense to keep your current provider shipping, so orders are not left waiting during the move.",
-        "Your eCommerce fulfilment costs are set out in an itemised quote based on active SKUs, monthly units, storage and the services you add. Higher volumes earn lower per-unit rates. Share your current order volumes and stock holding when you enquire, so you can compare each line with what you pay your existing provider. If you decide to leave later, there is no long-term contract to run down.",
+        "Onboarding takes place within 5 business days of a signed quote and covers inventory intake, connecting your sales channels and agreeing the packing and carrier procedures for your account. Intake depends on when your stock reaches Bedford. Until it has arrived and your channels are connected, it usually makes sense to keep your current provider shipping, so orders are not left waiting during the move.",
+        "Your eCommerce fulfillment costs are set out in an itemised quote based on active SKUs, monthly units, storage and the services you add. Higher volumes earn lower per-unit rates. Share your current order volumes and stock holding when you enquire, so you can compare each line with what you pay your existing provider. If you decide to leave later, there is no long-term contract to run down.",
       ],
     },
   ],
@@ -83,7 +83,7 @@ const service: ServiceContent = {
     },
     {
       title: "Onboarding and integration",
-      desc: "Onboarding happens within 5 business days of signing. We connect your sales channels, agree packing and carrier procedures for your products and arrange intake for your inventory.",
+      desc: "Onboarding takes place within 5 business days of a signed quote. We connect your sales channels, agree packing and carrier procedures for your products and arrange intake for your inventory.",
     },
     {
       title: "Send stock to Bedford",
@@ -91,7 +91,7 @@ const service: ServiceContent = {
     },
     {
       title: "Ongoing order fulfillment",
-      desc: "Orders flow in automatically and go through same-day processing, then are picked, checked, packed and handed to your chosen carrier with tracking. If you add them, FBA Prep and returns are handled by the same team.",
+      desc: "Orders flow in automatically and go through same-day processing, then are picked, checked, packed and handed to your chosen carrier with tracking. If you add them, FBA Prep and Returns Management are handled by the same team.",
     },
   ],
   idealFor: [
@@ -125,7 +125,7 @@ const service: ServiceContent = {
     },
     {
       q: "How quickly can we start shipping orders?",
-      a: "An itemised, no-obligation quote reaches you within 24 hours of enquiring, and onboarding is carried out within 5 business days once you sign it. Onboarding covers inventory intake, connecting your sales channels and agreeing packing and carrier procedures, after which live orders move into same-day processing. How soon intake is complete depends on when your stock reaches Bedford.",
+      a: "An itemised, no-obligation quote reaches you within 24 hours of enquiring, and onboarding takes place within 5 business days of a signed quote. Onboarding covers inventory intake, connecting your sales channels and agreeing packing and carrier procedures, after which live orders move into same-day processing. How soon intake is complete depends on when your stock reaches Bedford.",
     },
     {
       q: "Which carriers do you use, and can you ship internationally?",
