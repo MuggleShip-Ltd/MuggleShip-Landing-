@@ -56,8 +56,8 @@ export const GOOGLE_MAPS = {
 // Public profiles. Leave a value empty to hide its footer icon; filled
 // values are also listed as sameAs in the structured data.
 export const SOCIAL = {
-  linkedin: "",
-  instagram: "",
+  linkedin: "https://www.linkedin.com/company/muggleship-ltd/",
+  instagram: "https://www.instagram.com/muggleshipltd/",
 };
 
 // Floating WhatsApp button (wa.me click-to-chat — no third-party script).
