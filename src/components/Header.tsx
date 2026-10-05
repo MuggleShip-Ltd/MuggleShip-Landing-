@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+import { PORTALS } from "@/lib/site";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -21,6 +22,7 @@ export default function Header() {
     { name: t.nav.services, href: "/#services" },
     { name: t.nav.pricing, href: "/#pricing" },
     { name: t.nav.about, href: "/#about" },
+    { name: "Guides", href: "/guides/" },
     { name: t.nav.contact, href: "/#contact" },
   ];
 
@@ -50,14 +52,20 @@ export default function Header() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-[var(--ink-300)] hover:text-[var(--ink-100)] transition-colors"
+                className="py-2 text-sm font-medium text-[var(--ink-300)] hover:text-[var(--ink-100)] transition-colors"
               >
                 {link.name}
               </Link>
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-4">
+            <a
+              href={PORTALS.app.href}
+              className="py-2 text-sm font-medium text-[var(--ink-300)] hover:text-[var(--ink-100)] transition-colors"
+            >
+              {PORTALS.app.label}
+            </a>
             <Link
               href="/#contact"
               className="group inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-full transition-all"
@@ -76,7 +84,9 @@ export default function Header() {
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="p-2 text-[var(--ink-200)]"
-              aria-label="Toggle menu"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
             >
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
@@ -85,7 +95,7 @@ export default function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-[var(--bg-base)] border-t border-[var(--border-faint)]">
+        <div id="mobile-menu" className="md:hidden bg-[var(--bg-base)] border-t border-[var(--border-faint)]">
           <div className="px-4 py-4 space-y-1">
             {navLinks.map((link) => (
               <Link
@@ -97,6 +107,12 @@ export default function Header() {
                 {link.name}
               </Link>
             ))}
+            <a
+              href={PORTALS.app.href}
+              className="block text-base font-medium text-[var(--ink-200)] hover:text-[var(--ink-100)] py-2.5"
+            >
+              {PORTALS.app.label}
+            </a>
             <Link
               href="/#contact"
               onClick={() => setMobileOpen(false)}

@@ -202,6 +202,19 @@ export default function ServicePage({ service }: { service: ServiceContent }) {
               </a>
             </div>
 
+            {service.portal && (
+              <p className="mt-5 text-sm text-[var(--ink-400)]">
+                {service.portal.note}{" "}
+                <a
+                  href={service.portal.href}
+                  className="inline-flex items-center gap-1 text-[var(--ember)] hover:text-[var(--ember-glow)] underline underline-offset-4"
+                >
+                  {service.portal.label}
+                  <ArrowUpRight size={14} />
+                </a>
+              </p>
+            )}
+
             <ul className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-y-5 gap-x-10 max-w-3xl">
               {service.highlights.map((h, i) => (
                 <li key={h} className="flex items-baseline gap-3">

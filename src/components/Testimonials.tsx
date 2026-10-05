@@ -26,7 +26,6 @@ export default function Testimonials() {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const total = testimonials.length;
-  const active = testimonials[index];
 
   const clearTimer = () => {
     if (intervalRef.current) {
@@ -84,7 +83,6 @@ export default function Testimonials() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20 md:mb-28">
             <div className="lg:col-span-5">
               <div className="flex items-center gap-3 mb-6">
-                <span className="scene-label-ember">SCENE 09</span>
                 <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
                 <span className="scene-label">{t.testimonials.badge}</span>
               </div>
@@ -124,28 +122,39 @@ export default function Testimonials() {
             &ldquo;
           </span>
 
-          {/* Quote — re-keyed for fade animation */}
-          <div key={index} className="cinema-fade-up relative">
-            <blockquote
-              className="font-display italic text-3xl md:text-5xl leading-tight tracking-tight text-[var(--ink-100)]"
-            >
-              {active.text}
-            </blockquote>
+          {/* Every quote sits in the same grid cell, so the stage is always
+              as tall as the longest one and rotating never shifts the
+              sections below (which broke anchor scrolling to #about and
+              #contact). Only the active quote is visible. */}
+          <div className="grid" aria-live="polite">
+            {testimonials.map((q, i) => (
+              <div
+                key={`${q.name}-${i}`}
+                aria-hidden={i !== index}
+                className={`relative [grid-area:1/1] ${i === index ? "cinema-fade-up" : "invisible"}`}
+              >
+                <blockquote
+                  className="font-display italic text-3xl md:text-5xl leading-tight tracking-tight text-[var(--ink-100)]"
+                >
+                  {q.text}
+                </blockquote>
 
-            {/* Hairline rule */}
-            <div
-              className="mt-10 h-px w-full"
-              style={{ background: "var(--border-soft)" }}
-            />
+                {/* Hairline rule */}
+                <div
+                  className="mt-10 h-px w-full"
+                  style={{ background: "var(--border-soft)" }}
+                />
 
-            {/* Attribution */}
-            <div className="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-2">
-              <span className="text-base font-medium text-[var(--ink-200)]">
-                {active.name}
-              </span>
-              <span className="text-[var(--ink-500)]">&mdash;</span>
-              <span className="scene-label">{active.role}</span>
-            </div>
+                {/* Attribution */}
+                <div className="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-2">
+                  <span className="text-base font-medium text-[var(--ink-200)]">
+                    {q.name}
+                  </span>
+                  <span className="text-[var(--ink-500)]">&mdash;</span>
+                  <span className="scene-label">{q.role}</span>
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* Rotation controls row */}
@@ -203,7 +212,6 @@ export default function Testimonials() {
           {/* Frame indicator bars */}
           <div
             className="mt-10 flex items-end justify-center"
-            style={{ gap: "12px" }}
             role="tablist"
             aria-label="Testimonial frames"
           >
@@ -217,16 +225,19 @@ export default function Testimonials() {
                   aria-selected={isActive}
                   aria-label={`Go to testimonial ${i + 1}`}
                   onClick={() => goTo(i)}
-                  className="block transition-all duration-300"
-                  style={{
-                    width: isActive ? "1.5px" : "1px",
-                    height: isActive ? "24px" : "16px",
-                    background: isActive ? "var(--ember)" : "var(--border-faint)",
-                    padding: 0,
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                />
+                  className="flex h-8 w-6 items-end justify-center"
+                >
+                  {/* Hairline bar inside a 24×32 tap target */}
+                  <span
+                    aria-hidden
+                    className="block transition-all duration-300"
+                    style={{
+                      width: isActive ? "1.5px" : "1px",
+                      height: isActive ? "24px" : "16px",
+                      background: isActive ? "var(--ember)" : "var(--border-soft)",
+                    }}
+                  />
+                </button>
               );
             })}
           </div>

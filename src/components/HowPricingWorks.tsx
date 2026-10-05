@@ -78,7 +78,6 @@ export default function HowPricingWorks() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-24">
             <div className="lg:col-span-5">
               <div className="flex items-center gap-3 mb-6">
-                <span className="scene-label-ember">SCENE 08</span>
                 <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
                 <span className="scene-label">{t.pricing.badge}</span>
               </div>
