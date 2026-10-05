@@ -1,159 +1,82 @@
-"use client";
-
-import {
-  Tag,
-  PackageCheck,
-  Globe,
-  RotateCcw,
-  TrendingUp,
-  ChartLine,
-  Sparkles,
-  MessageSquare,
-  ArrowUpRight,
-} from "lucide-react";
-import { useLanguage } from "@/lib/LanguageContext";
-import { serviceHref } from "@/lib/site";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { SERVICES, serviceHref } from "@/lib/site";
 import Reveal from "./Reveal";
 
+// Short, scannable copy per service; the detail lives on each service page.
+const BLURBS: Record<string, string> = {
+  "fba-prep": "Inspected, FNSKU labelled, bagged and palletised, then shipped into Amazon.",
+  fulfillment: "Every channel picked, packed and shipped from one stock pool.",
+  "cross-border": "Delivered duty paid to the EU and beyond, customs handled.",
+  returns: "Checked against your rules, then restocked or disposed of the same day.",
+  "automated-pricing": "Your own pricing rules and margin floors, applied through SP-API.",
+  analytics: "Inventory health, sales velocity and restock signals from your own data.",
+  "listing-optimization": "Audits, keyword research, A+ content and images.",
+  "buyer-messaging": "Order and returns questions answered on your behalf, inside Amazon.",
+};
+
+const NAMES: Record<string, string> = {
+  "fba-prep": "FBA prep",
+  fulfillment: "eCommerce fulfillment",
+  "cross-border": "Cross-border shipping",
+  returns: "Returns management",
+  "automated-pricing": "Price automation",
+  analytics: "Analytics & reporting",
+  "listing-optimization": "Listing optimisation",
+  "buyer-messaging": "Buyer messaging",
+};
+
 export default function ServicesOverview() {
-  const { t } = useLanguage();
-
-  const core = [
-    // ids keep old /#fba-prep … links working; cards open the service pages
-    { icon: Tag, title: t.servicesOverview.svc1Title, desc: t.servicesOverview.svc1Desc, href: serviceHref("fba-prep"), num: "01", id: "fba-prep" },
-    { icon: PackageCheck, title: t.servicesOverview.svc2Title, desc: t.servicesOverview.svc2Desc, href: serviceHref("fulfillment"), num: "02", id: "fulfillment" },
-    { icon: Globe, title: t.servicesOverview.svc3Title, desc: t.servicesOverview.svc3Desc, href: serviceHref("cross-border"), num: "03", id: "cross-border" },
-    { icon: RotateCcw, title: t.servicesOverview.svc4Title, desc: t.servicesOverview.svc4Desc, href: serviceHref("returns"), num: "04", id: "returns" },
-  ];
-
-  const amazon = [
-    { icon: TrendingUp, title: t.servicesOverview.svc5Title, desc: t.servicesOverview.svc5Desc, href: serviceHref("automated-pricing"), num: "05" },
-    { icon: ChartLine, title: t.servicesOverview.svc6Title, desc: t.servicesOverview.svc6Desc, href: "#analytics", num: "06" },
-    { icon: Sparkles, title: t.servicesOverview.svc7Title, desc: t.servicesOverview.svc7Desc, href: serviceHref("listing-optimization"), num: "07" },
-    { icon: MessageSquare, title: t.servicesOverview.svc8Title, desc: t.servicesOverview.svc8Desc, href: "#buyer-messaging", num: "08" },
-  ];
-
-  const Card = ({
-    icon: Icon,
-    title,
-    desc,
-    href,
-    num,
-    id,
-  }: {
-    icon: typeof Tag;
-    title: string;
-    desc: string;
-    href: string;
-    num: string;
-    id?: string;
-  }) => (
-    <a
-      id={id}
-      href={href}
-      className="group relative flex flex-col p-7 rounded-2xl transition-all duration-300 overflow-hidden scroll-mt-28"
-      style={{
-        background: "var(--bg-card)",
-        border: "1px solid var(--border-faint)",
-      }}
-    >
-      {/* Hover ember frame */}
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
-        style={{
-          background:
-            "radial-gradient(circle at 80% 0%, rgba(249,115,22,0.34), transparent 60%)",
-          boxShadow: "inset 0 0 0 1px rgba(255,106,31,0.4), 0 24px 60px -20px rgba(255,106,31,0.25)",
-        }}
-      />
-
-      <div className="relative flex items-center justify-between mb-8">
-        <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--ink-500)] group-hover:text-[var(--ember)] transition-colors">
-          {num}
-        </span>
-        <Icon
-          size={18}
-          className="text-[var(--ink-400)] group-hover:text-[var(--ember-glow)] transition-colors"
-          strokeWidth={1.6}
-        />
-      </div>
-
-      <h3 className="relative text-lg font-medium text-[var(--ink-100)] mb-2 leading-tight">
-        {title}
-      </h3>
-      <p className="relative text-sm text-[var(--ink-400)] leading-relaxed mb-6">
-        {desc}
-      </p>
-
-      <div className="relative mt-auto flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.2em] text-[var(--ink-500)] group-hover:text-[var(--ember)] transition-colors">
-        {t.servicesOverview.learnMore}
-        <ArrowUpRight
-          size={14}
-          className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform"
-        />
-      </div>
-    </a>
-  );
-
   return (
-    <section
-      id="services"
-      className="relative py-32 md:py-40 scroll-mt-20 overflow-hidden"
-      style={{ background: "var(--bg-base)" }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <Reveal>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20">
-            <div className="lg:col-span-5">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
-                <span className="scene-label">{t.servicesOverview.kicker}</span>
-              </div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.0] tracking-[-0.035em] font-medium text-[var(--ink-100)]">
-                {t.servicesOverview.title1}
-                <br />
-                <span className="font-display italic text-[var(--ember-glow)]">
-                  {t.servicesOverview.title2}
-                </span>
-              </h2>
-            </div>
-            <div className="lg:col-span-6 lg:col-start-7 lg:pt-8">
-              <p className="text-lg text-[var(--ink-300)] leading-relaxed">
-                {t.servicesOverview.subtitle}
-              </p>
-            </div>
+    <section id="services" className="scroll-mt-20 py-20 md:py-28">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
+        <div className="lg:col-span-5">
+          <div className="lg:sticky lg:top-28">
+            <h2 className="text-4xl font-medium leading-[1.02] tracking-[-0.04em] text-[var(--ink-100)] md:text-5xl lg:text-6xl">
+              Eight services.
+              <br />
+              <span className="text-[var(--ember-glow)]">One operations partner.</span>
+            </h2>
+            <p className="mt-6 max-w-sm text-base leading-relaxed text-[var(--ink-400)]">
+              Same warehouse, same team, one itemised quote.
+            </p>
           </div>
-        </Reveal>
+        </div>
 
-        <Reveal delay={120}>
-          <div className="flex items-center gap-3 mb-5">
-            <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--ember)] uppercase">
-              I.
-            </span>
-            <span className="scene-label">{t.servicesOverview.core}</span>
-            <span className="h-px flex-1 bg-[var(--border-faint)]" />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
-            {core.map((s) => (
-              <Card key={s.title} {...s} />
-            ))}
-          </div>
-        </Reveal>
-
-        <Reveal delay={200}>
-          <div className="flex items-center gap-3 mb-5">
-            <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--ember)] uppercase">
-              II.
-            </span>
-            <span className="scene-label">{t.servicesOverview.amazon}</span>
-            <span className="h-px flex-1 bg-[var(--border-faint)]" />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {amazon.map((s) => (
-              <Card key={s.title} {...s} />
-            ))}
-          </div>
-        </Reveal>
+        <ol className="lg:col-span-7">
+          {SERVICES.map((s, i) => (
+            <li key={s.id} id={s.id} className="scroll-mt-28">
+              <Reveal delay={i * 60} threshold={0.4}>
+                <Link
+                  href={serviceHref(s.id)}
+                  className="group relative grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-3 border-t border-[var(--border-faint)] py-5 md:gap-4 md:py-6"
+                >
+                  {/* hover wash, slides in from the left */}
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-y-0 -left-4 right-0 origin-left scale-x-0 rounded-xl bg-[linear-gradient(90deg,rgba(255,122,71,0.08),transparent_70%)] transition-transform duration-300 ease-out group-hover:scale-x-100"
+                  />
+                  <span className="relative text-sm tabular-nums text-[var(--ember)]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="relative">
+                    <span className="block text-xl font-medium tracking-[-0.02em] text-[var(--ink-100)] transition-transform duration-300 ease-out group-hover:translate-x-1 md:text-[1.6rem]">
+                      {NAMES[s.id] ?? s.name}
+                    </span>
+                    <span className="mt-1.5 block text-[15px] leading-relaxed text-[var(--ink-400)]">
+                      {BLURBS[s.id] ?? s.description}
+                    </span>
+                  </span>
+                  <ArrowRight
+                    aria-hidden="true"
+                    size={18}
+                    className="relative self-center text-[var(--ink-500)] transition-all duration-300 group-hover:translate-x-1 group-hover:text-[var(--ember)]"
+                  />
+                </Link>
+              </Reveal>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

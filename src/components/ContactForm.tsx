@@ -5,7 +5,6 @@ import Link from "next/link";
 import {
   Mail,
   Phone,
-  MapPin,
   Clock,
   Send,
   CheckCircle2,
@@ -13,7 +12,6 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import { trackEvent } from "@/lib/analytics";
-import { GOOGLE_MAPS } from "@/lib/site";
 import Reveal from "./Reveal";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
@@ -156,113 +154,47 @@ export default function ContactForm() {
   return (
     <section
       id="contact"
-      className="scroll-mt-20 relative pt-24 pb-20 md:pt-28 md:pb-24 overflow-hidden min-h-screen flex items-center"
+      className="scroll-mt-20 relative pt-24 pb-20 md:pt-28 md:pb-24 overflow-hidden"
       style={{ background: "var(--bg-base)" }}
     >
       <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative">
-        {/* Cinematic header */}
-        <Reveal>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10">
-            <div className="lg:col-span-5">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
-                <span className="scene-label">{t.contact.badge}</span>
-              </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl leading-[1.0] tracking-[-0.035em] font-medium text-[var(--ink-100)]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
+          {/* LEFT: heading and direct lines (addresses live in About) */}
+          <div className="lg:col-span-5">
+            <Reveal>
+              <h2 className="text-4xl md:text-5xl leading-[1.02] tracking-[-0.04em] font-medium text-[var(--ink-100)]">
                 {t.contact.title1}{" "}
-                <span className="font-display italic text-[var(--ember)]">
-                  {t.contact.title2}
-                </span>
+                <span className="text-[var(--ember)]">{t.contact.title2}</span>
               </h2>
-            </div>
-            <div className="lg:col-span-6 lg:col-start-7 lg:pt-3">
-              <p className="text-base text-[var(--ink-300)] leading-relaxed">
+              <p className="mt-5 max-w-md text-[17px] leading-relaxed text-[var(--ink-300)]">
                 {t.contact.subtitle}
               </p>
-            </div>
-          </div>
-        </Reveal>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
-          {/* LEFT COLUMN — Direct contact */}
-          <div className="lg:col-span-5">
-            <Reveal delay={140}>
-              <div
-                className="rounded-2xl p-7"
-                style={{
-                  background: "var(--bg-card)",
-                  border: "1px solid var(--border-faint)",
-                }}
-              >
-                <div className="flex items-center gap-3 mb-8">
-                  <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
-                  <span className="scene-label">{t.contact.infoTitle}</span>
-                </div>
-
-                {/* Two offices */}
-                <div className="space-y-7 mb-8">
-                  <div>
-                    <div className="font-mono text-[10px] tracking-[0.24em] uppercase mb-2" style={{ color: "var(--ember)" }}>
-                      01. {t.contact.infoLondon}
-                    </div>
-                    <div className="flex items-start gap-2.5 text-sm" style={{ color: "var(--ink-200)" }}>
-                      <MapPin size={15} strokeWidth={1.4} className="flex-shrink-0 mt-0.5" style={{ color: "var(--ember-glow)" }} />
-                      <span className="font-mono">{t.contact.infoLondonAddress}</span>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="font-mono text-[10px] tracking-[0.24em] uppercase mb-2" style={{ color: "var(--ember)" }}>
-                      02. {t.contact.infoOps}
-                    </div>
-                    <div className="flex items-start gap-2.5 text-sm" style={{ color: "var(--ink-200)" }}>
-                      <MapPin size={15} strokeWidth={1.4} className="flex-shrink-0 mt-0.5" style={{ color: "var(--ember-glow)" }} />
-                      <span className="font-mono">
-                        {t.contact.infoOpsAddress}
-                        <br />
-                        <a
-                          href={GOOGLE_MAPS.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline underline-offset-2 hover:text-[var(--ember)] transition-colors"
-                        >
-                          Get directions
-                        </a>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Shared contact */}
-                <div className="pt-6 space-y-4" style={{ borderTop: "1px solid var(--border-faint)" }}>
+              <ul className="mt-8 space-y-4 text-[15px]">
+                <li>
                   <a
                     href={`mailto:${t.contact.infoEmail}`}
-                    className="flex items-center gap-2.5 text-sm transition-colors"
-                    style={{ color: "var(--ink-200)" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.color = "var(--ember)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = "var(--ink-200)"; }}
+                    className="inline-flex items-center gap-3 text-[var(--ink-200)] transition-colors hover:text-[var(--ember)]"
                   >
-                    <Mail size={15} strokeWidth={1.4} style={{ color: "var(--ember-glow)" }} />
+                    <Mail size={16} strokeWidth={1.5} className="text-[var(--ember-glow)]" aria-hidden="true" />
                     {t.contact.infoEmail}
                   </a>
+                </li>
+                <li>
                   <a
                     href={`tel:${t.contact.infoPhone.replace(/[^+\d]/g, "")}`}
-                    className="flex items-center gap-2.5 text-sm transition-colors font-mono"
-                    style={{ color: "var(--ink-200)" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.color = "var(--ember)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = "var(--ink-200)"; }}
+                    className="inline-flex items-center gap-3 tabular-nums text-[var(--ink-200)] transition-colors hover:text-[var(--ember)]"
                   >
-                    <Phone size={15} strokeWidth={1.4} style={{ color: "var(--ember-glow)" }} />
+                    <Phone size={16} strokeWidth={1.5} className="text-[var(--ember-glow)]" aria-hidden="true" />
                     {t.contact.infoPhone}
                   </a>
-                  <div className="flex items-center gap-2.5 text-sm" style={{ color: "var(--ink-300)" }}>
-                    <Clock size={15} strokeWidth={1.4} style={{ color: "var(--ember-glow)" }} />
-                    {t.contact.infoHours}
-                  </div>
-                </div>
-              </div>
+                </li>
+                <li className="inline-flex items-center gap-3 text-[var(--ink-400)]">
+                  <Clock size={16} strokeWidth={1.5} className="text-[var(--ember-glow)]" aria-hidden="true" />
+                  {t.contact.infoHours}
+                </li>
+              </ul>
             </Reveal>
           </div>
-
           {/* RIGHT COLUMN — Form */}
           <div className="lg:col-span-7">
             <Reveal delay={200}>
@@ -308,12 +240,6 @@ export default function ContactForm() {
                   </div>
                 ) : (
                   <>
-                    <div className="flex items-center gap-3 mb-6">
-                      <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
-                      <span className="scene-label">
-                        {t.contact.formTitle}
-                      </span>
-                    </div>
 
                     {state === "error" && (
                       <div
