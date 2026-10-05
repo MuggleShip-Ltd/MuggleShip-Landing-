@@ -1,19 +1,18 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import ServicesOverview from "@/components/ServicesOverview";
-import AutomatedPricing from "@/components/AutomatedPricing";
-import AnalyticsReporting from "@/components/AnalyticsReporting";
-import ListingOptimization from "@/components/ListingOptimization";
-import BuyerSellerMessaging from "@/components/BuyerSellerMessaging";
+import HowItWorks from "@/components/HowItWorks";
 import HowPricingWorks from "@/components/HowPricingWorks";
 import Testimonials from "@/components/Testimonials";
 import AboutUs from "@/components/AboutUs";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
-import Reveal from "@/components/Reveal";
 import BackToTop from "@/components/BackToTop";
 import ScrollProgress from "@/components/ScrollProgress";
 
+// Amazon SP-API tooling (price automation, analytics, listings, buyer
+// messaging) is described in full, with its compliance disclosures, on
+// the /services/<slug>/ pages linked from the services list below.
 export default function Home() {
   return (
     <>
@@ -21,40 +20,12 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-
         <ServicesOverview />
-
-        {/* Amazon SP-API tooling deep-dives — kept for compliance with
-            the listed app-store categories (Price Automation, Analytics
-            and Reporting, Listing, Buyer-Seller Messaging). */}
-        <Reveal>
-          <AutomatedPricing />
-        </Reveal>
-        <Reveal>
-          <AnalyticsReporting />
-        </Reveal>
-        <Reveal>
-          <ListingOptimization />
-        </Reveal>
-        <Reveal>
-          <BuyerSellerMessaging />
-        </Reveal>
-
-        <Reveal>
-          <HowPricingWorks />
-        </Reveal>
-
-        <Reveal>
-          <Testimonials />
-        </Reveal>
-
-        <Reveal>
-          <AboutUs />
-        </Reveal>
-
-        <Reveal>
-          <ContactForm />
-        </Reveal>
+        <HowItWorks />
+        <HowPricingWorks />
+        <Testimonials />
+        <AboutUs />
+        <ContactForm />
       </main>
       <Footer />
       <BackToTop />

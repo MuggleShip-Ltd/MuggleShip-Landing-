@@ -63,7 +63,7 @@ export default function Testimonials() {
 
   return (
     <section
-      className="py-32 md:py-44 scroll-mt-20 relative overflow-hidden"
+      className="py-24 md:py-32 scroll-mt-20 relative overflow-hidden"
       style={{ background: "var(--bg-base)" }}
     >
       {/* Single atmospheric ember pool — centered, mostly behind */}

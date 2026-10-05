@@ -1,182 +1,96 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { useLanguage } from "@/lib/LanguageContext";
-import ScrollCue from "./ScrollCue";
+import CarrierLogos from "./CarrierLogos";
+import RouteCard from "./RouteCard";
 
-export default function Hero() {
-  const { t } = useLanguage();
-  const emberA = useRef<HTMLDivElement>(null);
-  const emberB = useRef<HTMLDivElement>(null);
-
-  // Subtle scroll-linked parallax for the ember pools — tied to window scroll,
-  // not the section's bounding box, so the camera-pan reads while the hero
-  // is on screen.
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) return;
-
-    let raf = 0;
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        raf = 0;
-        const y = window.scrollY;
-        if (emberA.current) emberA.current.style.transform = `translate3d(${y * 0.05}px, ${y * 0.25}px, 0)`;
-        if (emberB.current) emberB.current.style.transform = `translate3d(${-y * 0.04}px, ${y * 0.15}px, 0)`;
-      });
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  const renderWords = (text: string) =>
-    text.split(/(\s+)/).map((chunk, i) =>
-      /^\s+$/.test(chunk) ? (
-        <span key={i}>{chunk}</span>
-      ) : (
-        <span
-          key={i}
-          className="word"
-          style={{ animationDelay: `${150 + i * 60}ms` }}
-        >
-          {chunk}
-        </span>
-      )
-    );
-
+// Split a line into word spans for the CSS word-in animation (.rv-words).
+function Words({ text, offset = 0, start = 150 }: { text: string; offset?: number; start?: number }) {
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex flex-col justify-between pt-32 md:pt-40 pb-0 overflow-hidden"
-    >
-      {/* Atmospheric backdrop — confident dark studio */}
-      <div className="absolute inset-0 -z-10 pointer-events-none">
-        <div
-          ref={emberA}
-          className="absolute top-[-25%] right-[-20%] w-[80vw] h-[80vw] rounded-full opacity-90 blur-3xl will-change-transform"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(255,122,71,0.18) 0%, rgba(255,122,71,0.05) 40%, transparent 70%)",
-          }}
-        />
-        <div
-          ref={emberB}
-          className="absolute bottom-[-30%] left-[-20%] w-[60vw] h-[60vw] rounded-full opacity-70 blur-3xl will-change-transform"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(99,102,241,0.10) 0%, transparent 60%)",
-          }}
-        />
-      </div>
-
-      <div className="relative max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center">
-        <div
-          className="cinema-fade-up flex items-center gap-3 mb-10"
-          style={{ animationDelay: "0.1s" }}
-        >
-          <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
-          {/* The H1 carries the search keywords; the large display line
-              below is the brand tagline. */}
-          <h1 className="scene-label">{t.hero.badge}</h1>
-        </div>
-
-        <p
-          className="rv-words text-balance max-w-5xl text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.75rem] leading-[0.98] tracking-[-0.04em] font-medium text-[var(--ink-100)]"
-        >
-          {renderWords(t.hero.title1)}
-          <br />
-          <span className="text-[var(--ember)] font-bold">
-            {t.hero.title2.split(/(\s+)/).map((chunk, i) =>
-              /^\s+$/.test(chunk) ? (
-                <span key={`b-${i}`}>{chunk}</span>
-              ) : (
-                <span
-                  key={`b-${i}`}
-                  className="word"
-                  style={{ animationDelay: `${(i + t.hero.title1.split(/\s+/).length) * 60 + 230}ms` }}
-                >
-                  {chunk}
-                </span>
-              )
-            )}
+    <>
+      {text.split(/(\s+)/).map((chunk, i) =>
+        /^\s+$/.test(chunk) ? (
+          <span key={i}>{chunk}</span>
+        ) : (
+          <span key={i} className="word" style={{ animationDelay: `${start + (offset + i) * 55}ms` }}>
+            {chunk}
           </span>
-        </p>
-
-        <p
-          className="cinema-fade-up mt-8 max-w-2xl text-lg md:text-xl text-[var(--ink-300)] leading-relaxed"
-          style={{ animationDelay: "0.85s" }}
-        >
-          {t.hero.subtitle}
-        </p>
-
-        <div
-          className="cinema-fade-up mt-10 flex flex-col sm:flex-row items-start gap-3"
-          style={{ animationDelay: "1s" }}
-        >
-          <a
-            href="#contact"
-            className="group inline-flex items-center gap-2 px-6 py-3.5 text-sm font-medium rounded-full transition-all"
-            style={{
-              background: "var(--ember)",
-              color: "var(--bg-void)",
-              boxShadow:
-                "0 0 0 1px rgba(255,106,31,0.4), 0 12px 36px -8px rgba(255,106,31,0.5)",
-            }}
-          >
-            {t.hero.cta1}
-            <ArrowRight
-              size={16}
-              className="group-hover:translate-x-0.5 transition-transform"
-            />
-          </a>
-          <a
-            href="#services"
-            className="group inline-flex items-center gap-2 px-6 py-3.5 text-sm font-medium rounded-full border transition-colors"
-            style={{
-              borderColor: "var(--border-soft)",
-              color: "var(--ink-200)",
-            }}
-          >
-            {t.hero.cta2}
-          </a>
-        </div>
-
-        <div
-          className="cinema-fade-up mt-16 grid grid-cols-1 sm:grid-cols-3 gap-y-6 gap-x-10 max-w-3xl"
-          style={{ animationDelay: "1.2s" }}
-        >
-          <CreditItem mark="A" label={t.hero.check1} />
-          <CreditItem mark="B" label={t.hero.check2} />
-          <CreditItem mark="C" label={t.hero.check3} />
-        </div>
-      </div>
-
-      <div className="relative mt-24 mb-12">
-        <div className="horizon-line max-w-7xl mx-auto" />
-      </div>
-
-      <ScrollCue />
-    </section>
+        )
+      )}
+    </>
   );
 }
 
-function CreditItem({ mark, label }: { mark: string; label: string }) {
+export default function Hero() {
+  const { t } = useLanguage();
+  const firstLineWords = t.hero.title1.split(/(\s+)/).length;
+
   return (
-    <div className="flex items-baseline gap-3">
-      <span
-        className="font-mono text-[10px] tracking-[0.3em] text-[var(--ember)] uppercase"
-        aria-hidden
-      >
-        {mark}
-      </span>
-      <span className="text-sm text-[var(--ink-200)] leading-snug">{label}</span>
-    </div>
+    <section id="home" className="relative overflow-hidden pt-28 md:pt-32">
+      {/* The brand's warm light: two pools, no motion */}
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div
+          className="absolute -right-[22%] -top-[30%] h-[78vw] w-[78vw] max-h-[1100px] max-w-[1100px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(255,122,71,0.24) 0%, rgba(255,122,71,0.07) 38%, transparent 68%)" }}
+        />
+        <div
+          className="absolute -bottom-[40%] -left-[25%] h-[60vw] w-[60vw] max-h-[800px] max-w-[800px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(255,122,71,0.08) 0%, transparent 62%)" }}
+        />
+      </div>
+
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
+        <div className="lg:col-span-7">
+          <h1 className="cinema-fade-up mb-7 text-sm text-[var(--ink-400)]" style={{ animationDelay: "0.05s" }}>
+            {t.hero.badge}
+          </h1>
+          <p className="rv-words text-balance text-[2.9rem] font-medium leading-[0.95] tracking-[-0.045em] text-[var(--ink-100)] sm:text-7xl lg:text-[5.5rem]">
+            <Words text={t.hero.title1} />
+            <br />
+            <span className="font-bold text-[var(--ember)]">
+              <Words text={t.hero.title2} offset={firstLineWords} start={230} />
+            </span>
+          </p>
+          <p
+            className="cinema-fade-up mt-7 max-w-xl text-lg leading-relaxed text-[var(--ink-300)] md:text-xl"
+            style={{ animationDelay: "0.75s" }}
+          >
+            FBA prep, storage, fulfillment and returns, run from one Bedford warehouse by one team. You sell. We make it arrive.
+          </p>
+          <div className="cinema-fade-up mt-9 flex flex-wrap items-center gap-3" style={{ animationDelay: "0.9s" }}>
+            <Link
+              href="/#contact"
+              className="rounded-full px-7 py-4 text-[15px] font-semibold transition-transform active:scale-[0.98]"
+              style={{
+                background: "var(--ember)",
+                color: "var(--bg-void)",
+                boxShadow: "0 16px 40px -14px rgba(255,122,71,0.8)",
+              }}
+            >
+              {t.hero.cta1}
+            </Link>
+            <Link
+              href="/#services"
+              className="rounded-full border px-6 py-[15px] text-[15px] text-[var(--ink-100)] transition-colors hover:border-[var(--ink-500)]"
+              style={{ borderColor: "rgba(240,246,252,0.18)" }}
+            >
+              See our services
+            </Link>
+          </div>
+        </div>
+
+        <div className="cinema-fade-up lg:col-span-5" style={{ animationDelay: "0.5s" }}>
+          <RouteCard />
+        </div>
+      </div>
+
+      <div className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:mt-24 lg:px-8">
+        <div className="flex flex-col gap-6 border-y border-[var(--border-faint)] py-7 md:flex-row md:items-center md:gap-12">
+          <p className="shrink-0 text-sm text-[var(--ink-400)]">Shipping daily with</p>
+          <CarrierLogos className="text-[var(--ink-500)]" />
+        </div>
+      </div>
+    </section>
   );
 }

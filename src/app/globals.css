@@ -842,3 +842,83 @@ h1, h2, h3 {
 .trustpilot-widget iframe {
   color-scheme: light;
 }
+
+/* ============================================================
+   Homepage motion (2026-10 redesign). CSS only, no scroll listeners.
+   Everything here is disabled or reduced under prefers-reduced-motion.
+   ============================================================ */
+
+/* Route card: a light pulse travelling along each connector. Paths use
+   pathLength="100", so dash sizes are percentages of the path. */
+.route-flow {
+  stroke-dasharray: 8 92;
+  animation: route-flow 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes route-flow {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Bedford node: slow breathing glow. */
+.route-hub {
+  animation: route-hub 3.2s ease-in-out infinite;
+}
+@keyframes route-hub {
+  0%, 100% { box-shadow: 0 0 0 6px rgba(255, 122, 71, 0.06), 0 24px 70px -28px rgba(255, 122, 71, 0.55); }
+  50% { box-shadow: 0 0 0 10px rgba(255, 122, 71, 0.1), 0 24px 90px -24px rgba(255, 122, 71, 0.75); }
+}
+
+/* Floating ticket on the hero card. */
+.float-soft {
+  animation: float-soft 6s ease-in-out infinite;
+}
+@keyframes float-soft {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -8px, 0); }
+}
+
+/* "How it works" track: fills when the section scrolls into view
+   (the wrapper gets .rv-in from <Reveal>). */
+.track-fill {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1.6s cubic-bezier(0.23, 1, 0.32, 1) 0.2s;
+}
+.rv-in .track-fill { transform: scaleX(1); }
+.track-fill-y {
+  transform: scaleY(0);
+  transform-origin: center top;
+  transition: transform 1.6s cubic-bezier(0.23, 1, 0.32, 1) 0.2s;
+}
+.rv-in .track-fill-y { transform: scaleY(1); }
+.track-dot {
+  background: var(--border-soft);
+  box-shadow: none;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+.rv-in .track-dot {
+  background: var(--ember);
+  box-shadow: 0 0 0 5px rgba(255, 122, 71, 0.15);
+}
+
+/* Pricing statement: each word lights up as it crosses the viewport.
+   Progressive enhancement; without scroll-timeline support (or with
+   reduced motion) the words simply render at full brightness. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .lit-word {
+      color: var(--ink-600);
+      animation: lit-word linear both;
+      animation-timeline: view();
+    }
+  }
+}
+@keyframes lit-word {
+  to { color: var(--ink-100); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-flow, .route-hub, .float-soft { animation: none !important; }
+  .route-flow { stroke-dasharray: none; opacity: 0.6; }
+  .track-fill, .track-fill-y { transform: none !important; transition: none !important; }
+}

@@ -87,9 +87,9 @@ export const SERVICES: {
   { id: "cross-border", slug: "cross-border-shipping", name: "Cross-Border Shipping", description: "DDP shipping, customs clearance and multi-marketplace dispatch." },
   { id: "returns", slug: "returns-management", name: "Returns Management", description: "End-to-end RMA handling with restock or disposal and same-day processing." },
   { id: "automated-pricing", slug: "amazon-price-automation", name: "Amazon Price Automation", description: "Rule-based price updates via Amazon SP-API using the seller's own margin and pricing rules." },
-  { id: "analytics", name: "Amazon Analytics & Reporting", description: "Inventory health, fulfillment SLA, sales velocity and restock reporting." },
+  { id: "analytics", slug: "amazon-analytics-reporting", name: "Amazon Analytics & Reporting", description: "Inventory health, fulfillment SLA, sales velocity and restock reporting." },
   { id: "listing-optimization", slug: "amazon-listing-optimization", name: "Amazon Listing Optimization", description: "Listing creation, A+ content, keyword research and image optimization." },
-  { id: "buyer-messaging", name: "Buyer-Seller Messaging", description: "Order enquiries, dispatch updates and returns correspondence handled on the seller's behalf." },
+  { id: "buyer-messaging", slug: "amazon-buyer-messaging", name: "Buyer-Seller Messaging", description: "Order enquiries, dispatch updates and returns correspondence handled on the seller's behalf." },
 ];
 
 /** Link target for a service: its landing page if it has one, else the home-page section. */

@@ -5,6 +5,8 @@ import crossBorder from "./cross-border-shipping";
 import returns from "./returns-management";
 import priceAutomation from "./amazon-price-automation";
 import listingOptimization from "./amazon-listing-optimization";
+import analyticsReporting from "./amazon-analytics-reporting";
+import buyerMessaging from "./amazon-buyer-messaging";
 
 // Order here is the order on /services/ and in the sitemap.
 export const SERVICE_PAGES: ServiceContent[] = [
@@ -13,7 +15,9 @@ export const SERVICE_PAGES: ServiceContent[] = [
   crossBorder,
   returns,
   priceAutomation,
+  analyticsReporting,
   listingOptimization,
+  buyerMessaging,
 ];
 
 export function getService(slug: string) {
