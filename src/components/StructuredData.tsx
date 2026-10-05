@@ -9,6 +9,7 @@ import {
   SITE_NAME,
   SITE_URL,
   SOCIAL,
+  APP_STORE_URL,
   TRUSTPILOT_URL,
 } from "@/lib/site";
 
@@ -41,7 +42,7 @@ export default function StructuredData() {
         telephone: CONTACT.phoneE164,
         address: { "@type": "PostalAddress", ...ADDRESSES.london },
         areaServed: "Worldwide",
-        sameAs: [TRUSTPILOT_URL, ...Object.values(SOCIAL).filter(Boolean)],
+        sameAs: [TRUSTPILOT_URL, APP_STORE_URL, ...Object.values(SOCIAL).filter(Boolean)],
         contactPoint: {
           "@type": "ContactPoint",
           contactType: "sales",

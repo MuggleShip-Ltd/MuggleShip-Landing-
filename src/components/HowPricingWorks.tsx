@@ -1,11 +1,12 @@
-import Link from "next/link";
+import CostEstimator from "./CostEstimator";
 
 const STATEMENT =
   "No setup fees. No monthly subscription. Storage billed by the space you use, and rates that fall as you grow.";
 
 // One sentence about pricing. Each word brightens as it scrolls through
 // the viewport (CSS scroll-driven animation, .lit-word); browsers without
-// support, and reduced-motion users, see it fully lit.
+// support, and reduced-motion users, see it fully lit. Below it, a rough
+// cost estimator turns the statement into numbers.
 export default function HowPricingWorks() {
   const words = STATEMENT.split(" ");
   return (
@@ -24,17 +25,8 @@ export default function HowPricingWorks() {
             </span>
           ))}
         </p>
-        <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
-          <Link
-            href="/#contact"
-            className="self-start rounded-full px-6 py-3.5 text-[15px] font-semibold"
-            style={{ background: "var(--ember)", color: "var(--bg-void)" }}
-          >
-            Request your quote
-          </Link>
-          <p className="text-[15px] text-[var(--ink-400)]">
-            Every quote is itemised and arrives within 24 hours.
-          </p>
+        <div className="mt-12 md:mt-14">
+          <CostEstimator />
         </div>
       </div>
     </section>

@@ -129,12 +129,17 @@ const service: ServiceContent = {
       q: "How much does returns processing cost?",
       a: "Returns processing is priced as part of your account’s custom pricing rather than sold as a fixed package. Your quote reflects your monthly order and return volumes and the other services you use alongside it, such as fulfillment and storage, and higher volumes earn lower per-unit rates. There is no setup fee, monthly subscription or long-term contract, and you can cancel at any time. Every quote is itemised and arrives within 24 hours of your enquiry.",
     },
+    {
+      q: "Is there a mobile app for managing returns?",
+      a: "Yes. MuggleShip clients can use the MuggleShip iPhone app, available on the App Store, alongside the web Returns Portal. Each return has its own number you can search or scan, with the product, order, measurements and value in one place, separate notes for you and the warehouse team, photos of what was packed, and a queue for deciding which returned items are resold and which are disposed of.",
+    },
   ],
   related: ["ecommerce-fulfillment-uk", "fba-prep-uk", "cross-border-shipping"],
   portal: {
-    label: "Open the Returns Portal",
+    label: "Returns Portal",
     href: "https://return.muggleship.com",
     note: "Already a client? Track and manage your returns in the",
+    appHref: "https://apps.apple.com/gb/app/muggleship/id6761907484",
   },
 };
 

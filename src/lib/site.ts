@@ -74,6 +74,9 @@ export const PORTALS = {
   returns: { label: "Returns Portal", href: "https://return.muggleship.com" },
 };
 
+// iPhone companion app for client accounts (returns, boxes, resale QA).
+export const APP_STORE_URL = "https://apps.apple.com/gb/app/muggleship/id6761907484";
+
 export const TRUSTPILOT_URL = "https://www.trustpilot.com/review/www.muggleship.com";
 
 export const SERVICES: {

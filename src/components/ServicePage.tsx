@@ -212,6 +212,20 @@ export default function ServicePage({ service }: { service: ServiceContent }) {
                   {service.portal.label}
                   <ArrowUpRight size={14} />
                 </a>
+                {service.portal.appHref && (
+                  <>
+                    {" "}or the{" "}
+                    <a
+                      href={service.portal.appHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[var(--ember)] hover:text-[var(--ember-glow)] underline underline-offset-4"
+                    >
+                      iPhone app
+                      <ArrowUpRight size={14} />
+                    </a>
+                  </>
+                )}
               </p>
             )}
 
