@@ -165,7 +165,6 @@ export default function ContactForm() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10">
             <div className="lg:col-span-5">
               <div className="flex items-center gap-3 mb-4">
-                <span className="scene-label-ember">SCENE 12</span>
                 <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
                 <span className="scene-label">{t.contact.badge}</span>
               </div>
@@ -196,9 +195,7 @@ export default function ContactForm() {
                 }}
               >
                 <div className="flex items-center gap-3 mb-8">
-                  <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--ember)] uppercase">
-                    XIII.I
-                  </span>
+                  <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
                   <span className="scene-label">{t.contact.infoTitle}</span>
                 </div>
 
@@ -312,9 +309,7 @@ export default function ContactForm() {
                 ) : (
                   <>
                     <div className="flex items-center gap-3 mb-6">
-                      <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--ember)] uppercase">
-                        XIII.II
-                      </span>
+                      <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
                       <span className="scene-label">
                         {t.contact.formTitle}
                       </span>

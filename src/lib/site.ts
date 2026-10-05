@@ -66,6 +66,14 @@ export const WHATSAPP = {
   message: "Hi MuggleShip, I'd like to ask about your services.",
 };
 
+// Client-facing apps. Linked from the header ("Client Login"), the footer
+// and the Returns Management page — never from quote CTAs, which are for
+// prospects who don't have an account yet.
+export const PORTALS = {
+  app: { label: "Client Login", href: "https://app.muggleship.com" },
+  returns: { label: "Returns Portal", href: "https://return.muggleship.com" },
+};
+
 export const TRUSTPILOT_URL = "https://www.trustpilot.com/review/www.muggleship.com";
 
 export const SERVICES: {

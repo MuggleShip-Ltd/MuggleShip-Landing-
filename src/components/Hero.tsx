@@ -7,17 +7,8 @@ import ScrollCue from "./ScrollCue";
 
 export default function Hero() {
   const { t } = useLanguage();
-  const headlineRef = useRef<HTMLParagraphElement>(null);
   const emberA = useRef<HTMLDivElement>(null);
   const emberB = useRef<HTMLDivElement>(null);
-
-  // Trigger word-stagger on mount
-  useEffect(() => {
-    const t = setTimeout(() => {
-      headlineRef.current?.classList.add("rv-in");
-    }, 250);
-    return () => clearTimeout(t);
-  }, []);
 
   // Subtle scroll-linked parallax for the ember pools — tied to window scroll,
   // not the section's bounding box, so the camera-pan reads while the hero
@@ -53,7 +44,7 @@ export default function Hero() {
         <span
           key={i}
           className="word"
-          style={{ transitionDelay: `${i * 60}ms` }}
+          style={{ animationDelay: `${150 + i * 60}ms` }}
         >
           {chunk}
         </span>
@@ -90,7 +81,6 @@ export default function Hero() {
           className="cinema-fade-up flex items-center gap-3 mb-10"
           style={{ animationDelay: "0.1s" }}
         >
-          <span className="scene-label-ember">SCENE 01</span>
           <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
           {/* The H1 carries the search keywords; the large display line
               below is the brand tagline. */}
@@ -98,7 +88,6 @@ export default function Hero() {
         </div>
 
         <p
-          ref={headlineRef}
           className="rv-words text-balance max-w-5xl text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.75rem] leading-[0.98] tracking-[-0.04em] font-medium text-[var(--ink-100)]"
         >
           {renderWords(t.hero.title1)}
@@ -111,7 +100,7 @@ export default function Hero() {
                 <span
                   key={`b-${i}`}
                   className="word"
-                  style={{ transitionDelay: `${(i + t.hero.title1.split(/\s+/).length) * 60 + 80}ms` }}
+                  style={{ animationDelay: `${(i + t.hero.title1.split(/\s+/).length) * 60 + 230}ms` }}
                 >
                   {chunk}
                 </span>

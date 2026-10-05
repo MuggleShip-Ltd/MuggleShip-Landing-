@@ -69,6 +69,8 @@ export interface ServiceContent {
   availability?: string;
   /** Compliance disclosure rendered verbatim (Amazon SP-API services). */
   disclosure?: string;
+  /** Existing-client portal shown in the hero, e.g. the returns app. */
+  portal?: { label: string; href: string; note: string };
   /** Primary CTA label; defaults to "Get a free quote". */
   ctaLabel?: string;
 }

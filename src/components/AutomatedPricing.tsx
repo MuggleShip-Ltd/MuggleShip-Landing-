@@ -44,7 +44,6 @@ export default function AutomatedPricing() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20">
             <div className="lg:col-span-7">
               <div className="flex items-center gap-3 mb-6">
-                <span className="scene-label-ember">SCENE 04</span>
                 <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
                 <span className="scene-label">{t.automatedPricing.badge}</span>
               </div>

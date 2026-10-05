@@ -131,6 +131,11 @@ const service: ServiceContent = {
     },
   ],
   related: ["ecommerce-fulfillment-uk", "fba-prep-uk", "cross-border-shipping"],
+  portal: {
+    label: "Open the Returns Portal",
+    href: "https://return.muggleship.com",
+    note: "Already a client? Track and manage your returns in the",
+  },
 };
 
 export default service;

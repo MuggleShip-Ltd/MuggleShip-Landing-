@@ -106,7 +106,6 @@ export default function ServicesOverview() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20">
             <div className="lg:col-span-5">
               <div className="flex items-center gap-3 mb-6">
-                <span className="scene-label-ember">SCENE 02</span>
                 <span className="h-px w-8 bg-[var(--ember)] opacity-60" />
                 <span className="scene-label">{t.servicesOverview.kicker}</span>
               </div>
