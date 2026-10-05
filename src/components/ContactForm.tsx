@@ -95,7 +95,19 @@ export default function ContactForm() {
       return;
     }
 
-    const action = process.env.NEXT_PUBLIC_CONTACT_FORM_ACTION;
+    // Web3Forms (static-site friendly) when its access key is set; any other
+    // endpoint can still be supplied via NEXT_PUBLIC_CONTACT_FORM_ACTION.
+    const web3formsKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+    const action =
+      process.env.NEXT_PUBLIC_CONTACT_FORM_ACTION ||
+      (web3formsKey ? "https://api.web3forms.com/submit" : "");
+    if (web3formsKey) {
+      formData.append("access_key", web3formsKey);
+      formData.append("subject", `Quote request: ${(formData.get("company") || formData.get("name") || "").toString()}`);
+      formData.append("from_name", "muggleship.com quote form");
+      const email = (formData.get("email") || "").toString();
+      if (email) formData.append("replyto", email);
+    }
 
     // GA4 recommended "lead" event — mark it as a key event in GA.
     const trackLead = (method: "form" | "mailto") =>
@@ -113,6 +125,7 @@ export default function ContactForm() {
         const res = await fetch(action, {
           method: "POST",
           body: formData,
+          headers: { Accept: "application/json" },
         });
         if (res.ok) {
           trackLead("form");
